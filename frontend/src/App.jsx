@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import AiRentalAssistant from './components/AiRentalAssistant';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -135,6 +136,8 @@ function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
+          {/* Floating AI Rental Assistant */}
+          <AiRentalAssistant />
         </div>
       </Router>
     </AuthProvider>
