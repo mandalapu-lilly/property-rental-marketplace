@@ -3,14 +3,15 @@ node_modules/
 frontend/node_modules/
 backend/node_modules/
 
-# Environment files
+# Environment files (Keep all credentials strictly local and untracked)
 .env
-.env.local
-.env.*.local
-frontend/.env
-frontend/.env.local
-backend/.env
-backend/.env.local
+.env.*
+*.env
+frontend/.env*
+backend/.env*
+!.env.example
+!frontend/.env.example
+!backend/.env.example
 
 # Build output
 dist/
