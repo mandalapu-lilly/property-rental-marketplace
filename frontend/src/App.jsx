@@ -19,6 +19,7 @@ import HostBookings from './pages/HostBookings';
 import HostDashboard from './pages/HostDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
+import Recommendations from './pages/Recommendations';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/properties" element={<Properties />} />
               <Route path="/properties/:id" element={<PropertyDetails />} />
+              <Route path="/recommendations" element={<Recommendations />} />
 
               {/* Authenticated User Routes */}
               <Route

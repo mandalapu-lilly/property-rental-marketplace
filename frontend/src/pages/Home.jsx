@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import RecommendationsSection from '../components/RecommendationsSection';
 import {
   Search,
   MapPin,
@@ -302,6 +303,9 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {/* AI RECOMMENDATIONS SECTION */}
+      <RecommendationsSection limit={3} />
 
       {/* 4. PLATFORM PILLARS */}
       <section className="py-16 bg-white border-t border-slate-200">

@@ -18,6 +18,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  Sparkles,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -83,6 +84,18 @@ export default function Navbar() {
             >
               <Compass className="w-4 h-4" />
               <span>Properties</span>
+            </Link>
+
+            <Link
+              to="/recommendations"
+              className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                isActive('/recommendations')
+                  ? 'text-indigo-600 bg-indigo-50/70 font-semibold shadow-sm shadow-indigo-100'
+                  : 'text-slate-700 hover:text-indigo-600 hover:bg-slate-100/70'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
+              <span>AI Recommendations</span>
             </Link>
 
             {isAuthenticated && (
@@ -274,6 +287,15 @@ export default function Navbar() {
             >
               <Compass className="w-4 h-4 text-slate-500" />
               <span>Properties</span>
+            </Link>
+
+            <Link
+              to="/recommendations"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-indigo-700 bg-indigo-50/70"
+            >
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>AI Recommendations</span>
             </Link>
 
             {isAuthenticated && (
