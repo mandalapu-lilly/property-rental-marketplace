@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CompareProvider } from './context/CompareContext';
+import { NotificationProvider } from './context/NotificationContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import AiRentalAssistant from './components/AiRentalAssistant';
@@ -13,6 +14,7 @@ import Properties from './pages/Properties';
 import PropertyDetails from './pages/PropertyDetails';
 import Compare from './pages/Compare';
 import Recommendations from './pages/Recommendations';
+import Notifications from './pages/Notifications';
 import Dashboard from './pages/Dashboard';
 import AddProperty from './pages/AddProperty';
 import MyProperties from './pages/MyProperties';
@@ -28,20 +30,21 @@ import Profile from './pages/Profile';
 function App() {
   return (
     <AuthProvider>
-      <CompareProvider>
-        <Router>
-          <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
-            <Navbar />
-            <div className="flex-1">
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/properties" element={<Properties />} />
-                <Route path="/properties/:id" element={<PropertyDetails />} />
-                <Route path="/compare" element={<Compare />} />
-                <Route path="/recommendations" element={<Recommendations />} />
+      <NotificationProvider>
+        <CompareProvider>
+          <Router>
+            <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
+              <Navbar />
+              <div className="flex-1">
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/properties" element={<Properties />} />
+                  <Route path="/properties/:id" element={<PropertyDetails />} />
+                  <Route path="/compare" element={<Compare />} />
+                  <Route path="/recommendations" element={<Recommendations />} />
 
               {/* Authenticated User Routes */}
               <Route
@@ -81,6 +84,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <MyBookings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/notifications"
+                element={
+                  <ProtectedRoute>
+                    <Notifications />
                   </ProtectedRoute>
                 }
               />
@@ -148,7 +159,8 @@ function App() {
         </div>
       </Router>
     </CompareProvider>
-  </AuthProvider>
+  </NotificationProvider>
+</AuthProvider>
   );
 }
 

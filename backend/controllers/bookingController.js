@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Booking from '../models/Booking.js';
 import Property from '../models/Property.js';
+import { createNotification } from '../services/notificationService.js';
 
 /**
  * @desc    Create a new property booking
@@ -95,6 +96,29 @@ export const createBooking = async (req, res, next) => {
       { path: 'host', select: 'name email' },
       { path: 'user', select: 'name email' },
     ]);
+
+    // Asynchronous non-blocking notification triggers
+    createNotification({
+      recipient: property.owner,
+      sender: req.user._id,
+      type: 'booking_request',
+      title: 'New Booking Request',
+      message: `You received a new booking request for "${property.title}".`,
+      relatedEntityId: booking._id,
+      relatedEntityType: 'Booking',
+      link: '/host-bookings',
+    });
+
+    createNotification({
+      recipient: req.user._id,
+      sender: property.owner,
+      type: 'booking_submitted',
+      title: 'Booking Request Submitted',
+      message: `Your booking request for "${property.title}" has been submitted.`,
+      relatedEntityId: booking._id,
+      relatedEntityType: 'Booking',
+      link: '/my-bookings',
+    });
 
     return res.status(201).json({
       message: 'Booking request created successfully',
@@ -228,6 +252,32 @@ export const cancelBooking = async (req, res, next) => {
 
     booking.status = 'cancelled';
     await booking.save();
+    await booking.populate('property', 'title');
+
+    // Notify other party non-blockingly
+    if (isUser) {
+      createNotification({
+        recipient: booking.host,
+        sender: req.user._id,
+        type: 'booking_cancelled',
+        title: 'Booking Cancelled',
+        message: `A booking for "${booking.property?.title || 'your property'}" was cancelled by the guest.`,
+        relatedEntityId: booking._id,
+        relatedEntityType: 'Booking',
+        link: '/host-bookings',
+      });
+    } else {
+      createNotification({
+        recipient: booking.user,
+        sender: req.user._id,
+        type: 'booking_cancelled',
+        title: 'Booking Cancelled',
+        message: `Your booking for "${booking.property?.title || 'the property'}" has been cancelled.`,
+        relatedEntityId: booking._id,
+        relatedEntityType: 'Booking',
+        link: '/my-bookings',
+      });
+    }
 
     return res.status(200).json({
       message: 'Booking cancelled successfully',
@@ -265,6 +315,19 @@ export const confirmBooking = async (req, res, next) => {
 
     booking.status = 'confirmed';
     await booking.save();
+    await booking.populate('property', 'title');
+
+    // Notify user non-blockingly
+    createNotification({
+      recipient: booking.user,
+      sender: req.user._id,
+      type: 'booking_confirmed',
+      title: 'Booking Confirmed!',
+      message: `Your booking for "${booking.property?.title || 'the property'}" has been confirmed!`,
+      relatedEntityId: booking._id,
+      relatedEntityType: 'Booking',
+      link: '/my-bookings',
+    });
 
     return res.status(200).json({
       message: 'Booking confirmed successfully',
@@ -302,6 +365,19 @@ export const rejectBooking = async (req, res, next) => {
 
     booking.status = 'rejected';
     await booking.save();
+    await booking.populate('property', 'title');
+
+    // Notify user non-blockingly
+    createNotification({
+      recipient: booking.user,
+      sender: req.user._id,
+      type: 'booking_rejected',
+      title: 'Booking Request Rejected',
+      message: `Your booking request for "${booking.property?.title || 'the property'}" was rejected.`,
+      relatedEntityId: booking._id,
+      relatedEntityType: 'Booking',
+      link: '/my-bookings',
+    });
 
     return res.status(200).json({
       message: 'Booking rejected',

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Property from '../models/Property.js';
+import { notifyAdmins } from '../services/notificationService.js';
 
 /**
  * @desc    Create a new property listing
@@ -73,6 +74,8 @@ export const createProperty = async (req, res, next) => {
       ? images.split(',').map((img) => img.trim()).filter(Boolean)
       : [];
 
+    const verificationStatus = req.user.role === 'admin' ? 'approved' : 'pending';
+
     // Create property with owner derived STRICTLY from req.user._id
     const property = await Property.create({
       title: title.trim(),
@@ -92,10 +95,23 @@ export const createProperty = async (req, res, next) => {
       images: parsedImages,
       owner: req.user._id,
       status: status === 'unavailable' ? 'unavailable' : 'available',
-      verificationStatus: req.user.role === 'admin' ? 'approved' : 'pending',
+      verificationStatus,
     });
 
     await property.populate('owner', 'name email role');
+
+    // If submitted by host as pending verification, notify admin accounts
+    if (verificationStatus === 'pending') {
+      notifyAdmins({
+        sender: req.user._id,
+        type: 'property_submitted',
+        title: 'New Property Verification Request',
+        message: `A new property listing "${property.title}" in ${property.city} was submitted for verification.`,
+        relatedEntityId: property._id,
+        relatedEntityType: 'Property',
+        link: '/admin-dashboard',
+      });
+    }
 
     return res.status(201).json({
       message: 'Property created successfully',

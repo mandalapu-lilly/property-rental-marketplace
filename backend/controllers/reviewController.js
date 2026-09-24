@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Review from '../models/Review.js';
 import Property from '../models/Property.js';
 import Booking from '../models/Booking.js';
+import { createNotification } from '../services/notificationService.js';
 
 /**
  * @desc    Create a review for a property
@@ -69,6 +70,20 @@ export const createReview = async (req, res, next) => {
     });
 
     await review.populate('user', 'name role');
+
+    // Notify host non-blockingly
+    if (property.owner) {
+      createNotification({
+        recipient: property.owner,
+        sender: req.user._id,
+        type: 'new_review',
+        title: 'New Review Received',
+        message: `Your property "${property.title}" received a new ${numRating}★ review from ${req.user.name || 'a guest'}.`,
+        relatedEntityId: property._id,
+        relatedEntityType: 'Property',
+        link: `/properties/${property._id}`,
+      });
+    }
 
     return res.status(201).json({
       message: 'Review posted successfully',
