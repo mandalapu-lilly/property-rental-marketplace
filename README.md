@@ -170,6 +170,45 @@ property-rental-marketplace/
 
 ---
 
+---
+
+## 🌐 Production Deployment Guide
+
+### Option 1: Render Full-Stack (One-Click Blueprint)
+1. Push this repository to GitHub.
+2. Sign in to [Render](https://render.com/) and click **New +** ➔ **Blueprint**.
+3. Select your `property-rental-marketplace` repository. Render will automatically read `render.yaml`.
+4. Configure environment variables in the Render dashboard:
+   - `MONGODB_URI`: Your MongoDB Atlas connection string
+   - `JWT_SECRET`: A long random secret string
+   - `FRONTEND_URL`: Your frontend Render domain (e.g. `https://property-rental-frontend.onrender.com`)
+   - `VITE_API_BASE_URL`: Your backend Render domain (e.g. `https://property-rental-backend.onrender.com`)
+
+---
+
+### Option 2: Vercel (Frontend) + Render / Railway (Backend)
+
+#### Step 1: Deploy Backend (Render or Railway)
+1. In Render, create a **New Web Service** pointing to the repository.
+2. Set Root Directory: `backend`
+3. Set Build Command: `npm install`
+4. Set Start Command: `npm start`
+5. Add Environment Variables:
+   - `MONGODB_URI`
+   - `JWT_SECRET`
+   - `FRONTEND_URL` (your Vercel app domain)
+   - `PORT=5000`
+
+#### Step 2: Deploy Frontend (Vercel)
+1. In Vercel, click **Add New Project** and import `property-rental-marketplace`.
+2. Set Root Directory: `frontend`
+3. Set Framework Preset: **Vite**
+4. Add Environment Variable:
+   - `VITE_API_BASE_URL`: `https://your-backend-api.onrender.com`
+5. Click **Deploy**. SPA routes will be seamlessly handled via `frontend/vercel.json`.
+
+---
+
 ## 🔒 Security & Authorization
 
 - **No Secrets in Source Code**: Database URIs and JWT secrets reside exclusively in backend environment variables.
