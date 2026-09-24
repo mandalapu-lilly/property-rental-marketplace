@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { useCompare } from '../context/CompareContext';
 import PropertyMap from '../components/PropertyMap';
 import {
   ArrowLeft,
@@ -25,12 +26,14 @@ import {
   Star,
   MessageSquare,
   ArrowRight,
+  Layers,
 } from 'lucide-react';
 
 export default function PropertyDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
+  const { toggleCompare, isInCompare } = useCompare();
 
   const [property, setProperty] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -157,6 +160,21 @@ export default function PropertyDetails() {
           </Link>
 
           <div className="flex items-center gap-3">
+            {/* Compare Button */}
+            {property && (
+              <button
+                onClick={() => toggleCompare(property)}
+                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  isInCompare(property._id)
+                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-600/30'
+                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                }`}
+              >
+                <Layers className="w-4 h-4" />
+                <span>{isInCompare(property._id) ? 'In Compare (✓)' : 'Add to Compare'}</span>
+              </button>
+            )}
+
             {/* Wishlist Heart Button */}
             <button
               onClick={toggleFavorite}

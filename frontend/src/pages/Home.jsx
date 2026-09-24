@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { useCompare } from '../context/CompareContext';
 import RecommendationsSection from '../components/RecommendationsSection';
 import {
   Search,
@@ -18,10 +19,12 @@ import {
   CheckCircle2,
   Users,
   Key,
+  Layers,
 } from 'lucide-react';
 
 export default function Home() {
   const navigate = useNavigate();
+  const { toggleCompare, isInCompare } = useCompare();
 
   const [city, setCity] = useState('');
   const [propertyType, setPropertyType] = useState('All Types');
@@ -287,7 +290,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="p-5 pt-0 flex items-center justify-between border-t border-slate-50 mt-2">
+                  <div className="p-5 pt-0 flex items-center justify-between border-t border-slate-50 mt-2 gap-2">
                     <div>
                       <span className="text-xs text-slate-400 block font-medium">Rent</span>
                       <span className="text-lg font-black text-slate-900">
@@ -296,13 +299,29 @@ export default function Home() {
                       <span className="text-xs text-slate-500">/mo</span>
                     </div>
 
-                    <Link
-                      to={`/properties/${prop._id}`}
-                      className="inline-flex items-center gap-1 px-4 py-2 bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-sm"
-                    >
-                      <span>Details</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => toggleCompare(prop)}
+                        className={`inline-flex items-center gap-1 px-3 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                          isInCompare(prop._id)
+                            ? 'bg-indigo-600 text-white shadow-sm'
+                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                        }`}
+                        title={isInCompare(prop._id) ? 'Remove from Comparison' : 'Add to Comparison'}
+                      >
+                        <Layers className="w-3.5 h-3.5" />
+                        <span>{isInCompare(prop._id) ? 'In Compare' : 'Compare'}</span>
+                      </button>
+
+                      <Link
+                        to={`/properties/${prop._id}`}
+                        className="inline-flex items-center gap-1 px-3.5 py-2 bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-sm"
+                      >
+                        <span>Details</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}

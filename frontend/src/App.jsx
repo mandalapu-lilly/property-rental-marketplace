@@ -1,15 +1,19 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { CompareProvider } from './context/CompareContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import AiRentalAssistant from './components/AiRentalAssistant';
+import CompareBar from './components/CompareBar';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
 import Properties from './pages/Properties';
 import PropertyDetails from './pages/PropertyDetails';
+import Compare from './pages/Compare';
+import Recommendations from './pages/Recommendations';
+import Dashboard from './pages/Dashboard';
 import AddProperty from './pages/AddProperty';
 import MyProperties from './pages/MyProperties';
 import EditProperty from './pages/EditProperty';
@@ -20,23 +24,24 @@ import HostBookings from './pages/HostBookings';
 import HostDashboard from './pages/HostDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
-import Recommendations from './pages/Recommendations';
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
-          <Navbar />
-          <div className="flex-1">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/properties" element={<Properties />} />
-              <Route path="/properties/:id" element={<PropertyDetails />} />
-              <Route path="/recommendations" element={<Recommendations />} />
+      <CompareProvider>
+        <Router>
+          <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
+            <Navbar />
+            <div className="flex-1">
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/properties" element={<Properties />} />
+                <Route path="/properties/:id" element={<PropertyDetails />} />
+                <Route path="/compare" element={<Compare />} />
+                <Route path="/recommendations" element={<Recommendations />} />
 
               {/* Authenticated User Routes */}
               <Route
@@ -138,9 +143,12 @@ function App() {
           </div>
           {/* Floating AI Rental Assistant */}
           <AiRentalAssistant />
+          {/* Floating Bottom Property Compare Bar */}
+          <CompareBar />
         </div>
       </Router>
-    </AuthProvider>
+    </CompareProvider>
+  </AuthProvider>
   );
 }
 

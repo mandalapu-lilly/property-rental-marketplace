@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCompare } from '../context/CompareContext';
 import api from '../services/api';
 import {
   Sparkles,
@@ -18,11 +19,13 @@ import {
   TrendingUp,
   Loader2,
   ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  Layers,
 } from 'lucide-react';
 
 export default function Recommendations() {
   const { isAuthenticated, user } = useAuth();
+  const { toggleCompare, isInCompare } = useCompare();
 
   const [recommendations, setRecommendations] = useState([]);
   const [profileApplied, setProfileApplied] = useState(null);
@@ -431,20 +434,35 @@ export default function Recommendations() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="grid grid-cols-2 gap-2">
-                      <Link
-                        to={`/properties/${property._id}`}
-                        className="w-full py-2.5 px-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold text-center transition-colors"
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        <Link
+                          to={`/properties/${property._id}`}
+                          className="w-full py-2.5 px-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold text-center transition-colors"
+                        >
+                          Details
+                        </Link>
+                        <Link
+                          to={`/properties/${property._id}/book`}
+                          className="w-full py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold text-center shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-1 transition-colors"
+                        >
+                          <span>Book</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => toggleCompare(property)}
+                        className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                          isInCompare(property._id)
+                            ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
+                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                        }`}
                       >
-                        View Details
-                      </Link>
-                      <Link
-                        to={`/properties/${property._id}/book`}
-                        className="w-full py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold text-center shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-1 transition-colors"
-                      >
-                        <span>Book Now</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
+                        <Layers className="w-3.5 h-3.5" />
+                        <span>{isInCompare(property._id) ? '✓ In Comparison List' : 'Add to Compare'}</span>
+                      </button>
                     </div>
                   </div>
                 </div>
