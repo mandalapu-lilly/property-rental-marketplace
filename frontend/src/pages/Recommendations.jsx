@@ -375,12 +375,20 @@ export default function Recommendations() {
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <Link to={`/properties/${property._id}`} className="block group-hover:text-indigo-600 transition-colors">
-                      <h3 className="font-bold text-slate-900 text-base line-clamp-1">
-                        {property.title}
-                      </h3>
-                    </Link>
+                    {/* Title & Verified Badge */}
+                    <div className="space-y-1">
+                      {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/90 px-2 py-0.5 rounded-full">
+                          <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
+                          ✓ Verified Property
+                        </span>
+                      )}
+                      <Link to={`/properties/${property._id}`} className="block group-hover:text-indigo-600 transition-colors">
+                        <h3 className="font-bold text-slate-900 text-base line-clamp-1">
+                          {property.title}
+                        </h3>
+                      </Link>
+                    </div>
 
                     {/* Price */}
                     <div className="mt-2 mb-3">

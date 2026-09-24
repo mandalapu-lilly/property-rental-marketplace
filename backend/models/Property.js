@@ -111,6 +111,20 @@ const propertySchema = new mongoose.Schema(
       default: 0,
       min: 0,
     },
+    verificationStatus: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'approved',
+    },
+    rejectionReason: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    verifiedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: true,

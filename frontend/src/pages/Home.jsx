@@ -254,9 +254,16 @@ export default function Home() {
                     </div>
 
                     <div className="p-5 space-y-3">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 truncate">
-                        <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                        <span>{prop.location}, {prop.city}</span>
+                      <div className="flex items-center justify-between gap-1.5 text-xs font-semibold text-slate-500 truncate">
+                        <div className="flex items-center gap-1.5 truncate">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>{prop.location}, {prop.city}</span>
+                        </div>
+                        {(prop.verificationStatus === 'approved' || !prop.verificationStatus) && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full shrink-0">
+                            ✓ Verified
+                          </span>
+                        )}
                       </div>
 
                       <h3 className="text-base font-bold text-slate-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">

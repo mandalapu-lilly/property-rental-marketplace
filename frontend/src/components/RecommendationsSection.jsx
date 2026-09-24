@@ -111,9 +111,16 @@ export default function RecommendationsSection({ limit = 3, title = '✨ Recomme
                   </span>
                 </div>
 
-                <Link to={`/properties/${property._id}`} className="font-bold text-slate-900 text-sm line-clamp-1 hover:text-indigo-600 transition-colors">
-                  {property.title}
-                </Link>
+                <div className="flex items-center justify-between gap-1 mb-1">
+                  <Link to={`/properties/${property._id}`} className="font-bold text-slate-900 text-sm line-clamp-1 hover:text-indigo-600 transition-colors flex-1">
+                    {property.title}
+                  </Link>
+                  {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
+                    <span className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded-full font-bold shrink-0">
+                      ✓ Verified
+                    </span>
+                  )}
+                </div>
 
                 <div className="my-2">
                   <span className="text-lg font-extrabold text-slate-900">

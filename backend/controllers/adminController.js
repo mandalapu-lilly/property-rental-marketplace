@@ -157,3 +157,49 @@ export const getAllPropertiesAdmin = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @desc    Approve or Reject a property listing with optional rejection reason
+ * @route   PUT /api/admin/properties/:id/verify
+ * @access  Private (Admin only)
+ */
+export const verifyPropertyAdmin = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { status, rejectionReason } = req.body;
+
+    const validStatuses = ['approved', 'rejected', 'pending'];
+    if (!status || !validStatuses.includes(status)) {
+      return res.status(400).json({
+        error: "Verification status must be 'approved', 'rejected', or 'pending'",
+      });
+    }
+
+    if (status === 'rejected' && (!rejectionReason || !rejectionReason.trim())) {
+      return res.status(400).json({
+        error: 'Please provide a clear rejection reason to help the host make necessary adjustments.',
+      });
+    }
+
+    const property = await Property.findById(id);
+    if (!property) {
+      return res.status(404).json({ error: 'Property not found' });
+    }
+
+    property.verificationStatus = status;
+    property.rejectionReason = status === 'rejected' ? rejectionReason.trim() : '';
+    property.verifiedAt = status === 'approved' ? new Date() : undefined;
+
+    await property.save();
+    await property.populate('owner', 'name email role');
+
+    return res.status(200).json({
+      success: true,
+      message: `Property ${status === 'approved' ? 'approved & verified' : 'status updated to ' + status} successfully`,
+      property,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

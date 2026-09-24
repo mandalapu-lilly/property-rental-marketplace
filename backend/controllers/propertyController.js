@@ -92,6 +92,7 @@ export const createProperty = async (req, res, next) => {
       images: parsedImages,
       owner: req.user._id,
       status: status === 'unavailable' ? 'unavailable' : 'available',
+      verificationStatus: req.user.role === 'admin' ? 'approved' : 'pending',
     });
 
     await property.populate('owner', 'name email role');
@@ -422,6 +423,12 @@ export const updateProperty = async (req, res, next) => {
     if (bathrooms !== undefined) property.bathrooms = Number(bathrooms);
     if (area !== undefined) property.area = Number(area);
     if (status !== undefined) property.status = status;
+
+    // If property was previously rejected and owner updates it, reset to pending for admin re-review
+    if (property.verificationStatus === 'rejected') {
+      property.verificationStatus = 'pending';
+      property.rejectionReason = '';
+    }
 
     if (coordinates !== undefined) {
       if (coordinates && coordinates.latitude !== undefined && coordinates.longitude !== undefined && coordinates.latitude !== '' && coordinates.longitude !== '') {

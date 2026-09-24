@@ -218,6 +218,37 @@ export default function MyProperties() {
 
                   {/* Body Content */}
                   <div className="p-5 space-y-3">
+                    {/* Verification Status Pill */}
+                    <div className="flex items-center justify-between">
+                      {property.verificationStatus === 'rejected' ? (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                          <AlertCircle className="w-3 h-3 text-rose-600 shrink-0" />
+                          Verification Rejected
+                        </span>
+                      ) : property.verificationStatus === 'pending' ? (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                          <RefreshCw className="w-3 h-3 text-amber-600 shrink-0" />
+                          Pending Review
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                          ✓ Verified Property
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Rejection Reason Alert if rejected */}
+                    {property.verificationStatus === 'rejected' && (
+                      <div className="p-2.5 rounded-xl bg-rose-50/80 border border-rose-200 text-xs text-rose-800 space-y-1">
+                        <span className="font-bold block text-rose-900">Rejection Reason:</span>
+                        <p className="italic">{property.rejectionReason || 'Details need update or more verification photos required.'}</p>
+                        <p className="text-[10px] text-rose-600 font-semibold pt-0.5">
+                          💡 Edit and save this listing to resubmit for admin approval.
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 truncate">
                       <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       <span>

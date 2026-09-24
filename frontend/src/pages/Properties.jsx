@@ -21,6 +21,7 @@ import {
   Star,
   List,
   Map as MapIcon,
+  ShieldCheck,
 } from 'lucide-react';
 
 export default function Properties() {
@@ -582,6 +583,16 @@ export default function Properties() {
                           </div>
                         )}
                       </div>
+
+                      {/* Verified Badge */}
+                      {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
+                        <div className="flex items-center">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/90 px-2 py-0.5 rounded-full">
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            ✓ Verified Property
+                          </span>
+                        </div>
+                      )}
 
                       <h2 className="text-lg font-bold text-slate-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">
                         {property.title}

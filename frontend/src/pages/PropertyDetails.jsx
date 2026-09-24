@@ -209,6 +209,22 @@ export default function PropertyDetails() {
                 >
                   {property.status}
                 </span>
+                {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
+                  <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    ✓ Verified Property
+                  </span>
+                )}
+                {property.verificationStatus === 'pending' && (
+                  <span className="inline-flex items-center gap-1.5 bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full text-xs font-bold">
+                    Pending Verification
+                  </span>
+                )}
+                {property.verificationStatus === 'rejected' && (
+                  <span className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-800 border border-rose-200 px-3 py-1 rounded-full text-xs font-bold">
+                    Verification Rejected
+                  </span>
+                )}
                 {property.totalReviews > 0 && (
                   <span className="inline-flex items-center gap-1 bg-amber-50 text-amber-700 border border-amber-200 px-3 py-1 rounded-full text-xs font-bold">
                     <Star className="w-3.5 h-3.5 fill-current text-amber-500" />

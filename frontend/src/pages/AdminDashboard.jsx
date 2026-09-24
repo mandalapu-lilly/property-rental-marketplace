@@ -150,6 +150,34 @@ export default function AdminDashboard() {
     );
   }
 
+  const [verificationFilter, setVerificationFilter] = useState('pending');
+  const [rejectingPropId, setRejectingPropId] = useState(null);
+  const [rejectReasonInput, setRejectReasonInput] = useState('');
+
+  const handleVerifyProperty = async (propertyId, status, reason = '') => {
+    try {
+      await api.put(`/api/admin/properties/${propertyId}/verify`, {
+        status,
+        rejectionReason: reason,
+      });
+      setMessage(`Property ${status === 'approved' ? 'approved & verified' : 'rejected'}`);
+      setPropertiesList((prev) =>
+        prev.map((p) =>
+          p._id === propertyId
+            ? { ...p, verificationStatus: status, rejectionReason: reason, verifiedAt: status === 'approved' ? new Date() : undefined }
+            : p
+        )
+      );
+      setRejectingPropId(null);
+      setRejectReasonInput('');
+      fetchStats();
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to update verification status');
+    }
+  };
+
+  const pendingVerificationCount = propertiesList.filter((p) => p.verificationStatus === 'pending').length;
+
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-slate-50 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -166,7 +194,7 @@ export default function AdminDashboard() {
               System Management & Analytics
             </h1>
             <p className="text-slate-500 text-sm mt-1">
-              Full control over accounts, active property listings, bookings, and review moderation.
+              Full control over accounts, property listings, verifications, bookings, and review moderation.
             </p>
           </div>
 
@@ -191,21 +219,29 @@ export default function AdminDashboard() {
         <div className="flex items-center gap-2 overflow-x-auto pb-1">
           {[
             { key: 'overview', label: 'Overview Metrics' },
+            {
+              key: 'verification',
+              label: `Property Verification (${pendingVerificationCount} Pending)`,
+              badge: pendingVerificationCount > 0,
+            },
             { key: 'users', label: `Users (${usersList.length})` },
-            { key: 'properties', label: `Properties (${propertiesList.length})` },
+            { key: 'properties', label: `All Properties (${propertiesList.length})` },
             { key: 'bookings', label: `Bookings (${bookingsList.length})` },
             { key: 'reviews', label: `Reviews (${reviewsList.length})` },
           ].map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 activeTab === tab.key
                   ? 'bg-purple-600 text-white shadow-md shadow-purple-600/20'
                   : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
               }`}
             >
-              {tab.label}
+              <span>{tab.label}</span>
+              {tab.badge && (
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              )}
             </button>
           ))}
         </div>
@@ -268,6 +304,176 @@ export default function AdminDashboard() {
                   <span className="text-3xl font-black text-slate-900">{stats?.totalReviews || 0}</span>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB: PROPERTY VERIFICATION MANAGEMENT */}
+        {activeTab === 'verification' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* Filter Pills */}
+            <div className="flex flex-wrap items-center gap-2">
+              {[
+                { key: 'pending', label: `Pending (${propertiesList.filter((p) => p.verificationStatus === 'pending').length})` },
+                { key: 'approved', label: `Approved / Verified (${propertiesList.filter((p) => p.verificationStatus === 'approved' || !p.verificationStatus).length})` },
+                { key: 'rejected', label: `Rejected (${propertiesList.filter((p) => p.verificationStatus === 'rejected').length})` },
+                { key: 'all', label: `All Listings (${propertiesList.length})` },
+              ].map((filter) => (
+                <button
+                  key={filter.key}
+                  onClick={() => setVerificationFilter(filter.key)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    verificationFilter === filter.key
+                      ? 'bg-slate-900 text-white shadow'
+                      : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Properties Grid / Table */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {propertiesList
+                .filter((p) => {
+                  const status = p.verificationStatus || 'approved';
+                  if (verificationFilter === 'all') return true;
+                  return status === verificationFilter;
+                })
+                .map((property) => {
+                  const status = property.verificationStatus || 'approved';
+                  const isRejecting = rejectingPropId === property._id;
+
+                  return (
+                    <div
+                      key={property._id}
+                      className="bg-white rounded-3xl border border-slate-200/80 p-5 shadow-sm flex flex-col justify-between space-y-4"
+                    >
+                      <div className="flex gap-4">
+                        <img
+                          src={
+                            property.images && property.images.length > 0
+                              ? property.images[0]
+                              : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80'
+                          }
+                          alt={property.title}
+                          className="w-28 h-28 object-cover rounded-2xl bg-slate-100 shrink-0"
+                        />
+
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                                status === 'approved'
+                                  ? 'bg-emerald-100 text-emerald-800'
+                                  : status === 'pending'
+                                  ? 'bg-amber-100 text-amber-800 animate-pulse'
+                                  : 'bg-rose-100 text-rose-800'
+                              }`}
+                            >
+                              {status === 'approved' ? '✓ Verified' : status === 'pending' ? '⏳ Pending Review' : '✕ Rejected'}
+                            </span>
+                            <span className="text-xs font-bold text-slate-900">₹{property.price?.toLocaleString()}/mo</span>
+                          </div>
+
+                          <h3 className="font-bold text-slate-900 text-sm line-clamp-1" title={property.title}>
+                            {property.title}
+                          </h3>
+
+                          <p className="text-xs text-slate-500 truncate">
+                            {property.location}, {property.city} • {property.bedrooms} BHK {property.propertyType}
+                          </p>
+
+                          <div className="text-[11px] text-slate-500 pt-1">
+                            <span>Host: </span>
+                            <strong className="text-slate-800">{property.owner?.name || 'N/A'}</strong>
+                            <span className="text-slate-400"> ({property.owner?.email})</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Rejection Reason Display */}
+                      {status === 'rejected' && property.rejectionReason && (
+                        <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800">
+                          <p className="font-bold">Rejection Note sent to Host:</p>
+                          <p className="mt-0.5 text-rose-700">{property.rejectionReason}</p>
+                        </div>
+                      )}
+
+                      {/* Inline Reject Input Form */}
+                      {isRejecting && (
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+                          <label className="block text-xs font-bold text-slate-700">
+                            Reason for Rejection (Visible to Host):
+                          </label>
+                          <textarea
+                            rows={2}
+                            placeholder="e.g. Please upload higher-resolution interior photos or provide exact street address."
+                            value={rejectReasonInput}
+                            onChange={(e) => setRejectReasonInput(e.target.value)}
+                            className="w-full p-2 text-xs bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                          />
+                          <div className="flex items-center justify-end gap-2">
+                            <button
+                              onClick={() => {
+                                setRejectingPropId(null);
+                                setRejectReasonInput('');
+                              }}
+                              className="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-200 rounded-lg"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={() => handleVerifyProperty(property._id, 'rejected', rejectReasonInput)}
+                              disabled={!rejectReasonInput.trim()}
+                              className="px-3.5 py-1.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 disabled:opacity-50 rounded-lg shadow-sm"
+                            >
+                              Confirm Rejection
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Action Bar */}
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                        <a
+                          href={`/properties/${property._id}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-xs font-bold text-indigo-600 hover:text-indigo-800"
+                        >
+                          View Listing ↗
+                        </a>
+
+                        <div className="flex items-center gap-2">
+                          {status !== 'approved' && (
+                            <button
+                              onClick={() => handleVerifyProperty(property._id, 'approved')}
+                              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition-colors cursor-pointer flex items-center gap-1"
+                            >
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>Approve & Verify</span>
+                            </button>
+                          )}
+
+                          {status !== 'rejected' && !isRejecting && (
+                            <button
+                              onClick={() => {
+                                setRejectingPropId(property._id);
+                                setRejectReasonInput('');
+                              }}
+                              className="px-3.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1"
+                            >
+                              <XCircle className="w-3.5 h-3.5" />
+                              <span>Reject</span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         )}
