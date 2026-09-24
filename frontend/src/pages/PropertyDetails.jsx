@@ -8,6 +8,7 @@ import CostCalculator from '../components/CostCalculator';
 import AvailabilityCalendar from '../components/AvailabilityCalendar';
 import InquiryModal from '../components/InquiryModal';
 import ReviewStats from '../components/ReviewStats';
+import SimilarProperties from '../components/SimilarProperties';
 import { trackRecentlyViewed } from '../components/RecentlyViewed';
 import {
   ArrowLeft,
@@ -32,6 +33,7 @@ import {
   MessageSquare,
   ArrowRight,
   Layers,
+  ThumbsUp,
 } from 'lucide-react';
 
 export default function PropertyDetails() {
@@ -426,7 +428,7 @@ export default function PropertyDetails() {
                   {reviews.map((rev) => (
                     <div
                       key={rev._id}
-                      className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2"
+                      className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2.5"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2.5">
@@ -434,9 +436,15 @@ export default function PropertyDetails() {
                             {rev.user?.name?.charAt(0) || 'U'}
                           </div>
                           <div>
-                            <span className="text-xs font-bold text-slate-900 block">
-                              {rev.user?.name || 'Verified Tenant'}
-                            </span>
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-xs font-bold text-slate-900 block">
+                                {rev.user?.name || 'Verified Tenant'}
+                              </span>
+                              <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded flex items-center gap-0.5">
+                                <CheckCircle2 className="w-2.5 h-2.5" />
+                                Verified Stay
+                              </span>
+                            </div>
                             <span className="text-[10px] text-slate-400">
                               {new Date(rev.createdAt).toLocaleDateString()}
                             </span>
@@ -553,58 +561,8 @@ export default function PropertyDetails() {
           hostName={property.owner?.name}
         />
 
-        {/* Similar Properties Section */}
-        {similarProperties.length > 0 && (
-          <div className="pt-8 border-t border-slate-200 space-y-6">
-            <div>
-              <h2 className="text-2xl font-black text-slate-900">Similar Properties in {property.city}</h2>
-              <p className="text-xs text-slate-500 mt-1">Explore other comparable rental options nearby</p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {similarProperties.map((sim) => (
-                <Link
-                  key={sim._id}
-                  to={`/properties/${sim._id}`}
-                  className="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all overflow-hidden group flex flex-col justify-between"
-                >
-                  <div className="relative h-44 bg-slate-100 overflow-hidden">
-                    {sim.images && sim.images[0] ? (
-                      <img
-                        src={sim.images[0]}
-                        alt={sim.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-400">
-                        <Building2 className="w-10 h-10" />
-                      </div>
-                    )}
-                    <span className="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-bold text-indigo-700">
-                      {sim.propertyType}
-                    </span>
-                  </div>
-
-                  <div className="p-4 space-y-2">
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                      {sim.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 truncate">{sim.location}, {sim.city}</p>
-                    <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-                      <span className="text-sm font-extrabold text-slate-900">
-                        ₹{sim.price?.toLocaleString()}
-                        <span className="text-[10px] font-normal text-slate-500">/mo</span>
-                      </span>
-                      <span className="text-xs text-indigo-600 font-semibold group-hover:translate-x-0.5 transition-transform">
-                        View &rarr;
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Similar / Recommended Properties Section */}
+        <SimilarProperties currentProperty={property} />
       </div>
     </div>
   );
