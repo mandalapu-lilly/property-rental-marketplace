@@ -221,6 +221,17 @@ export const getProperties = async (req, res, next) => {
       filter.bathrooms = { $gte: Number(bathrooms) };
     }
 
+    // 7b. Minimum rating filter
+    const { minRating, verificationStatus } = req.query;
+    if (minRating !== undefined && minRating !== '' && minRating !== 'Any') {
+      filter.averageRating = { $gte: Number(minRating) };
+    }
+
+    // 7c. Verification status filter
+    if (verificationStatus && verificationStatus !== 'All') {
+      filter.verificationStatus = verificationStatus;
+    }
+
     // 8. General search keyword across title, location, city, and address
     if (search && search.trim() !== '') {
       const safeSearch = search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

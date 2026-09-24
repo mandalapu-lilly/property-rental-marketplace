@@ -4,6 +4,11 @@ import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useCompare } from '../context/CompareContext';
 import PropertyMap from '../components/PropertyMap';
+import CostCalculator from '../components/CostCalculator';
+import AvailabilityCalendar from '../components/AvailabilityCalendar';
+import InquiryModal from '../components/InquiryModal';
+import ReviewStats from '../components/ReviewStats';
+import { trackRecentlyViewed } from '../components/RecentlyViewed';
 import {
   ArrowLeft,
   Building2,
@@ -43,6 +48,7 @@ export default function PropertyDetails() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [deleting, setDeleting] = useState(false);
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
 
   useEffect(() => {
     const fetchPropertyData = async () => {
@@ -55,9 +61,14 @@ export default function PropertyDetails() {
           api.get(`/api/properties/${id}/similar`).catch(() => ({ data: { properties: [] } })),
         ]);
 
-        setProperty(propRes.data.property);
+        const fetchedProp = propRes.data.property;
+        setProperty(fetchedProp);
         setReviews(reviewsRes.data.reviews || []);
         setSimilarProperties(similarRes.data.properties || []);
+
+        if (fetchedProp) {
+          trackRecentlyViewed(fetchedProp);
+        }
 
         // Check favorite if user is logged in
         if (isAuthenticated) {
@@ -359,6 +370,12 @@ export default function PropertyDetails() {
               )}
             </div>
 
+            {/* Rent & Move-In Cost Estimator */}
+            <CostCalculator baseRent={property.price} />
+
+            {/* Property Availability Calendar */}
+            <AvailabilityCalendar propertyId={property._id} price={property.price} />
+
             {/* Property Map */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -389,6 +406,13 @@ export default function PropertyDetails() {
                   </div>
                 </div>
               </div>
+
+              {/* Review Statistics & Rating Breakdown */}
+              <ReviewStats
+                reviews={reviews}
+                averageRating={property.averageRating}
+                totalReviews={property.totalReviews}
+              />
 
               {/* Reviews List */}
               {reviews.length === 0 ? (
@@ -505,9 +529,29 @@ export default function PropertyDetails() {
                   <span>Listed on {new Date(property.createdAt).toLocaleDateString()}</span>
                 </div>
               </div>
+
+              {/* Contact Host Button */}
+              {isAuthenticated && user?.id !== property.owner?._id && user?._id !== property.owner?._id && (
+                <button
+                  type="button"
+                  onClick={() => setIsInquiryOpen(true)}
+                  className="w-full mt-3 py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Send Host an Inquiry</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
+
+        {/* Inquiry Modal */}
+        <InquiryModal
+          isOpen={isInquiryOpen}
+          onClose={() => setIsInquiryOpen(false)}
+          property={property}
+          hostName={property.owner?.name}
+        />
 
         {/* Similar Properties Section */}
         {similarProperties.length > 0 && (

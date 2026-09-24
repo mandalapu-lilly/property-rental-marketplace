@@ -16,31 +16,50 @@ import {
   Loader2,
   Sparkles,
   ShieldAlert,
+  Mail,
+  TrendingUp,
+  Percent,
 } from 'lucide-react';
 
 export default function HostDashboard() {
   const { user } = useAuth();
   const [stats, setStats] = useState(null);
+  const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchHostStats = async () => {
+    const fetchHostData = async () => {
       setLoading(true);
       setError('');
       try {
-        const res = await api.get('/api/host/stats');
-        setStats(res.data.stats);
+        const [statsRes, inqRes] = await Promise.all([
+          api.get('/api/host/stats'),
+          api.get('/api/inquiries/host').catch(() => ({ data: { inquiries: [] } })),
+        ]);
+        setStats(statsRes.data.stats);
+        setInquiries(inqRes.data.inquiries || []);
       } catch (err) {
-        console.error('Error fetching host dashboard stats:', err);
+        console.error('Error fetching host dashboard data:', err);
         setError(err.response?.data?.error || 'Failed to load host metrics');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchHostStats();
+    fetchHostData();
   }, []);
+
+  const handleUpdateInquiryStatus = async (inquiryId, newStatus) => {
+    try {
+      await api.patch(`/api/inquiries/${inquiryId}/status`, { status: newStatus });
+      setInquiries((prev) =>
+        prev.map((inq) => (inq._id === inquiryId ? { ...inq, status: newStatus } : inq))
+      );
+    } catch (err) {
+      alert('Could not update inquiry status');
+    }
+  };
 
   if (loading) {
     return (
@@ -204,6 +223,157 @@ export default function HostDashboard() {
               Add photos, specify GPS coordinates, set rent, and reach verified tenants.
             </p>
           </Link>
+        </div>
+        {/* Host Analytics & Performance Breakdown */}
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-slate-900">Host Performance & Occupancy Analytics</h2>
+                <p className="text-xs text-slate-500">Live booking conversion and listing statistics</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+              <span className="text-xs text-slate-500 font-semibold uppercase">Booking Conversion</span>
+              <div className="text-2xl font-black text-indigo-600">
+                {stats?.totalBookings > 0
+                  ? Math.round(((stats?.confirmedBookings || 0) / stats.totalBookings) * 100)
+                  : 100}%
+              </div>
+              <p className="text-[11px] text-slate-400">Confirmed vs total reservations</p>
+            </div>
+
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+              <span className="text-xs text-slate-500 font-semibold uppercase">Listing Occupancy</span>
+              <div className="text-2xl font-black text-emerald-600">
+                {stats?.totalProperties > 0
+                  ? Math.round((((stats?.totalProperties - stats?.availableProperties) || 0) / stats.totalProperties) * 100)
+                  : 0}%
+              </div>
+              <p className="text-[11px] text-slate-400">Currently reserved listings</p>
+            </div>
+
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+              <span className="text-xs text-slate-500 font-semibold uppercase">Average Revenue / Stay</span>
+              <div className="text-2xl font-black text-slate-900">
+                ₹{stats?.confirmedBookings > 0
+                  ? Math.round((stats?.totalEarnings || 0) / stats.confirmedBookings).toLocaleString()
+                  : '0'}
+              </div>
+              <p className="text-[11px] text-slate-400">Average realized booking value</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Received Tenant Inquiries Section */}
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center">
+                <Mail className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-slate-900">
+                  Guest Inquiries ({inquiries.length})
+                </h2>
+                <p className="text-xs text-slate-500">Messages sent directly by prospective renters</p>
+              </div>
+            </div>
+          </div>
+
+          {inquiries.length === 0 ? (
+            <div className="text-center py-8 text-slate-400 text-sm">
+              No inquiries received yet. When tenants contact you from your listing pages, they will appear here.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {inquiries.map((inq) => (
+                <div
+                  key={inq._id}
+                  className={`p-5 rounded-2xl border transition-all space-y-3 ${
+                    inq.status === 'unread'
+                      ? 'bg-indigo-50/40 border-indigo-200 shadow-sm'
+                      : 'bg-slate-50 border-slate-200/80'
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-sm text-slate-900">
+                          {inq.sender?.name || 'Prospective Guest'}
+                        </span>
+                        <span className="text-xs text-slate-400">({inq.sender?.email})</span>
+                        {inq.phone && (
+                          <span className="text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md font-medium">
+                            📞 {inq.phone}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        Inquiry regarding listing:{' '}
+                        <span className="font-semibold text-slate-800">{inq.property?.title}</span>
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider ${
+                          inq.status === 'unread'
+                            ? 'bg-rose-100 text-rose-700'
+                            : inq.status === 'replied'
+                            ? 'bg-emerald-100 text-emerald-700'
+                            : 'bg-slate-200 text-slate-700'
+                        }`}
+                      >
+                        {inq.status}
+                      </span>
+                      {inq.status === 'unread' && (
+                        <button
+                          onClick={() => handleUpdateInquiryStatus(inq._id, 'read')}
+                          className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 px-2 py-1 rounded bg-white border border-indigo-200"
+                        >
+                          Mark Read
+                        </button>
+                      )}
+                      {inq.status !== 'replied' && (
+                        <button
+                          onClick={() => handleUpdateInquiryStatus(inq._id, 'replied')}
+                          className="text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-white border border-emerald-200"
+                        >
+                          Mark Replied
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-slate-700 bg-white p-3 rounded-xl border border-slate-200/70 whitespace-pre-line">
+                    "{inq.message}"
+                  </p>
+
+                  <div className="flex items-center justify-between text-[11px] text-slate-400">
+                    <span>
+                      {inq.preferredMoveInDate && (
+                        <>Target Move-in: {new Date(inq.preferredMoveInDate).toLocaleDateString()} • </>
+                      )}
+                      Received: {new Date(inq.createdAt).toLocaleString()}
+                    </span>
+                    <Link
+                      to={`/properties/${inq.property?._id}`}
+                      className="text-indigo-600 hover:underline font-semibold"
+                    >
+                      View Property &rarr;
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

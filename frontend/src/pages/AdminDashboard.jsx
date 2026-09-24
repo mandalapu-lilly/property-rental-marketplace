@@ -302,6 +302,86 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl font-black text-slate-900">{stats?.totalReviews || 0}</span>
+                  <span className="text-xs text-slate-500 font-medium">Customer Ratings</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Deep Analytics Breakdown Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Account Distribution */}
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+                <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                  <Users className="w-4 h-4 text-blue-600" />
+                  <span>Account Roles Distribution</span>
+                </h3>
+                <div className="space-y-2.5 text-xs">
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Renters / Guests</span>
+                    <span className="font-bold text-slate-900">
+                      {Math.max(0, (stats?.totalUsers || 0) - (stats?.totalHosts || 0) - (stats?.totalAdmins || 0))}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Property Hosts</span>
+                    <span className="font-bold text-indigo-600">{stats?.totalHosts || 0}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>System Administrators</span>
+                    <span className="font-bold text-purple-600">{stats?.totalAdmins || 0}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Property Verification Pipeline */}
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+                <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>Property Verification Pipeline</span>
+                </h3>
+                <div className="space-y-2.5 text-xs">
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Verified / Approved</span>
+                    <span className="font-bold text-emerald-600">
+                      {propertiesList.filter((p) => p.verificationStatus === 'approved' || !p.verificationStatus).length}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Pending Review</span>
+                    <span className="font-bold text-amber-600">
+                      {propertiesList.filter((p) => p.verificationStatus === 'pending').length}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Rejected Listings</span>
+                    <span className="font-bold text-rose-600">
+                      {propertiesList.filter((p) => p.verificationStatus === 'rejected').length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Booking Fulfillment */}
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+                <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-indigo-600" />
+                  <span>Booking Lifecycle Status</span>
+                </h3>
+                <div className="space-y-2.5 text-xs">
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Confirmed & Completed</span>
+                    <span className="font-bold text-emerald-600">
+                      {(stats?.confirmedBookings || 0) + (stats?.completedBookings || 0)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Pending Host Confirmation</span>
+                    <span className="font-bold text-amber-600">{stats?.pendingBookings || 0}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-600">
+                    <span>Cancelled by Guest</span>
+                    <span className="font-bold text-slate-400">{stats?.cancelledBookings || 0}</span>
+                  </div>
                 </div>
               </div>
             </div>

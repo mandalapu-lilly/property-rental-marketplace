@@ -13,6 +13,7 @@ import adminRoutes from './routes/adminRoutes.js';
 import recommendationRoutes from './routes/recommendationRoutes.js';
 import assistantRoutes from './routes/assistantRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
+import inquiryRoutes from './routes/inquiryRoutes.js';
 
 // Connect to MongoDB Atlas
 connectDB();
@@ -58,6 +59,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 app.use('/api/assistant', assistantRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/inquiries', inquiryRoutes);
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {

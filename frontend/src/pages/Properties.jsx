@@ -4,6 +4,8 @@ import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useCompare } from '../context/CompareContext';
 import PropertyMap from '../components/PropertyMap';
+import SavedSearchesDrawer from '../components/SavedSearchesDrawer';
+import RecentlyViewed from '../components/RecentlyViewed';
 import {
   Building2,
   Search,
@@ -37,6 +39,9 @@ export default function Properties() {
   const [minPrice, setMinPrice] = useState(searchParams.get('minPrice') || '');
   const [maxPrice, setMaxPrice] = useState(searchParams.get('maxPrice') || '');
   const [bedrooms, setBedrooms] = useState(searchParams.get('bedrooms') || 'Any');
+  const [bathrooms, setBathrooms] = useState(searchParams.get('bathrooms') || 'Any');
+  const [minRating, setMinRating] = useState(searchParams.get('minRating') || 'Any');
+  const [verificationStatus, setVerificationStatus] = useState(searchParams.get('verificationStatus') || 'All');
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest');
 
   const [properties, setProperties] = useState([]);
@@ -62,6 +67,21 @@ export default function Properties() {
     { label: '3+', value: '3' },
     { label: '4+', value: '4' },
     { label: '5+', value: '5' },
+  ];
+
+  const bathroomOptions = [
+    { label: 'Any', value: 'Any' },
+    { label: '1+', value: '1' },
+    { label: '2+', value: '2' },
+    { label: '3+', value: '3' },
+    { label: '4+', value: '4' },
+  ];
+
+  const ratingOptions = [
+    { label: 'Any Rating', value: 'Any' },
+    { label: '4.5+ Stars', value: '4.5' },
+    { label: '4.0+ Stars', value: '4.0' },
+    { label: '3.5+ Stars', value: '3.5' },
   ];
 
   const sortOptions = [
@@ -145,6 +165,18 @@ export default function Properties() {
         params.bedrooms = filters.bedrooms;
       }
 
+      if (filters.bathrooms && filters.bathrooms !== 'Any') {
+        params.bathrooms = filters.bathrooms;
+      }
+
+      if (filters.minRating && filters.minRating !== 'Any') {
+        params.minRating = filters.minRating;
+      }
+
+      if (filters.verificationStatus && filters.verificationStatus !== 'All') {
+        params.verificationStatus = filters.verificationStatus;
+      }
+
       if (filters.sort && filters.sort !== 'newest') {
         params.sort = filters.sort;
       }
@@ -170,6 +202,9 @@ export default function Properties() {
       minPrice: searchParams.get('minPrice') || '',
       maxPrice: searchParams.get('maxPrice') || '',
       bedrooms: searchParams.get('bedrooms') || 'Any',
+      bathrooms: searchParams.get('bathrooms') || 'Any',
+      minRating: searchParams.get('minRating') || 'Any',
+      verificationStatus: searchParams.get('verificationStatus') || 'All',
       sort: searchParams.get('sort') || 'newest',
     };
 
@@ -178,6 +213,9 @@ export default function Properties() {
     setMinPrice(currentFilters.minPrice);
     setMaxPrice(currentFilters.maxPrice);
     setBedrooms(currentFilters.bedrooms);
+    setBathrooms(currentFilters.bathrooms);
+    setMinRating(currentFilters.minRating);
+    setVerificationStatus(currentFilters.verificationStatus);
     setSort(currentFilters.sort);
 
     fetchProperties(currentFilters);
@@ -194,6 +232,9 @@ export default function Properties() {
     if (minPrice) newParams.set('minPrice', minPrice);
     if (maxPrice) newParams.set('maxPrice', maxPrice);
     if (bedrooms && bedrooms !== 'Any') newParams.set('bedrooms', bedrooms);
+    if (bathrooms && bathrooms !== 'Any') newParams.set('bathrooms', bathrooms);
+    if (minRating && minRating !== 'Any') newParams.set('minRating', minRating);
+    if (verificationStatus && verificationStatus !== 'All') newParams.set('verificationStatus', verificationStatus);
     if (sort && sort !== 'newest') newParams.set('sort', sort);
 
     setSearchParams(newParams);
@@ -206,8 +247,27 @@ export default function Properties() {
     setMinPrice('');
     setMaxPrice('');
     setBedrooms('Any');
+    setBathrooms('Any');
+    setMinRating('Any');
+    setVerificationStatus('All');
     setSort('newest');
     setSearchParams(new URLSearchParams());
+  };
+
+  // Apply Saved Filter Preset
+  const handleApplySavedFilters = (filters) => {
+    const newParams = new URLSearchParams();
+    if (filters.city) newParams.set('city', filters.city);
+    if (filters.propertyType && filters.propertyType !== 'All Types') newParams.set('propertyType', filters.propertyType);
+    if (filters.minPrice) newParams.set('minPrice', filters.minPrice);
+    if (filters.maxPrice) newParams.set('maxPrice', filters.maxPrice);
+    if (filters.bedrooms && filters.bedrooms !== 'Any') newParams.set('bedrooms', filters.bedrooms);
+    if (filters.bathrooms && filters.bathrooms !== 'Any') newParams.set('bathrooms', filters.bathrooms);
+    if (filters.minRating && filters.minRating !== 'Any') newParams.set('minRating', filters.minRating);
+    if (filters.verificationStatus && filters.verificationStatus !== 'All') newParams.set('verificationStatus', filters.verificationStatus);
+    if (filters.sort && filters.sort !== 'newest') newParams.set('sort', filters.sort);
+
+    setSearchParams(newParams);
   };
 
   // Check if any filter is active
@@ -217,6 +277,9 @@ export default function Properties() {
     minPrice !== '' ||
     maxPrice !== '' ||
     (bedrooms && bedrooms !== 'Any') ||
+    (bathrooms && bathrooms !== 'Any') ||
+    (minRating && minRating !== 'Any') ||
+    (verificationStatus && verificationStatus !== 'All') ||
     sort !== 'newest';
 
   return (
@@ -233,7 +296,23 @@ export default function Properties() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Saved Searches Drawer */}
+            <SavedSearchesDrawer
+              currentFilters={{
+                city,
+                propertyType,
+                minPrice,
+                maxPrice,
+                bedrooms,
+                bathrooms,
+                minRating,
+                verificationStatus,
+                sort,
+              }}
+              onApplySearch={handleApplySavedFilters}
+            />
+
             {/* View Mode Toggle */}
             <div className="inline-flex rounded-xl p-1 bg-slate-200/80 border border-slate-200">
               <button
@@ -384,6 +463,60 @@ export default function Properties() {
                     {opt.label}
                   </option>
                 ))}
+              </select>
+            </div>
+
+            {/* 6. Bathrooms */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="bathrooms-select">
+                Bathrooms
+              </label>
+              <select
+                id="bathrooms-select"
+                value={bathrooms}
+                onChange={(e) => setBathrooms(e.target.value)}
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                {bathroomOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 7. Minimum Rating */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="rating-select">
+                Min Rating
+              </label>
+              <select
+                id="rating-select"
+                value={minRating}
+                onChange={(e) => setMinRating(e.target.value)}
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                {ratingOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 8. Verification Badge Filter */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="verification-select">
+                Verification
+              </label>
+              <select
+                id="verification-select"
+                value={verificationStatus}
+                onChange={(e) => setVerificationStatus(e.target.value)}
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="All">All Properties</option>
+                <option value="approved">✓ Verified Only</option>
               </select>
             </div>
           </div>
@@ -662,6 +795,9 @@ export default function Properties() {
             </div>
           </div>
         )}
+
+        {/* Recently Viewed Properties Strip */}
+        <RecentlyViewed />
       </div>
     </div>
   );
