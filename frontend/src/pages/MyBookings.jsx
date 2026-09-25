@@ -244,10 +244,15 @@ export default function MyBookings() {
                         <span>{prop?.location}, {prop?.city}</span>
                       </p>
 
-                      <div className="flex items-center gap-4 text-xs text-[#52525b] dark:text-[#d4d4d8] pt-1 font-medium">
+                      <div className="flex items-center gap-3 text-xs text-[#52525b] dark:text-[#d4d4d8] pt-1 font-medium flex-wrap">
                         <span className="flex items-center gap-1.5">
                           <Calendar className="w-3.5 h-3.5 text-[#8c827a] dark:text-[#d4b996]" />
                           {new Date(booking.startDate).toLocaleDateString()} – {new Date(booking.endDate).toLocaleDateString()}
+                        </span>
+                        <span>•</span>
+                        <span className="font-semibold text-[#18181b] dark:text-[#f4f0e8]">
+                          {Math.max(1, Math.ceil((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24)))}{' '}
+                          {Math.max(1, Math.ceil((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))) === 1 ? 'night' : 'nights'}
                         </span>
                         <span>•</span>
                         <span>{booking.guests} Guest(s)</span>

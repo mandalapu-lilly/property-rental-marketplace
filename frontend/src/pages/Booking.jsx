@@ -259,21 +259,28 @@ export default function Booking() {
 
               {/* Price Calculation Summary */}
               <div className="p-5 rounded-2xl bg-[#f4f0e8] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#3f3f46] space-y-3">
-                <h3 className="text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-wider">
-                  Transparent Pricing
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-wider">
+                    Transparent Price Breakdown
+                  </h3>
+                  <span className="text-[10px] font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-900/50">
+                    No Hidden Fees
+                  </span>
+                </div>
                 <div className="space-y-2.5 text-xs text-[#52525b] dark:text-[#d4d4d8]">
                   <div className="flex justify-between items-center">
-                    <span>Nightly Rate:</span>
-                    <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">₹{pricePerNight.toLocaleString()}</span>
+                    <span>Rate Computation:</span>
+                    <span className="font-semibold text-[#18181b] dark:text-[#f4f0e8]">
+                      ₹{pricePerNight.toLocaleString()}/night × {diffDays} {diffDays === 1 ? 'night' : 'nights'}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>Total Duration:</span>
-                    <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">{diffDays} {diffDays === 1 ? 'night' : 'nights'}</span>
+                    <span>Platform Service & Protection:</span>
+                    <span className="font-semibold text-emerald-700 dark:text-emerald-400">Included (₹0)</span>
                   </div>
                   <div className="flex justify-between items-center pt-2.5 border-t border-[#e5e0d8] dark:border-[#3f3f46]">
-                    <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">Total Stay Price:</span>
-                    <span className="font-editorial font-bold text-[#18181b] dark:text-[#d4b996] text-lg">₹{estimatedTotal.toLocaleString()}</span>
+                    <span className="font-bold text-[#18181b] dark:text-[#f4f0e8] text-sm">Total Reservation Price:</span>
+                    <span className="font-editorial font-bold text-[#18181b] dark:text-[#d4b996] text-xl">₹{estimatedTotal.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
