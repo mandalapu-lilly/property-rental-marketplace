@@ -52,11 +52,15 @@ export default function Properties() {
 
   const propertyTypes = [
     'All Types',
+    'Hotel',
+    'Resort',
+    'Homestay',
+    'Guest House',
     'Apartment',
-    'House',
     'Villa',
-    'Room',
+    'House',
     'Studio',
+    'Room',
     'Other',
   ];
 
@@ -67,14 +71,6 @@ export default function Properties() {
     { label: '3+', value: '3' },
     { label: '4+', value: '4' },
     { label: '5+', value: '5' },
-  ];
-
-  const bathroomOptions = [
-    { label: 'Any', value: 'Any' },
-    { label: '1+', value: '1' },
-    { label: '2+', value: '2' },
-    { label: '3+', value: '3' },
-    { label: '4+', value: '4' },
   ];
 
   const ratingOptions = [
@@ -232,7 +228,6 @@ export default function Properties() {
     if (minPrice) newParams.set('minPrice', minPrice);
     if (maxPrice) newParams.set('maxPrice', maxPrice);
     if (bedrooms && bedrooms !== 'Any') newParams.set('bedrooms', bedrooms);
-    if (bathrooms && bathrooms !== 'Any') newParams.set('bathrooms', bathrooms);
     if (minRating && minRating !== 'Any') newParams.set('minRating', minRating);
     if (verificationStatus && verificationStatus !== 'All') newParams.set('verificationStatus', verificationStatus);
     if (sort && sort !== 'newest') newParams.set('sort', sort);
@@ -375,7 +370,7 @@ export default function Properties() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
             {/* 1. Search by City / Location */}
             <div className="xl:col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="city-input">
@@ -466,26 +461,7 @@ export default function Properties() {
               </select>
             </div>
 
-            {/* 6. Bathrooms */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="bathrooms-select">
-                Bathrooms
-              </label>
-              <select
-                id="bathrooms-select"
-                value={bathrooms}
-                onChange={(e) => setBathrooms(e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                {bathroomOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* 7. Minimum Rating */}
+            {/* 6. Minimum Rating */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="rating-select">
                 Min Rating
@@ -504,7 +480,7 @@ export default function Properties() {
               </select>
             </div>
 
-            {/* 8. Verification Badge Filter */}
+            {/* 7. Verification Badge Filter */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="verification-select">
                 Verification

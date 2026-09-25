@@ -266,11 +266,15 @@ export default function AddProperty() {
                     onChange={handleChange}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
+                    <option value="Hotel">Hotel</option>
+                    <option value="Resort">Resort</option>
+                    <option value="Homestay">Homestay</option>
+                    <option value="Guest House">Guest House</option>
                     <option value="Apartment">Apartment</option>
                     <option value="House">House</option>
                     <option value="Villa">Villa</option>
-                    <option value="Room">Room</option>
                     <option value="Studio">Studio</option>
+                    <option value="Room">Room</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>

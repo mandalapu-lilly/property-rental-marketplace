@@ -58,11 +58,12 @@ export default function Home() {
   };
 
   const categories = [
-    { name: 'Apartments', type: 'Apartment', icon: Building2, count: 'Flats & High-Rises' },
+    { name: 'Hotels', type: 'Hotel', icon: Building2, count: 'Luxury & Suites' },
+    { name: 'Resorts', type: 'Resort', icon: Sparkles, count: 'Retreats & Getaways' },
+    { name: 'Homestays', type: 'Homestay', icon: HomeIcon, count: 'Cozy Living' },
+    { name: 'Apartments', type: 'Apartment', icon: Layers, count: 'Flats & High-Rises' },
     { name: 'Villas', type: 'Villa', icon: Sparkles, count: 'Luxury Estates' },
-    { name: 'Houses', type: 'House', icon: HomeIcon, count: 'Independent Homes' },
     { name: 'Studios', type: 'Studio', icon: Key, count: 'Modern Compact' },
-    { name: 'Rooms', type: 'Room', icon: Users, count: 'Private Rooms' },
   ];
 
   return (
@@ -83,7 +84,7 @@ export default function Home() {
             </h1>
 
             <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
-              Explore thousands of verified flats, luxury villas, and comfortable studios with transparent pricing, instant booking requests, and host reviews.
+              Explore thousands of verified hotels, resorts, homestays, flats, and luxury villas with transparent pricing, instant booking requests, and host reviews.
             </p>
           </div>
 
@@ -121,6 +122,9 @@ export default function Home() {
                   className="w-full px-3 py-2 bg-slate-50 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <option value="All Types">All Types</option>
+                  <option value="Hotel">Hotel</option>
+                  <option value="Resort">Resort</option>
+                  <option value="Homestay">Homestay</option>
                   <option value="Apartment">Apartment</option>
                   <option value="Villa">Villa</option>
                   <option value="House">House</option>
@@ -166,7 +170,7 @@ export default function Home() {
             Explore Stays by Property Type
           </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((cat) => {
               const Icon = cat.icon;
               return (

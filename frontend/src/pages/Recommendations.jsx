@@ -217,6 +217,10 @@ export default function Recommendations() {
                 className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
               >
                 <option value="">All Property Types</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Resort">Resort</option>
+                <option value="Homestay">Homestay</option>
+                <option value="Guest House">Guest House</option>
                 <option value="Apartment">Apartment</option>
                 <option value="Villa">Villa</option>
                 <option value="House">House</option>
