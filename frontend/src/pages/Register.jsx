@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Building2, User, Mail, Lock, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { User, Mail, Lock, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -80,67 +80,65 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-slate-50/70">
-      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/80 overflow-hidden">
-        {/* Left Side: Architectural Visual Hero Column (Desktop) */}
-        <div className="hidden lg:flex lg:col-span-5 relative bg-slate-900 flex-col justify-between p-10 text-white overflow-hidden">
+    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9]">
+      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] overflow-hidden">
+        {/* Left Side: Architectural Visual Column (Desktop) */}
+        <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-between p-10 text-white overflow-hidden">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity scale-105 transition-transform duration-1000 hover:scale-100"
+            className="absolute inset-0 bg-cover bg-center opacity-45 mix-blend-luminosity scale-105 transition-transform duration-1000 hover:scale-100"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80')`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-          {/* Top Branding Tag */}
+          {/* Top Tag */}
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold tracking-wide text-indigo-200">
-              <Building2 className="w-3.5 h-3.5" />
-              <span>Join HavenStay Network</span>
-            </div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#e5e0d8] block">
+              Join HavenStay
+            </span>
           </div>
 
-          {/* Bottom Testimonial / Value Prop */}
+          {/* Bottom Caption */}
           <div className="relative z-10 space-y-4">
             <div className="space-y-2">
-              <h3 className="text-2xl font-bold tracking-tight text-white leading-snug">
-                Find your dream stay or start hosting in minutes.
+              <h3 className="font-editorial text-3xl font-light tracking-tight text-white leading-tight">
+                Discover extraordinary homes or share your sanctuary.
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Connect with thousands of verified travelers and property owners across all major metropolitan hubs and scenic retreats.
+              <p className="text-xs text-[#d4cdc3] leading-relaxed font-normal">
+                Connect with thousands of discerning travelers and property owners across prime metropolitan hubs and scenic retreats.
               </p>
             </div>
 
-            <div className="pt-4 border-t border-white/15 flex items-center justify-between text-xs text-slate-400">
-              <span>0% Hidden Fees</span>
+            <div className="pt-4 border-t border-white/20 flex items-center justify-between text-[11px] text-[#d4cdc3]">
+              <span>Verified Superhosts</span>
               <span>•</span>
-              <span>Host Protection</span>
+              <span>Direct Bookings</span>
               <span>•</span>
-              <span>Fast Payouts</span>
+              <span>Zero Hidden Fees</span>
             </div>
           </div>
         </div>
 
         {/* Right Side: Registration Form */}
-        <div className="lg:col-span-7 p-6 sm:p-10 lg:p-12 flex flex-col justify-center">
+        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
           <div className="max-w-md w-full mx-auto">
             {/* Form Header */}
             <div className="mb-6">
-              <div className="lg:hidden inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold mb-3">
-                <Building2 className="w-3.5 h-3.5" />
-                <span>HavenStay</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-                Create an account
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] block mb-2">
+                New Membership
+              </span>
+              <h2 className="font-editorial text-4xl sm:text-5xl font-light tracking-tight text-[#18181b]">
+                Create Account
               </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-slate-500">
-                Join our premium community to reserve homes or publish listings.
+              <p className="mt-2 text-xs sm:text-sm text-[#71717a]">
+                Join our community to reserve exceptional stays or list your properties.
               </p>
             </div>
 
             {/* Error Banner */}
             {error && (
-              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs sm:text-sm animate-shake">
+              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs sm:text-sm">
                 <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Registration issue</p>
@@ -152,11 +150,11 @@ export default function Register() {
             <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Full Name */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" htmlFor="name">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="name">
                   Full Name
                 </label>
-                <div className="relative rounded-xl">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#a1a1aa]">
                     <User className="w-4 h-4" />
                   </div>
                   <input
@@ -166,19 +164,19 @@ export default function Register() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="John Doe"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white focus:border-transparent transition-all"
+                    placeholder="Amulya Mandalapu"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
                   />
                 </div>
               </div>
 
               {/* Email Field */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" htmlFor="email">
-                  Email address
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="email">
+                  Email Address
                 </label>
-                <div className="relative rounded-xl">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#a1a1aa]">
                     <Mail className="w-4 h-4" />
                   </div>
                   <input
@@ -190,24 +188,24 @@ export default function Register() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="name@example.com"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white focus:border-transparent transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
                   />
                 </div>
               </div>
 
               {/* Account Role Selection */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" htmlFor="role">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="role">
                   Account Type
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, role: 'user' })}
-                    className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all ${
+                    className={`py-2.5 px-3 rounded-full border text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                       formData.role === 'user'
-                        ? 'border-slate-900 bg-slate-900 text-white shadow-sm'
-                        : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
+                        ? 'border-[#18181b] bg-[#18181b] text-white shadow-sm'
+                        : 'border-[#e5e0d8] bg-[#fbfbf9] text-[#71717a] hover:bg-[#f4f0e8]'
                     }`}
                   >
                     Renter / Guest
@@ -215,10 +213,10 @@ export default function Register() {
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, role: 'host' })}
-                    className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all ${
+                    className={`py-2.5 px-3 rounded-full border text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                       formData.role === 'host'
-                        ? 'border-indigo-600 bg-indigo-600 text-white shadow-sm'
-                        : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
+                        ? 'border-[#18181b] bg-[#18181b] text-white shadow-sm'
+                        : 'border-[#e5e0d8] bg-[#fbfbf9] text-[#71717a] hover:bg-[#f4f0e8]'
                     }`}
                   >
                     Property Host
@@ -228,11 +226,11 @@ export default function Register() {
 
               {/* Password Field */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" htmlFor="password">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="password">
                   Password
                 </label>
-                <div className="relative rounded-xl">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#a1a1aa]">
                     <Lock className="w-4 h-4" />
                   </div>
                   <input
@@ -244,18 +242,18 @@ export default function Register() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Minimum 6 characters"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white focus:border-transparent transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
                   />
                 </div>
               </div>
 
               {/* Confirm Password Field */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" htmlFor="confirmPassword">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="confirmPassword">
                   Confirm Password
                 </label>
-                <div className="relative rounded-xl">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#a1a1aa]">
                     <Lock className="w-4 h-4" />
                   </div>
                   <input
@@ -267,7 +265,7 @@ export default function Register() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Repeat password"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white focus:border-transparent transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
                   />
                 </div>
               </div>
@@ -277,7 +275,7 @@ export default function Register() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl shadow-md text-sm font-bold text-white bg-slate-900 hover:bg-indigo-600 active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-slate-900 disabled:opacity-60 transition-all cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-full shadow-editorial text-xs font-semibold uppercase tracking-wider text-white bg-[#18181b] hover:bg-black active:scale-[0.98] disabled:opacity-60 transition-all cursor-pointer"
                 >
                   {isLoading ? (
                     <>
@@ -295,12 +293,12 @@ export default function Register() {
             </form>
 
             {/* Link to Login */}
-            <div className="mt-6 pt-6 border-t border-slate-100 text-center">
-              <p className="text-xs sm:text-sm text-slate-600">
+            <div className="mt-6 pt-6 border-t border-[#f4f0e8] text-center">
+              <p className="text-xs text-[#71717a]">
                 Already have an account?{' '}
                 <Link
                   to="/login"
-                  className="font-bold text-indigo-600 hover:text-indigo-500 transition-colors underline-offset-2 hover:underline"
+                  className="font-bold text-[#18181b] hover:underline underline-offset-4"
                 >
                   Sign In
                 </Link>

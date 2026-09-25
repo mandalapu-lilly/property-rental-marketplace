@@ -66,12 +66,12 @@ export default function Properties() {
   ];
 
   const bedroomOptions = [
-    { label: 'Any', value: 'Any' },
-    { label: '1+', value: '1' },
-    { label: '2+', value: '2' },
-    { label: '3+', value: '3' },
-    { label: '4+', value: '4' },
-    { label: '5+', value: '5' },
+    { label: 'Any Beds', value: 'Any' },
+    { label: '1+ Bed', value: '1' },
+    { label: '2+ Beds', value: '2' },
+    { label: '3+ Beds', value: '3' },
+    { label: '4+ Beds', value: '4' },
+    { label: '5+ Beds', value: '5' },
   ];
 
   const ratingOptions = [
@@ -150,124 +150,64 @@ export default function Properties() {
           return updated;
         });
       } else {
-        await api.post(`/api/favorites/${propertyId}`);
-        setFavorites((prev) => {
-          const updated = new Set(prev);
-          updated.add(propertyId);
-          return updated;
-        });
+        await api.post('/api/favorites', { propertyId });
+        setFavorites((prev) => new Set(prev).add(propertyId));
       }
     } catch (err) {
-      console.error('Error updating favorite:', err);
+      console.error('Error toggling favorite:', err);
     }
   };
 
-  // Fetch properties from backend API based on current filters
-  const fetchProperties = useCallback(async (filters) => {
+  // Main Fetch Function with Multi-Filter Support
+  const fetchProperties = useCallback(async () => {
     setLoading(true);
     setError(null);
+
     try {
       const params = {};
-
-      if (filters.city && filters.city.trim() !== '') {
-        params.city = filters.city.trim();
-      }
-
-      if (
-        filters.propertyType &&
-        filters.propertyType !== 'All Types' &&
-        filters.propertyType !== 'All'
-      ) {
-        params.propertyType = filters.propertyType;
-      }
-
-      if (filters.minPrice && filters.minPrice !== '') {
-        params.minPrice = filters.minPrice;
-      }
-
-      if (filters.maxPrice && filters.maxPrice !== '') {
-        params.maxPrice = filters.maxPrice;
-      }
-
-      if (filters.bedrooms && filters.bedrooms !== 'Any') {
-        params.bedrooms = filters.bedrooms;
-      }
-
-      if (filters.bathrooms && filters.bathrooms !== 'Any') {
-        params.bathrooms = filters.bathrooms;
-      }
-
-      if (filters.minRating && filters.minRating !== 'Any') {
-        params.minRating = filters.minRating;
-      }
-
-      if (filters.verificationStatus && filters.verificationStatus !== 'All') {
-        params.verificationStatus = filters.verificationStatus;
-      }
-
-      if (filters.sort && filters.sort !== 'newest') {
-        params.sort = filters.sort;
-      }
+      if (city.trim()) params.city = city.trim();
+      if (propertyType && propertyType !== 'All Types') params.propertyType = propertyType;
+      if (minPrice) params.minPrice = minPrice;
+      if (maxPrice) params.maxPrice = maxPrice;
+      if (bedrooms && bedrooms !== 'Any') params.bedrooms = bedrooms;
+      if (bathrooms && bathrooms !== 'Any') params.bathrooms = bathrooms;
+      if (minRating && minRating !== 'Any') params.minRating = minRating;
+      if (verificationStatus && verificationStatus !== 'All') params.verificationStatus = verificationStatus;
+      if (sort) params.sort = sort;
 
       const res = await api.get('/api/properties', { params });
       setProperties(res.data.properties || []);
     } catch (err) {
-      console.error('Error fetching filtered properties:', err);
+      console.error('Fetch properties error:', err);
       setError(
-        err.response?.data?.error ||
-          'Failed to load properties. Please check your filter inputs and backend connection.'
+        err.response?.data?.message ||
+        'Unable to load properties. Please ensure the backend server is active.'
       );
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [city, propertyType, minPrice, maxPrice, bedrooms, bathrooms, minRating, verificationStatus, sort]);
 
-  // Sync state on URL param changes
   useEffect(() => {
-    const currentFilters = {
-      city: searchParams.get('city') || '',
-      propertyType: searchParams.get('propertyType') || 'All Types',
-      minPrice: searchParams.get('minPrice') || '',
-      maxPrice: searchParams.get('maxPrice') || '',
-      bedrooms: searchParams.get('bedrooms') || 'Any',
-      bathrooms: searchParams.get('bathrooms') || 'Any',
-      minRating: searchParams.get('minRating') || 'Any',
-      verificationStatus: searchParams.get('verificationStatus') || 'All',
-      sort: searchParams.get('sort') || 'newest',
-    };
+    fetchProperties();
+  }, [fetchProperties]);
 
-    setCity(currentFilters.city);
-    setPropertyType(currentFilters.propertyType);
-    setMinPrice(currentFilters.minPrice);
-    setMaxPrice(currentFilters.maxPrice);
-    setBedrooms(currentFilters.bedrooms);
-    setBathrooms(currentFilters.bathrooms);
-    setMinRating(currentFilters.minRating);
-    setVerificationStatus(currentFilters.verificationStatus);
-    setSort(currentFilters.sort);
-
-    fetchProperties(currentFilters);
-  }, [searchParams, fetchProperties]);
-
-  // Handle Apply Filters
   const handleApplyFilters = (e) => {
     if (e) e.preventDefault();
+    const params = new URLSearchParams();
+    if (city.trim()) params.set('city', city.trim());
+    if (propertyType && propertyType !== 'All Types') params.set('propertyType', propertyType);
+    if (minPrice) params.set('minPrice', minPrice);
+    if (maxPrice) params.set('maxPrice', maxPrice);
+    if (bedrooms && bedrooms !== 'Any') params.set('bedrooms', bedrooms);
+    if (bathrooms && bathrooms !== 'Any') params.set('bathrooms', bathrooms);
+    if (minRating && minRating !== 'Any') params.set('minRating', minRating);
+    if (verificationStatus && verificationStatus !== 'All') params.set('verificationStatus', verificationStatus);
+    if (sort) params.set('sort', sort);
 
-    const newParams = new URLSearchParams();
-
-    if (city.trim()) newParams.set('city', city.trim());
-    if (propertyType && propertyType !== 'All Types') newParams.set('propertyType', propertyType);
-    if (minPrice) newParams.set('minPrice', minPrice);
-    if (maxPrice) newParams.set('maxPrice', maxPrice);
-    if (bedrooms && bedrooms !== 'Any') newParams.set('bedrooms', bedrooms);
-    if (minRating && minRating !== 'Any') newParams.set('minRating', minRating);
-    if (verificationStatus && verificationStatus !== 'All') newParams.set('verificationStatus', verificationStatus);
-    if (sort && sort !== 'newest') newParams.set('sort', sort);
-
-    setSearchParams(newParams);
+    setSearchParams(params);
   };
 
-  // Handle Clear Filters
   const handleClearFilters = () => {
     setCity('');
     setPropertyType('All Types');
@@ -281,23 +221,18 @@ export default function Properties() {
     setSearchParams(new URLSearchParams());
   };
 
-  // Apply Saved Filter Preset
   const handleApplySavedFilters = (filters) => {
-    const newParams = new URLSearchParams();
-    if (filters.city) newParams.set('city', filters.city);
-    if (filters.propertyType && filters.propertyType !== 'All Types') newParams.set('propertyType', filters.propertyType);
-    if (filters.minPrice) newParams.set('minPrice', filters.minPrice);
-    if (filters.maxPrice) newParams.set('maxPrice', filters.maxPrice);
-    if (filters.bedrooms && filters.bedrooms !== 'Any') newParams.set('bedrooms', filters.bedrooms);
-    if (filters.bathrooms && filters.bathrooms !== 'Any') newParams.set('bathrooms', filters.bathrooms);
-    if (filters.minRating && filters.minRating !== 'Any') newParams.set('minRating', filters.minRating);
-    if (filters.verificationStatus && filters.verificationStatus !== 'All') newParams.set('verificationStatus', filters.verificationStatus);
-    if (filters.sort && filters.sort !== 'newest') newParams.set('sort', filters.sort);
-
-    setSearchParams(newParams);
+    if (filters.city !== undefined) setCity(filters.city);
+    if (filters.propertyType !== undefined) setPropertyType(filters.propertyType);
+    if (filters.minPrice !== undefined) setMinPrice(filters.minPrice);
+    if (filters.maxPrice !== undefined) setMaxPrice(filters.maxPrice);
+    if (filters.bedrooms !== undefined) setBedrooms(filters.bedrooms);
+    if (filters.bathrooms !== undefined) setBathrooms(filters.bathrooms);
+    if (filters.minRating !== undefined) setMinRating(filters.minRating);
+    if (filters.verificationStatus !== undefined) setVerificationStatus(filters.verificationStatus);
+    if (filters.sort !== undefined) setSort(filters.sort);
   };
 
-  // Check if any filter is active
   const hasActiveFilters =
     city.trim() !== '' ||
     (propertyType && propertyType !== 'All Types') ||
@@ -310,24 +245,23 @@ export default function Properties() {
     sort !== 'newest';
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] bg-[#fafafa] py-8 sm:py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Page Header */}
+    <div className="min-h-[calc(100vh-5rem)] bg-[#fbfbf9] py-10 sm:py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        {/* Editorial Page Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold mb-2">
-              <Compass className="w-3.5 h-3.5" />
-              <span>Explore Accommodations</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Curated Stays & Hotels
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] block mb-1">
+              / The Complete Collection /
+            </span>
+            <h1 className="font-editorial text-5xl sm:text-6xl font-light text-[#18181b] tracking-tight uppercase">
+              Explore Homes
             </h1>
-            <p className="text-slate-500 text-xs sm:text-sm mt-1">
-              Search, filter, and discover rental homes, hotel suites, apartments, and luxury villas.
+            <p className="text-[#71717a] text-xs sm:text-sm mt-1 max-w-xl font-normal">
+              Search, filter, and discover architectural villas, luxury hotels, penthouses, and peaceful homestays.
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap">
             {/* Saved Searches Drawer */}
             <SavedSearchesDrawer
               currentFilters={{
@@ -345,14 +279,14 @@ export default function Properties() {
             />
 
             {/* View Mode Toggle */}
-            <div className="inline-flex rounded-2xl p-1 bg-slate-200/70 border border-slate-200/80">
+            <div className="inline-flex rounded-full p-1 bg-[#f4f0e8] border border-[#e5e0d8]">
               <button
                 type="button"
                 onClick={() => setViewMode('list')}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                   viewMode === 'list'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#18181b] text-white shadow-sm'
+                    : 'text-[#71717a] hover:text-[#18181b]'
                 }`}
               >
                 <List className="w-3.5 h-3.5" />
@@ -361,10 +295,10 @@ export default function Properties() {
               <button
                 type="button"
                 onClick={() => setViewMode('map')}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                   viewMode === 'map'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#18181b] text-white shadow-sm'
+                    : 'text-[#71717a] hover:text-[#18181b]'
                 }`}
               >
                 <MapIcon className="w-3.5 h-3.5" />
@@ -375,10 +309,10 @@ export default function Properties() {
             <button
               onClick={() => handleApplyFilters()}
               disabled={loading}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-all disabled:opacity-50 cursor-pointer shadow-sm"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#e5e0d8] bg-white hover:bg-[#f4f0e8] text-[#18181b] text-xs font-semibold uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer shadow-sm"
               title="Refresh Listings"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-indigo-600' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[#18181b]' : ''}`} />
               <span className="hidden sm:inline">Refresh</span>
             </button>
           </div>
@@ -387,12 +321,12 @@ export default function Properties() {
         {/* Search, Filter & Sort Control Panel */}
         <form
           onSubmit={handleApplyFilters}
-          className="bg-white p-5 sm:p-7 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-5"
+          className="bg-white p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial space-y-6"
         >
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-indigo-600" />
-              <span>Search & Filter Stays</span>
+          <div className="flex items-center justify-between border-b border-[#f4f0e8] pb-4">
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[#18181b] flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-[#8c827a]" />
+              <span>Search & Refine Stays</span>
             </h2>
             {hasActiveFilters && (
               <button
@@ -408,8 +342,8 @@ export default function Properties() {
 
           {/* Quick Popular City Selection Pills */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <span className="text-xs font-semibold text-slate-400 shrink-0 flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-indigo-500" />
+            <span className="text-xs font-semibold text-[#71717a] shrink-0 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-[#8c827a]" />
               Cities:
             </span>
             <div className="flex items-center gap-1.5 flex-nowrap">
@@ -422,10 +356,10 @@ export default function Properties() {
                     key={c}
                     type="button"
                     onClick={() => handleSelectCityChip(c)}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                    className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                       isSelected
-                        ? 'bg-slate-900 text-white shadow-sm'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                        ? 'bg-[#18181b] text-white shadow-sm'
+                        : 'bg-[#f4f0e8] text-[#52525b] hover:bg-[#ede7dc] hover:text-[#18181b]'
                     }`}
                   >
                     {c}
@@ -435,14 +369,14 @@ export default function Properties() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             {/* 1. Search by City / Location */}
             <div className="xl:col-span-2">
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="city-input">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] mb-1" htmlFor="city-input">
                 City / Location
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#a1a1aa]">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <input
@@ -450,22 +384,22 @@ export default function Properties() {
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  placeholder="Search city or neighborhood..."
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all"
+                  placeholder="Search city or location..."
+                  className="w-full pl-10 pr-3 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-xs font-semibold text-[#18181b] placeholder-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
                 />
               </div>
             </div>
 
             {/* 2. Property Type */}
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="property-type">
-                Stay Type
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] mb-1" htmlFor="property-type">
+                Category
               </label>
               <select
                 id="property-type"
                 value={propertyType}
                 onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all cursor-pointer"
+                className="w-full px-3 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-xs font-semibold text-[#18181b] focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all cursor-pointer"
               >
                 {propertyTypes.map((type) => (
                   <option key={type} value={type}>
@@ -477,7 +411,7 @@ export default function Properties() {
 
             {/* 3. Min Price */}
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="min-price">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] mb-1" htmlFor="min-price">
                 Min Price (₹)
               </label>
               <input
@@ -487,13 +421,13 @@ export default function Properties() {
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
                 placeholder="Min ₹"
-                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all"
+                className="w-full px-3 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-xs font-semibold text-[#18181b] placeholder-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
               />
             </div>
 
             {/* 4. Max Price */}
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="max-price">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] mb-1" htmlFor="max-price">
                 Max Price (₹)
               </label>
               <input
@@ -503,20 +437,20 @@ export default function Properties() {
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
                 placeholder="Max ₹"
-                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all"
+                className="w-full px-3 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-xs font-semibold text-[#18181b] placeholder-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
               />
             </div>
 
             {/* 5. Bedrooms */}
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="bedrooms-select">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] mb-1" htmlFor="bedrooms-select">
                 Bedrooms
               </label>
               <select
                 id="bedrooms-select"
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all cursor-pointer"
+                className="w-full px-3 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-xs font-semibold text-[#18181b] focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all cursor-pointer"
               >
                 {bedroomOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -528,16 +462,16 @@ export default function Properties() {
           </div>
 
           {/* Secondary Filter Row: Rating & Verified */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="rating-select">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] mb-1" htmlFor="rating-select">
                 Minimum Rating
               </label>
               <select
                 id="rating-select"
                 value={minRating}
                 onChange={(e) => setMinRating(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer"
+                className="w-full px-3 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-xs font-semibold text-[#18181b] focus:outline-none focus:ring-1 focus:ring-[#18181b] cursor-pointer"
               >
                 {ratingOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -548,14 +482,14 @@ export default function Properties() {
             </div>
 
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="verification-select">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] mb-1" htmlFor="verification-select">
                 Host Verification
               </label>
               <select
                 id="verification-select"
                 value={verificationStatus}
                 onChange={(e) => setVerificationStatus(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer"
+                className="w-full px-3 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-xs font-semibold text-[#18181b] focus:outline-none focus:ring-1 focus:ring-[#18181b] cursor-pointer"
               >
                 <option value="All">All Properties</option>
                 <option value="approved">✓ Verified Only</option>
@@ -564,17 +498,16 @@ export default function Properties() {
           </div>
 
           {/* Sort By & Submit Buttons Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-slate-100">
-            {/* Sort Dropdown */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-[#f4f0e8]">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-600 flex items-center gap-1.5">
-                <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#71717a] flex items-center gap-1.5">
+                <ArrowUpDown className="w-3.5 h-3.5 text-[#a1a1aa]" />
                 Sort:
               </span>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                className="px-3.5 py-1.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-full text-xs font-semibold text-[#18181b] focus:outline-none focus:ring-1 focus:ring-[#18181b]"
               >
                 {sortOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -584,19 +517,18 @@ export default function Properties() {
               </select>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={handleClearFilters}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+                className="px-5 py-2.5 bg-[#f4f0e8] hover:bg-[#ede7dc] text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full transition-colors cursor-pointer"
               >
                 Reset
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center gap-1.5 px-5 py-2 bg-slate-900 hover:bg-indigo-600 active:bg-slate-950 text-white font-bold text-xs rounded-xl shadow-md disabled:opacity-50 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#18181b] hover:bg-black active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider rounded-full shadow-editorial disabled:opacity-50 transition-all cursor-pointer"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>Apply Filters</span>
@@ -608,61 +540,50 @@ export default function Properties() {
         {/* Results Area */}
         {loading ? (
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
+            <div className="flex items-center justify-between text-xs text-[#71717a] font-medium">
               <span>Applying filters...</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3, 4, 5, 6].map((n) => (
                 <div
                   key={n}
-                  className="bg-white rounded-2xl border border-slate-200 overflow-hidden animate-pulse"
-                >
-                  <div className="h-52 bg-slate-200" />
-                  <div className="p-5 space-y-3">
-                    <div className="h-5 bg-slate-200 rounded w-3/4" />
-                    <div className="h-4 bg-slate-100 rounded w-1/2" />
-                    <div className="h-4 bg-slate-100 rounded w-full" />
-                    <div className="pt-4 flex justify-between">
-                      <div className="h-6 bg-slate-200 rounded w-1/3" />
-                      <div className="h-6 bg-slate-200 rounded w-1/4" />
-                    </div>
-                  </div>
-                </div>
+                  className="bg-white rounded-[2rem] border border-[#e5e0d8] overflow-hidden animate-pulse p-6 h-96"
+                />
               ))}
             </div>
           </div>
         ) : error ? (
-          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-8 text-center max-w-xl mx-auto space-y-3">
+          <div className="bg-rose-50 border border-rose-200 rounded-[2rem] p-8 text-center max-w-xl mx-auto space-y-3">
             <p className="text-rose-800 font-bold">{error}</p>
             <div className="flex justify-center gap-3">
               <button
                 onClick={() => handleApplyFilters()}
-                className="px-4 py-2 bg-rose-600 text-white text-xs font-semibold rounded-xl hover:bg-rose-700 transition-colors cursor-pointer"
+                className="px-4 py-2 bg-rose-600 text-white text-xs font-semibold rounded-full hover:bg-rose-700 transition-colors cursor-pointer"
               >
                 Retry
               </button>
               <button
                 onClick={handleClearFilters}
-                className="px-4 py-2 bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl hover:bg-slate-300 transition-colors cursor-pointer"
+                className="px-4 py-2 bg-[#e5e0d8] text-[#18181b] text-xs font-semibold rounded-full hover:bg-[#d4cdc3] transition-colors cursor-pointer"
               >
                 Clear Filters
               </button>
             </div>
           </div>
         ) : properties.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-lg mx-auto shadow-sm space-y-4">
-            <div className="w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto">
-              <Home className="w-8 h-8" />
+          <div className="bg-white rounded-[2rem] border border-[#e5e0d8] p-12 text-center max-w-lg mx-auto shadow-editorial space-y-4">
+            <div className="w-14 h-14 rounded-full bg-[#f4f0e8] text-[#18181b] flex items-center justify-center mx-auto">
+              <Home className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900">
+            <h3 className="font-editorial text-2xl font-bold text-[#18181b]">
               No properties found matching your filters.
             </h3>
-            <p className="text-sm text-slate-500">
-              Try adjusting your price range, location search, or bedroom count to find available rental listings.
+            <p className="text-xs text-[#71717a]">
+              Try adjusting your price range, location search, or bedroom count to discover available listings.
             </p>
             <button
               onClick={handleClearFilters}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-md transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#18181b] hover:bg-black text-white text-xs font-semibold uppercase tracking-wider rounded-full shadow-editorial transition-all cursor-pointer"
             >
               Clear Filters
             </button>
@@ -670,42 +591,42 @@ export default function Properties() {
         ) : viewMode === 'map' ? (
           /* Map View Mode */
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs text-slate-500 font-semibold px-1">
+            <div className="flex items-center justify-between text-xs text-[#71717a] font-semibold px-1">
               <span>Showing {properties.length} {properties.length === 1 ? 'property' : 'properties'} on Map</span>
               {hasActiveFilters && (
-                <span className="text-indigo-600 font-medium">Filtered results</span>
+                <span className="text-[#18181b] font-medium">Filtered results</span>
               )}
             </div>
-            <div className="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div className="bg-white p-4 rounded-[2rem] border border-[#e5e0d8] shadow-editorial overflow-hidden">
               <PropertyMap properties={properties} height="600px" />
             </div>
           </div>
         ) : (
           /* List / Card Grid View Mode */
-          <div className="space-y-4">
+          <div className="space-y-6">
             {/* Results Counter */}
-            <div className="flex items-center justify-between text-xs text-slate-500 font-semibold px-1">
+            <div className="flex items-center justify-between text-xs text-[#71717a] font-semibold px-1">
               <span>Showing {properties.length} {properties.length === 1 ? 'property' : 'properties'}</span>
               {hasActiveFilters && (
-                <span className="text-indigo-600 font-medium">Filtered results</span>
+                <span className="text-[#18181b] font-medium">Filtered results</span>
               )}
             </div>
 
             {/* Properties Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {properties.map((property) => (
                 <div
                   key={property._id}
-                  className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.04)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+                  className="bg-white rounded-[2rem] border border-[#e5e0d8] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
                 >
                   <div>
                     {/* Property Image Cover */}
-                    <div className="relative h-56 bg-slate-100 overflow-hidden">
+                    <div className="relative h-64 bg-[#f4f0e8] overflow-hidden">
                       {property.images && property.images.length > 0 ? (
                         <img
                           src={property.images[0]}
                           alt={property.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                           onError={(e) => {
                             e.target.style.display = 'none';
                             e.target.nextSibling.style.display = 'flex';
@@ -713,7 +634,7 @@ export default function Properties() {
                         />
                       ) : null}
                       <div
-                        className={`w-full h-full items-center justify-center bg-gradient-to-br from-indigo-50 via-slate-100 to-violet-50 text-indigo-400 ${
+                        className={`w-full h-full items-center justify-center bg-[#f4f0e8] text-[#71717a] ${
                           property.images && property.images.length > 0 ? 'hidden' : 'flex'
                         }`}
                       >
@@ -721,7 +642,7 @@ export default function Properties() {
                       </div>
 
                       {/* Property Type Badge */}
-                      <span className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold text-slate-900 shadow-sm border border-slate-100">
+                      <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-[#18181b] shadow-sm">
                         {property.propertyType}
                       </span>
 
@@ -729,10 +650,10 @@ export default function Properties() {
                       <button
                         type="button"
                         onClick={(e) => toggleFavorite(property._id, e)}
-                        className={`absolute top-3.5 right-3.5 p-2.5 rounded-full backdrop-blur-md shadow-md transition-all duration-200 hover:scale-110 cursor-pointer ${
+                        className={`absolute top-4 right-4 p-2.5 rounded-full backdrop-blur-md shadow-sm transition-all duration-200 hover:scale-110 cursor-pointer ${
                           favorites.has(property._id)
-                            ? 'bg-rose-500 text-white shadow-rose-500/30'
-                            : 'bg-white/85 text-slate-700 hover:text-rose-500 hover:bg-white'
+                            ? 'bg-rose-500 text-white'
+                            : 'bg-white/85 text-[#18181b] hover:text-rose-500 hover:bg-white'
                         }`}
                         title={favorites.has(property._id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
                       >
@@ -745,19 +666,19 @@ export default function Properties() {
                     </div>
 
                     {/* Body Details */}
-                    <div className="p-5 space-y-3">
-                      <div className="flex items-center justify-between gap-1.5 text-xs font-medium text-slate-500">
+                    <div className="p-6 space-y-3">
+                      <div className="flex items-center justify-between gap-1.5 text-xs text-[#71717a]">
                         <div className="flex items-center gap-1.5 truncate">
-                          <MapPin className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+                          <MapPin className="w-3.5 h-3.5 text-[#8c827a] shrink-0" />
                           <span className="truncate">
                             {property.location}, {property.city}
                           </span>
                         </div>
                         {property.totalReviews > 0 && (
-                          <div className="flex items-center gap-1 text-amber-500 shrink-0 font-bold">
-                            <Star className="w-3.5 h-3.5 fill-current" />
+                          <div className="flex items-center gap-1 text-[#18181b] shrink-0 font-bold">
+                            <Star className="w-3.5 h-3.5 fill-[#b58d59] text-[#b58d59]" />
                             <span>{property.averageRating?.toFixed(1)}</span>
-                            <span className="text-slate-400 font-normal text-[11px]">({property.totalReviews})</span>
+                            <span className="text-[#a1a1aa] font-normal text-[11px]">({property.totalReviews})</span>
                           </div>
                         )}
                       </div>
@@ -765,29 +686,29 @@ export default function Properties() {
                       {/* Verified Badge */}
                       {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
                         <div className="flex items-center">
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full">
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full">
                             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             ✓ Verified Property
                           </span>
                         </div>
                       )}
 
-                      <h2 className="text-base font-bold text-slate-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">
+                      <h2 className="font-editorial text-xl font-bold text-[#18181b] line-clamp-1 group-hover:text-[#8c827a] transition-colors">
                         {property.title}
                       </h2>
 
-                      <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-[#71717a] line-clamp-2 leading-relaxed">
                         {property.description}
                       </p>
 
                       {/* Specs Row */}
-                      <div className="pt-2 flex items-center gap-4 text-xs font-medium text-slate-600 border-t border-slate-100">
+                      <div className="pt-2 flex items-center gap-4 text-xs font-medium text-[#71717a] border-t border-[#f4f0e8]">
                         <div className="flex items-center gap-1.5">
-                          <Bed className="w-3.5 h-3.5 text-slate-400" />
+                          <Bed className="w-3.5 h-3.5 text-[#a1a1aa]" />
                           <span>{property.bedrooms} {property.bedrooms === 1 ? 'Bed' : 'Beds'}</span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                          <Maximize2 className="w-3.5 h-3.5 text-slate-400" />
+                          <Maximize2 className="w-3.5 h-3.5 text-[#a1a1aa]" />
                           <span>{property.area} sqft</span>
                         </div>
                       </div>
@@ -795,14 +716,14 @@ export default function Properties() {
                   </div>
 
                   {/* Card Footer */}
-                  <div className="p-5 pt-0 flex items-center justify-between border-t border-slate-100/80 mt-2 gap-2">
+                  <div className="p-6 pt-0 flex items-center justify-between border-t border-[#f4f0e8] mt-2 gap-2">
                     <div>
-                      <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">Rate</span>
+                      <span className="text-[9px] text-[#a1a1aa] block font-semibold uppercase tracking-wider">Rate</span>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-lg font-extrabold text-slate-900">
+                        <span className="text-lg font-bold text-[#18181b]">
                           ₹{property.price?.toLocaleString()}
                         </span>
-                        <span className="text-xs text-slate-400 font-medium">/mo</span>
+                        <span className="text-xs text-[#71717a] font-normal">/mo</span>
                       </div>
                     </div>
 
@@ -810,10 +731,10 @@ export default function Properties() {
                       <button
                         type="button"
                         onClick={() => toggleCompare(property)}
-                        className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+                        className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-full transition-all cursor-pointer ${
                           isInCompare(property._id)
-                            ? 'bg-indigo-600 text-white shadow-sm'
-                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                            ? 'bg-[#18181b] text-white shadow-sm'
+                            : 'bg-[#f4f0e8] hover:bg-[#ede7dc] text-[#18181b]'
                         }`}
                         title={isInCompare(property._id) ? 'Remove from Comparison' : 'Add to Comparison'}
                       >
@@ -823,7 +744,7 @@ export default function Properties() {
 
                       <Link
                         to={`/properties/${property._id}`}
-                        className="inline-flex items-center gap-1 px-4 py-2 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm"
+                        className="inline-flex items-center gap-1 px-4 py-2 bg-[#18181b] hover:bg-black text-white text-xs font-semibold rounded-full transition-all shadow-sm"
                       >
                         <span>View</span>
                         <ArrowRight className="w-3.5 h-3.5" />

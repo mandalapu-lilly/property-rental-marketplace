@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Building2, Mail, Lock, AlertCircle, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
+import { Mail, Lock, AlertCircle, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -44,67 +44,65 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-slate-50/70">
-      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/80 overflow-hidden">
-        {/* Left Side: Architectural Visual Hero Column (Desktop) */}
-        <div className="hidden lg:flex lg:col-span-5 relative bg-slate-900 flex-col justify-between p-10 text-white overflow-hidden">
+    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9]">
+      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] overflow-hidden">
+        {/* Left Side: Large Cinematic Architectural Hero Column */}
+        <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-between p-10 text-white overflow-hidden">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity scale-105 transition-transform duration-1000 hover:scale-100"
+            className="absolute inset-0 bg-cover bg-center opacity-45 mix-blend-luminosity scale-105 transition-transform duration-1000 hover:scale-100"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80')`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-          {/* Top Branding Tag */}
+          {/* Top Tag */}
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold tracking-wide text-indigo-200">
-              <Building2 className="w-3.5 h-3.5" />
-              <span>HavenStay Residences</span>
-            </div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#e5e0d8] block">
+              HavenStay Sanctuary
+            </span>
           </div>
 
-          {/* Bottom Testimonial / Value Prop */}
+          {/* Bottom Editorial Caption */}
           <div className="relative z-10 space-y-4">
             <div className="space-y-2">
-              <h3 className="text-2xl font-bold tracking-tight text-white leading-snug">
-                Experience exceptional stays, curated for discerning travelers.
+              <h3 className="font-editorial text-3xl font-light tracking-tight text-white leading-tight">
+                Designed for refined living & seamless escapes.
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <p className="text-xs text-[#d4cdc3] leading-relaxed font-normal">
                 Unlock instant reservations, verified hosts, and transparent pricing in top destinations.
               </p>
             </div>
 
-            <div className="pt-4 border-t border-white/15 flex items-center justify-between text-xs text-slate-400">
-              <span>Verified Superhosts</span>
+            <div className="pt-4 border-t border-white/20 flex items-center justify-between text-[11px] text-[#d4cdc3]">
+              <span>Verified Stays</span>
               <span>•</span>
-              <span>Instant Confirmation</span>
+              <span>Direct Booking</span>
               <span>•</span>
-              <span>24/7 Concierge</span>
+              <span>24/7 Support</span>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Login Form */}
-        <div className="lg:col-span-7 p-6 sm:p-10 lg:p-12 flex flex-col justify-center">
+        {/* Right Side: Minimal Login Card/Form */}
+        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
           <div className="max-w-md w-full mx-auto">
             {/* Form Header */}
             <div className="mb-8">
-              <div className="lg:hidden inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold mb-3">
-                <Building2 className="w-3.5 h-3.5" />
-                <span>HavenStay</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-                Welcome back
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] block mb-2">
+                Member Portal
+              </span>
+              <h2 className="font-editorial text-4xl sm:text-5xl font-light tracking-tight text-[#18181b]">
+                Welcome Back
               </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-slate-500">
-                Enter your credentials to access your trips, saved homes, and host hub.
+              <p className="mt-2 text-xs sm:text-sm text-[#71717a]">
+                Sign in to manage your bookings, saved homes, and host properties.
               </p>
             </div>
 
-            {/* Success Banner (e.g. after registration) */}
+            {/* Success Banner */}
             {successMessage && !error && (
-              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs sm:text-sm animate-fadeIn">
+              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs sm:text-sm">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Registration completed!</p>
@@ -115,7 +113,7 @@ export default function Login() {
 
             {/* Error Banner */}
             {error && (
-              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs sm:text-sm animate-shake">
+              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs sm:text-sm">
                 <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Authentication failed</p>
@@ -128,11 +126,11 @@ export default function Login() {
             <form className="space-y-5" onSubmit={handleSubmit}>
               {/* Email Field */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2" htmlFor="email">
-                  Email address
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-2" htmlFor="email">
+                  Email Address
                 </label>
-                <div className="relative rounded-xl">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#a1a1aa]">
                     <Mail className="w-4 h-4" />
                   </div>
                   <input
@@ -144,7 +142,7 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@example.com"
-                    className="block w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white focus:border-transparent transition-all"
+                    className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
                   />
                 </div>
               </div>
@@ -152,18 +150,18 @@ export default function Login() {
               {/* Password Field */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700" htmlFor="password">
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b]" htmlFor="password">
                     Password
                   </label>
                   <Link
                     to="/forgot-password"
-                    className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 hover:underline transition-colors"
+                    className="text-xs font-semibold text-[#71717a] hover:text-[#18181b] transition-colors"
                   >
                     Forgot password?
                   </Link>
                 </div>
-                <div className="relative rounded-xl">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#a1a1aa]">
                     <Lock className="w-4 h-4" />
                   </div>
                   <input
@@ -175,58 +173,37 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="block w-full pl-10 pr-4 py-3 bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white focus:border-transparent transition-all"
+                    className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
                   />
                 </div>
               </div>
 
               {/* Submit Button */}
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl shadow-md text-sm font-bold text-white bg-slate-900 hover:bg-indigo-600 active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-slate-900 disabled:opacity-60 transition-all cursor-pointer"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Signing in...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Sign In</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-3.5 px-4 bg-[#18181b] hover:bg-black active:scale-[0.98] text-white text-xs font-semibold uppercase tracking-wider rounded-full shadow-editorial transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Verifying...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
             </form>
 
-            {/* Quick Demo Credentials Assistant */}
-            <div className="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/70 text-xs text-slate-600">
-              <div className="font-semibold text-slate-800 mb-1.5 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                Quick Demo Credentials:
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-500">
-                <div>
-                  <span className="font-semibold text-slate-700">Renter:</span> user@example.com (pass: password123)
-                </div>
-                <div>
-                  <span className="font-semibold text-slate-700">Host:</span> host@example.com (pass: password123)
-                </div>
-              </div>
-            </div>
-
-            {/* Link to Register */}
-            <div className="mt-6 pt-6 border-t border-slate-100 text-center">
-              <p className="text-xs sm:text-sm text-slate-600">
+            {/* Quick Demo Credentials */}
+            <div className="mt-6 pt-6 border-t border-[#f4f0e8] text-center">
+              <p className="text-xs text-[#71717a]">
                 Don't have an account yet?{' '}
-                <Link
-                  to="/register"
-                  className="font-bold text-indigo-600 hover:text-indigo-500 transition-colors underline-offset-2 hover:underline"
-                >
-                  Create an account
+                <Link to="/register" className="font-bold text-[#18181b] hover:underline underline-offset-4">
+                  Create Account
                 </Link>
               </p>
             </div>
