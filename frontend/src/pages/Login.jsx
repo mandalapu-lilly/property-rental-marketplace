@@ -47,7 +47,7 @@ export default function Login() {
     <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9] dark:bg-[#121214]">
       <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white dark:bg-[#1c1c20] rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] overflow-hidden">
         {/* Left Side: Large Cinematic Architectural Hero Column */}
-        <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-between p-10 text-white overflow-hidden">
+        <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-end p-10 text-white overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-45 mix-blend-luminosity scale-105 transition-transform duration-1000 hover:scale-100"
             style={{
@@ -55,15 +55,6 @@ export default function Login() {
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-          {/* Top Tag & Logo */}
-          <div className="relative z-10 flex items-center gap-3">
-            <img
-              src="/havenstay-logo.png"
-              alt="HavenStay"
-              className="h-10 w-auto object-contain brightness-0 invert"
-            />
-          </div>
 
           {/* Bottom Editorial Caption */}
           <div className="relative z-10 space-y-4">

@@ -257,7 +257,7 @@ export default function Properties() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] dark:text-[#a1a1aa] block mb-1">
-              / The Complete Collection /
+              THE COMPLETE COLLECTION
             </span>
             <h1 className="font-editorial text-5xl sm:text-6xl font-light text-[#18181b] dark:text-[#fbfbf9] tracking-tight uppercase">
               Explore Homes
