@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useCompare } from '../context/CompareContext';
 import RecommendationsSection from '../components/RecommendationsSection';
-import ArchitecturalVilla3D from '../components/ArchitecturalVilla3D';
-import Card3DTilt from '../components/Card3DTilt';
+import Architectural3DBackground from '../components/Architectural3DBackground';
 import {
   Search,
   MapPin,
@@ -20,8 +19,6 @@ import {
   Layers,
   CheckCircle2,
   Key,
-  Box,
-  Eye,
 } from 'lucide-react';
 
 export default function Home() {
@@ -33,7 +30,6 @@ export default function Home() {
   const [maxPrice, setMaxPrice] = useState('');
   const [featuredProperties, setFeaturedProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [heroMode, setHeroMode] = useState('3d'); // '3d' | 'photo'
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -84,84 +80,58 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#fbfbf9] dark:bg-[#121214] text-[#18181b] dark:text-[#fbfbf9] flex flex-col justify-between selection:bg-[#18181b] dark:selection:bg-[#d4b996] selection:text-white dark:selection:text-[#18181b] transition-colors duration-300">
-      {/* 1. CINEMATIC EDITORIAL HERO SECTION */}
-      <section className="pt-8 pb-16 lg:pt-14 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        {/* Top Split Hero Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Hero Column: Oversized Editorial Typography */}
-          <div className="lg:col-span-6 space-y-6 lg:space-y-8">
-            <div className="inline-block">
-              <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[#71717a] dark:text-[#a1a1aa] block mb-2">
-                EXCLUSIVE PROPERTY RENTALS
-              </span>
-            </div>
+      {/* 1. CINEMATIC EDITORIAL HERO SECTION WITH 3D ARCHITECTURAL BACKGROUND */}
+      <section className="relative pt-8 pb-16 lg:pt-14 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full overflow-hidden rounded-[3rem]">
+        {/* 3D Background Layer */}
+        <Architectural3DBackground isDark={isDark} variant="hero" />
 
-            <h1 className="font-editorial text-6xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.92] text-[#18181b] dark:text-[#fbfbf9] uppercase">
-              Find Your <br />
-              <span className="italic font-normal text-[#b58d59] dark:text-[#d4b996]">Perfect</span> <br />
-              Home
-            </h1>
+        {/* Subtle Contrast Scrim to Guarantee 100% Text Readability */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#fbfbf9]/90 via-[#fbfbf9]/60 to-[#fbfbf9]/40 dark:from-[#121214]/90 dark:via-[#121214]/65 dark:to-[#121214]/40 pointer-events-none" />
 
-            <p className="text-[#52525b] dark:text-[#a1a1aa] text-sm sm:text-base max-w-lg font-normal leading-relaxed">
-              Discover curated homes, villas, apartments and luxury stays in prime destinations. HavenStay makes it easy to explore properties, compare options, save your favourites, and find the right stay for your lifestyle.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link
-                to="/properties"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] font-medium text-xs sm:text-sm tracking-wider uppercase rounded-full shadow-editorial hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
-              >
-                <span>Explore Homes</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                to="/recommendations"
-                className="inline-flex items-center gap-2 px-6 py-4 bg-[#f4f0e8] hover:bg-[#ede7dc] dark:bg-[#1c1c20] dark:hover:bg-[#27272a] text-[#18181b] dark:text-[#fbfbf9] font-medium text-xs sm:text-sm tracking-wider uppercase rounded-full border border-[#ded7cb] dark:border-[#3f3f46] transition-all duration-200"
-              >
-                <Sparkles className="w-4 h-4 text-[#b58d59] dark:text-[#d4b996]" />
-                <span>AI Match</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Hero Column: Interactive 3D Architectural Villa Pavilion & Overlay */}
-          <div className="lg:col-span-6 relative perspective-1000">
-            {/* View Mode Pill Switcher */}
-            <div className="absolute top-4 left-6 z-30 flex items-center gap-1 p-1 rounded-full bg-white/90 dark:bg-[#18181b]/90 backdrop-blur-md border border-[#e5e0d8] dark:border-[#3f3f46] shadow-sm text-xs">
-              <button
-                type="button"
-                onClick={() => setHeroMode('3d')}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
-                  heroMode === '3d'
-                    ? 'bg-[#18181b] text-white dark:bg-[#d4b996] dark:text-[#18181b] shadow-sm'
-                    : 'text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-white'
-                }`}
-              >
-                <Box className="w-3.5 h-3.5" />
-                <span>3D Spatial Model</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setHeroMode('photo')}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
-                  heroMode === 'photo'
-                    ? 'bg-[#18181b] text-white dark:bg-[#d4b996] dark:text-[#18181b] shadow-sm'
-                    : 'text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-white'
-                }`}
-              >
-                <Eye className="w-3.5 h-3.5" />
-                <span>Curated Photo</span>
-              </button>
-            </div>
-
-            {/* 3D Visual or Cinematic Photo Container */}
-            {heroMode === '3d' ? (
-              <div className="relative h-[420px] sm:h-[480px] lg:h-[540px] rounded-[2.5rem] overflow-hidden shadow-editorial-lg">
-                <ArchitecturalVilla3D isDark={isDark} />
+        {/* Hero Content (Clean & High Readability) */}
+        <div className="relative z-10">
+          {/* Top Split Hero Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Hero Column: Oversized Editorial Typography */}
+            <div className="lg:col-span-6 space-y-6 lg:space-y-8">
+              <div className="inline-block">
+                <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[#71717a] dark:text-[#a1a1aa] block mb-2">
+                  EXCLUSIVE PROPERTY RENTALS
+                </span>
               </div>
-            ) : (
-              <div className="relative h-[420px] sm:h-[480px] lg:h-[540px] rounded-[2.5rem] overflow-hidden shadow-editorial-lg bg-[#e8e3da] dark:bg-[#27272a]">
+
+              <h1 className="font-editorial text-6xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.92] text-[#18181b] dark:text-[#fbfbf9] uppercase">
+                Find Your <br />
+                <span className="italic font-normal text-[#b58d59] dark:text-[#d4b996]">Perfect</span> <br />
+                Home
+              </h1>
+
+              <p className="text-[#52525b] dark:text-[#a1a1aa] text-sm sm:text-base max-w-lg font-normal leading-relaxed">
+                Discover curated homes, villas, apartments and luxury stays in prime destinations. HavenStay makes it easy to explore properties, compare options, save your favourites, and find the right stay for your lifestyle.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <Link
+                  to="/properties"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] font-medium text-xs sm:text-sm tracking-wider uppercase rounded-full shadow-editorial hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                >
+                  <span>Explore Homes</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/recommendations"
+                  className="inline-flex items-center gap-2 px-6 py-4 bg-[#f4f0e8] hover:bg-[#ede7dc] dark:bg-[#1c1c20] dark:hover:bg-[#27272a] text-[#18181b] dark:text-[#fbfbf9] font-medium text-xs sm:text-sm tracking-wider uppercase rounded-full border border-[#ded7cb] dark:border-[#3f3f46] transition-all duration-200"
+                >
+                  <Sparkles className="w-4 h-4 text-[#b58d59] dark:text-[#d4b996]" />
+                  <span>AI Match</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Hero Column: Refined Architectural Showcase Card */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative h-[420px] sm:h-[480px] lg:h-[520px] rounded-[2.5rem] overflow-hidden shadow-editorial-lg bg-[#e8e3da] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#27272a]">
                 <img
                   src={
                     leadProperty?.images?.[0] ||
@@ -170,76 +140,40 @@ export default function Home() {
                   alt="Luxury Architectural Home"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                <div className="absolute bottom-6 left-6 flex items-center gap-2">
+                <div className="absolute top-6 right-6">
                   <span className="px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-[#18181b]/90 backdrop-blur-md text-[#18181b] dark:text-[#fbfbf9] text-xs font-semibold tracking-wider uppercase shadow-sm border border-white/20">
-                    {leadProperty?.propertyType || 'Curated'}
-                  </span>
-                  <span className="px-3.5 py-1.5 rounded-full bg-[#18181b]/80 dark:bg-[#121214]/90 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/10">
-                    <Star className="w-3.5 h-3.5 fill-[#d4b996] text-[#d4b996]" />
-                    <span>{leadProperty?.averageRating || 4.9}</span>
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Floating Editorial 3D Tilt Card (Overlay) */}
-            <Card3DTilt
-              maxTilt={6}
-              scale={1.02}
-              className="mt-4 lg:mt-0 lg:absolute lg:-bottom-8 lg:-left-8 bg-white/95 dark:bg-[#1c1c20]/95 backdrop-blur-xl p-5 sm:p-6 rounded-[2rem] shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] max-w-sm w-full z-20"
-            >
-              {/* Category Pills Header */}
-              <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-[#71717a] dark:text-[#a1a1aa] mb-2.5">
-                <span>3D Modeled</span>
-                <span>•</span>
-                <span>Architecture</span>
-                <span>•</span>
-                <span className="text-emerald-600 dark:text-emerald-400">Verified</span>
-              </div>
-
-              <div className="space-y-1 mb-3">
-                <h3 className="font-editorial text-xl font-bold text-[#18181b] dark:text-[#fbfbf9] tracking-tight line-clamp-1">
-                  {leadProperty?.title || 'Modern Architectural Haven'}
-                </h3>
-                <p className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">
-                  {leadProperty?.location ? `${leadProperty.location}, ${leadProperty.city}` : 'Spatial 3D depth & natural daylight'}
-                </p>
-              </div>
-
-              {/* Mini Property Photo Preview */}
-              {leadProperty?.images?.[1] && (
-                <div className="h-28 rounded-2xl overflow-hidden mb-3.5 bg-[#f4f0e8] dark:bg-[#27272a]">
-                  <img
-                    src={leadProperty.images[1]}
-                    alt="Interior Preview"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              {/* Price & View Action */}
-              <div className="flex items-center justify-between pt-2 border-t border-[#f4f0e8] dark:border-[#27272a]">
-                <div>
-                  <span className="text-[9px] uppercase tracking-wider text-[#a1a1aa] block font-semibold">Rate</span>
-                  <span className="text-base font-bold text-[#18181b] dark:text-[#fbfbf9]">
-                    ₹{leadProperty?.price?.toLocaleString() || '3,499'}
-                    <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/night</span>
+                    {leadProperty?.propertyType || 'Curated Villa'}
                   </span>
                 </div>
 
-                <Link
-                  to={leadProperty ? `/properties/${leadProperty._id}` : '/properties'}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] text-xs font-semibold rounded-full shadow-sm transition-all"
-                >
-                  <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4 text-white">
+                  <div>
+                    <div className="flex items-center gap-1.5 text-xs text-[#d4b996] mb-1">
+                      <Star className="w-3.5 h-3.5 fill-[#d4b996] text-[#d4b996]" />
+                      <span className="font-semibold text-white">{leadProperty?.averageRating || 4.9}</span>
+                      <span className="text-white/70">• Verified Stay</span>
+                    </div>
+                    <h3 className="font-editorial text-2xl font-light text-white leading-snug line-clamp-1">
+                      {leadProperty?.title || 'Modern Architectural Haven'}
+                    </h3>
+                    <p className="text-xs text-white/80 font-normal mt-0.5">
+                      {leadProperty?.location ? `${leadProperty.location}, ${leadProperty.city}` : 'Prime Luxury Location'}
+                    </p>
+                  </div>
+
+                  <div className="text-right shrink-0">
+                    <span className="text-[10px] uppercase tracking-wider text-white/70 block font-semibold">From</span>
+                    <span className="text-xl font-bold text-white">
+                      ₹{leadProperty?.price?.toLocaleString() || '3,499'}
+                    </span>
+                    <span className="text-xs text-white/80 font-normal">/night</span>
+                  </div>
+                </div>
               </div>
-            </Card3DTilt>
+            </div>
           </div>
-        </div>
 
         {/* Integrated Clean Search Capsule */}
         <div className="mt-14 max-w-4xl mx-auto">
@@ -368,6 +302,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       {/* 2. CURATED ACCOMMODATION TYPES */}
@@ -452,11 +387,9 @@ export default function Home() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredProperties.map((prop) => (
-                <Card3DTilt
+                <div
                   key={prop._id}
-                  maxTilt={6}
-                  scale={1.015}
-                  className="bg-white dark:bg-[#1c1c20] rounded-[2rem] border border-[#e5e0d8] dark:border-[#27272a] shadow-editorial hover:shadow-editorial-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+                  className="bg-white dark:bg-[#1c1c20] rounded-[2rem] border border-[#e5e0d8] dark:border-[#27272a] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
                 >
                   <div>
                     {/* Image Container with Badges */}
@@ -553,7 +486,7 @@ export default function Home() {
                       </Link>
                     </div>
                   </div>
-                </Card3DTilt>
+                </div>
               ))}
             </div>
           )}

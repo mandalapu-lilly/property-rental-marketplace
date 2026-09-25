@@ -107,7 +107,7 @@ export default function HostDashboard() {
         {/* Metrics Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Card 1: Properties */}
-          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2 card-3d-elevation">
+          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]">
                 Total Properties
@@ -123,7 +123,7 @@ export default function HostDashboard() {
           </div>
 
           {/* Card 2: Bookings */}
-          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2 card-3d-elevation">
+          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]">
                 Total Bookings
@@ -139,7 +139,7 @@ export default function HostDashboard() {
           </div>
 
           {/* Card 3: Earnings */}
-          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2 card-3d-elevation">
+          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]">
                 Estimated Revenue
@@ -156,7 +156,7 @@ export default function HostDashboard() {
           </div>
 
           {/* Card 4: Average Rating */}
-          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2 card-3d-elevation">
+          <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]">
                 Rating Average
@@ -176,7 +176,7 @@ export default function HostDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
             to="/my-properties"
-            className="group bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-0.5 transition-all space-y-3 card-3d-elevation"
+            className="group bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-0.5 transition-all space-y-3"
           >
             <div className="w-10 h-10 rounded-2xl bg-[#f4f0e8] dark:bg-[#27272a] text-[#18181b] dark:text-[#d4b996] flex items-center justify-center group-hover:scale-105 transition-transform">
               <Building2 className="w-5 h-5" />
@@ -192,7 +192,7 @@ export default function HostDashboard() {
 
           <Link
             to="/host-bookings"
-            className="group bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-0.5 transition-all space-y-3 card-3d-elevation"
+            className="group bg-white dark:bg-[#1c1c20] p-6 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-0.5 transition-all space-y-3"
           >
             <div className="w-10 h-10 rounded-2xl bg-[#f4f0e8] dark:bg-[#27272a] text-[#18181b] dark:text-[#d4b996] flex items-center justify-center group-hover:scale-105 transition-transform">
               <Calendar className="w-5 h-5" />

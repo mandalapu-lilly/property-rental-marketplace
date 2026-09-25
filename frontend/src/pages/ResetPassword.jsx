@@ -66,7 +66,7 @@ export default function ResetPassword() {
 
   return (
     <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9] dark:bg-[#121214]">
-      <div className="max-w-4xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white dark:bg-[#1c1c20] rounded-3xl shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] overflow-hidden card-3d-elevation">
+      <div className="max-w-4xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white dark:bg-[#1c1c20] rounded-3xl shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] overflow-hidden">
         {/* Left Side: Architectural Visual Hero Column */}
         <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-between p-10 text-white overflow-hidden">
           <div

@@ -257,7 +257,7 @@ export default function AdminDashboard() {
           <div className="space-y-8 animate-fadeIn">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {/* Users */}
-              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3 card-3d-elevation">
+              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Registered Accounts</span>
                   <div className="w-10 h-10 rounded-2xl bg-[#b58d59]/10 text-[#b58d59] dark:text-[#d4b996] flex items-center justify-center">
@@ -271,7 +271,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Properties */}
-              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3 card-3d-elevation">
+              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Total Properties</span>
                   <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
@@ -285,7 +285,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Bookings */}
-              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3 card-3d-elevation">
+              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Bookings Placed</span>
                   <div className="w-10 h-10 rounded-2xl bg-[#b58d59]/10 text-[#b58d59] dark:text-[#d4b996] flex items-center justify-center">
@@ -299,7 +299,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Reviews */}
-              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3 card-3d-elevation">
+              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-[0_2px_12px_-3px_rgba(0,0,0,0.03)] space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Total Feedback</span>
                   <div className="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-500 dark:text-amber-400 flex items-center justify-center">
@@ -316,7 +316,7 @@ export default function AdminDashboard() {
             {/* Deep Analytics Breakdown Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Account Distribution */}
-              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-sm space-y-4 card-3d-elevation">
+              <div className="bg-white dark:bg-[#1c1c20] p-6 rounded-3xl border border-stone-200/80 dark:border-white/10 shadow-sm space-y-4">
                 <h3 className="font-bold text-sm text-stone-900 dark:text-[#fbfbf9] flex items-center gap-2">
                   <Users className="w-4 h-4 text-[#b58d59] dark:text-[#d4b996]" />
                   <span>Account Roles Distribution</span>

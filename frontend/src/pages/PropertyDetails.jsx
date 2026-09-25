@@ -10,8 +10,6 @@ import InquiryModal from '../components/InquiryModal';
 import ReviewStats from '../components/ReviewStats';
 import SimilarProperties from '../components/SimilarProperties';
 import { trackRecentlyViewed } from '../components/RecentlyViewed';
-import SpatialPropertyViewer3D from '../components/SpatialPropertyViewer3D';
-import Card3DTilt from '../components/Card3DTilt';
 import {
   ArrowLeft,
   Building2,
@@ -55,17 +53,6 @@ export default function PropertyDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
-  const [galleryMode, setGalleryMode] = useState('3d'); // '3d' | 'photos'
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const fetchPropertyData = async () => {
@@ -293,45 +280,8 @@ export default function PropertyDetails() {
             </div>
           </div>
 
-          {/* 3D Spatial Model & High-Res Gallery Toggle */}
-          <div className="flex items-center justify-between pb-2 border-b border-[#f4f0e8] dark:border-[#27272a]">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#71717a] dark:text-[#a1a1aa]">
-                Presentation
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5 p-1 bg-[#f4f0e8] dark:bg-[#27272a] rounded-full border border-[#e5e0d8] dark:border-[#3f3f46] text-xs">
-              <button
-                type="button"
-                onClick={() => setGalleryMode('3d')}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
-                  galleryMode === '3d'
-                    ? 'bg-[#18181b] text-white dark:bg-[#d4b996] dark:text-[#18181b] shadow-sm'
-                    : 'text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-white'
-                }`}
-              >
-                <Box className="w-3.5 h-3.5" />
-                <span>3D Spatial Model</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setGalleryMode('photos')}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
-                  galleryMode === 'photos'
-                    ? 'bg-[#18181b] text-white dark:bg-[#d4b996] dark:text-[#18181b] shadow-sm'
-                    : 'text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-white'
-                }`}
-              >
-                <Eye className="w-3.5 h-3.5" />
-                <span>Photo Gallery ({property.images?.length || 0})</span>
-              </button>
-            </div>
-          </div>
-
-          {/* 3D Model or Photo Gallery Container */}
-          {galleryMode === '3d' ? (
-            <SpatialPropertyViewer3D property={property} isDark={isDark} />
-          ) : property.images && property.images.length > 0 ? (
+          {/* High-Res Photo Gallery */}
+          {property.images && property.images.length > 0 ? (
             <div className="space-y-4">
               <div className="h-80 sm:h-[480px] w-full rounded-[2rem] overflow-hidden bg-[#f4f0e8] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#2e2e34] relative shadow-inner">
                 <img
@@ -472,10 +422,8 @@ export default function PropertyDetails() {
               ) : (
                 <div className="space-y-4">
                   {reviews.map((rev) => (
-                    <Card3DTilt
+                    <div
                       key={rev._id}
-                      maxTilt={3}
-                      scale={1.01}
                       className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34] space-y-2.5"
                     >
                       <div className="flex items-center justify-between">
@@ -515,7 +463,7 @@ export default function PropertyDetails() {
                       <p className="text-xs text-[#52525b] dark:text-[#d4d4d8] leading-relaxed pt-1">
                         {rev.comment}
                       </p>
-                    </Card3DTilt>
+                    </div>
                   ))}
                 </div>
               )}
@@ -525,11 +473,7 @@ export default function PropertyDetails() {
           {/* Sidebar (1 Col): Booking Card & Host Card */}
           <div className="space-y-6">
             {/* Booking Action Card */}
-            <Card3DTilt
-              maxTilt={4}
-              scale={1.01}
-              className="bg-white dark:bg-[#1c1c20] p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial-lg space-y-6 sticky top-24"
-            >
+            <div className="bg-white dark:bg-[#1c1c20] p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial-lg space-y-6 sticky top-24">
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="font-editorial text-3xl font-bold text-[#18181b] dark:text-[#d4b996]">
@@ -564,7 +508,7 @@ export default function PropertyDetails() {
                 <span>Reserve Sanctuary</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
-            </Card3DTilt>
+            </div>
 
             {/* Host Details */}
             <div className="bg-white dark:bg-[#1c1c20] p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-4">

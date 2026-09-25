@@ -148,74 +148,8 @@ html.dark .leaflet-popup-tip {
 /* ========================================================================= */
 /* 3D ARCHITECTURAL DEPTH & SPATIAL PERSPECTIVE SYSTEM                      */
 /* ========================================================================= */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.perspective-2000 {
-  perspective: 2000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.translate-z-10 {
-  transform: translateZ(10px);
-}
-
-.translate-z-20 {
-  transform: translateZ(20px);
-}
-
-.translate-z-30 {
-  transform: translateZ(30px);
-}
-
-/* 3D Elevated Card Hover */
-.card-3d-elevation {
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-}
-
-.card-3d-elevation:hover {
-  transform: translateY(-6px) translateZ(12px) scale(1.01);
-  box-shadow: 0 25px 50px -12px rgba(24, 24, 27, 0.15), 0 0 1px 1px rgba(181, 141, 89, 0.25);
-}
-
-html.dark .card-3d-elevation:hover {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(212, 185, 150, 0.3);
-}
-
-/* Subtle Floating Animation */
-@keyframes float3d {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-6px) rotate(0.4deg);
-  }
-}
-
-.animate-float-3d {
-  animation: float3d 6s ease-in-out infinite;
-}
-
-@keyframes glowPulse3d {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.75;
-    transform: scale(1.05);
-  }
-}
-
-.animate-glow-3d {
-  animation: glowPulse3d 4s ease-in-out infinite;
-}
-
 /* Accessibility: Respect Reduced Motion Preferences */
+/* ========================================================================= */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -224,8 +158,5 @@ html.dark .card-3d-elevation:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  .card-3d-elevation:hover {
-    transform: none !important;
   }
 }

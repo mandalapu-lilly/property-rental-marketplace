@@ -6,7 +6,6 @@ import { useCompare } from '../context/CompareContext';
 import PropertyMap from '../components/PropertyMap';
 import SavedSearchesDrawer from '../components/SavedSearchesDrawer';
 import RecentlyViewed from '../components/RecentlyViewed';
-import Card3DTilt from '../components/Card3DTilt';
 import {
   Building2,
   Search,
@@ -622,11 +621,9 @@ export default function Properties() {
             {/* Properties Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {properties.map((property) => (
-                <Card3DTilt
+                <div
                   key={property._id}
-                  maxTilt={6}
-                  scale={1.015}
-                  className="bg-white dark:bg-[#1c1c20] rounded-[2rem] border border-[#e5e0d8] dark:border-[#27272a] shadow-editorial hover:shadow-editorial-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+                  className="bg-white dark:bg-[#1c1c20] rounded-[2rem] border border-[#e5e0d8] dark:border-[#27272a] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
                 >
                   <div>
                     {/* Property Image Cover */}
@@ -760,7 +757,7 @@ export default function Properties() {
                       </Link>
                     </div>
                   </div>
-                </Card3DTilt>
+                </div>
               ))}
             </div>
           </div>
