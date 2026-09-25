@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import { CompareProvider } from './context/CompareContext';
 import { NotificationProvider } from './context/NotificationContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import AiRentalAssistant from './components/AiRentalAssistant';
@@ -31,140 +32,142 @@ import Profile from './pages/Profile';
 
 function App() {
   return (
-    <AuthProvider>
-      <NotificationProvider>
-        <CompareProvider>
-          <Router>
-            <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased">
-              <Navbar />
-              <div className="flex-1">
-                <Routes>
-                  {/* Public Routes */}
-                  <Route path="/" element={<Home />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
-                  <Route path="/reset-password" element={<ResetPassword />} />
-                  <Route path="/properties" element={<Properties />} />
-                  <Route path="/properties/:id" element={<PropertyDetails />} />
-                  <Route path="/compare" element={<Compare />} />
-                  <Route path="/recommendations" element={<Recommendations />} />
+    <ThemeProvider>
+      <AuthProvider>
+        <NotificationProvider>
+          <CompareProvider>
+            <Router>
+              <div className="min-h-screen bg-[#fbfbf9] text-[#18181b] dark:bg-[#121214] dark:text-[#f4f0e8] flex flex-col font-sans antialiased transition-colors duration-300">
+                <Navbar />
+                <div className="flex-1">
+                  <Routes>
+                    {/* Public Routes */}
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/properties" element={<Properties />} />
+                    <Route path="/properties/:id" element={<PropertyDetails />} />
+                    <Route path="/compare" element={<Compare />} />
+                    <Route path="/recommendations" element={<Recommendations />} />
 
-              {/* Authenticated User Routes */}
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/favorites"
-                element={
-                  <ProtectedRoute>
-                    <Favorites />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/properties/:id/book"
-                element={
-                  <ProtectedRoute>
-                    <Booking />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/my-bookings"
-                element={
-                  <ProtectedRoute>
-                    <MyBookings />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/notifications"
-                element={
-                  <ProtectedRoute>
-                    <Notifications />
-                  </ProtectedRoute>
-                }
-              />
+                    {/* Authenticated User Routes */}
+                    <Route
+                      path="/dashboard"
+                      element={
+                        <ProtectedRoute>
+                          <Dashboard />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/profile"
+                      element={
+                        <ProtectedRoute>
+                          <Profile />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/favorites"
+                      element={
+                        <ProtectedRoute>
+                          <Favorites />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/properties/:id/book"
+                      element={
+                        <ProtectedRoute>
+                          <Booking />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/my-bookings"
+                      element={
+                        <ProtectedRoute>
+                          <MyBookings />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/notifications"
+                      element={
+                        <ProtectedRoute>
+                          <Notifications />
+                        </ProtectedRoute>
+                      }
+                    />
 
-              {/* Host & Admin Routes */}
-              <Route
-                path="/properties/add"
-                element={
-                  <ProtectedRoute allowedRoles={['host', 'admin']}>
-                    <AddProperty />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/my-properties"
-                element={
-                  <ProtectedRoute allowedRoles={['host', 'admin']}>
-                    <MyProperties />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/properties/edit/:id"
-                element={
-                  <ProtectedRoute allowedRoles={['host', 'admin']}>
-                    <EditProperty />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/host-dashboard"
-                element={
-                  <ProtectedRoute allowedRoles={['host', 'admin']}>
-                    <HostDashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/host-bookings"
-                element={
-                  <ProtectedRoute allowedRoles={['host', 'admin']}>
-                    <HostBookings />
-                  </ProtectedRoute>
-                }
-              />
+                    {/* Host & Admin Routes */}
+                    <Route
+                      path="/properties/add"
+                      element={
+                        <ProtectedRoute allowedRoles={['host', 'admin']}>
+                          <AddProperty />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/my-properties"
+                      element={
+                        <ProtectedRoute allowedRoles={['host', 'admin']}>
+                          <MyProperties />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/properties/edit/:id"
+                      element={
+                        <ProtectedRoute allowedRoles={['host', 'admin']}>
+                          <EditProperty />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/host-dashboard"
+                      element={
+                        <ProtectedRoute allowedRoles={['host', 'admin']}>
+                          <HostDashboard />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/host-bookings"
+                      element={
+                        <ProtectedRoute allowedRoles={['host', 'admin']}>
+                          <HostBookings />
+                        </ProtectedRoute>
+                      }
+                    />
 
-              {/* Admin Only Routes */}
-              <Route
-                path="/admin-dashboard"
-                element={
-                  <ProtectedRoute allowedRoles={['admin']}>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
+                    {/* Admin Only Routes */}
+                    <Route
+                      path="/admin-dashboard"
+                      element={
+                        <ProtectedRoute allowedRoles={['admin']}>
+                          <AdminDashboard />
+                        </ProtectedRoute>
+                      }
+                    />
 
-              {/* Fallback */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </div>
-          {/* Floating AI Rental Assistant */}
-          <AiRentalAssistant />
-          {/* Floating Bottom Property Compare Bar */}
-          <CompareBar />
-        </div>
-      </Router>
-    </CompareProvider>
-  </NotificationProvider>
-</AuthProvider>
+                    {/* Fallback */}
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </div>
+                {/* Floating AI Rental Assistant */}
+                <AiRentalAssistant />
+                {/* Floating Bottom Property Compare Bar */}
+                <CompareBar />
+              </div>
+            </Router>
+          </CompareProvider>
+        </NotificationProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

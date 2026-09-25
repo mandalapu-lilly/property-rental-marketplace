@@ -1,24 +1,41 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color-scheme: light;
-  --bg-sand: #f8f6f0;
+  --bg-sand: #fbfbf9;
   --bg-cream: #f4f0e8;
   --bg-card: #ffffff;
   --text-charcoal: #18181b;
   --text-muted: #71717a;
   --border-subtle: #e5e0d8;
+  --accent-champagne: #b58d59;
+  --accent-taupe: #8c827a;
+}
+
+html.dark {
+  color-scheme: dark;
+  --bg-sand: #121214;
+  --bg-cream: #18181b;
+  --bg-card: #1c1c20;
+  --text-charcoal: #fbfbf9;
+  --text-muted: #a1a1aa;
+  --border-subtle: #27272a;
+  --accent-champagne: #d4b996;
+  --accent-taupe: #a89f91;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #fbfbf9;
-  color: #18181b;
+  background-color: var(--bg-sand);
+  color: var(--text-charcoal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Editorial Typography */
@@ -34,12 +51,21 @@ body {
 ::-webkit-scrollbar-track {
   background: #f4f0e8;
 }
+html.dark ::-webkit-scrollbar-track {
+  background: #18181b;
+}
 ::-webkit-scrollbar-thumb {
   background: #d4cdc3;
   border-radius: 9999px;
 }
+html.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+}
 ::-webkit-scrollbar-thumb:hover {
   background: #a89f91;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
 }
 
 /* Glassmorphism & Modern Architectural Card utilities */
@@ -49,12 +75,24 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.8);
 }
+html.dark .glass-panel {
+  background: rgba(24, 24, 27, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
 
 .glass-cream {
   background: rgba(248, 246, 240, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(229, 224, 216, 0.8);
+}
+html.dark .glass-cream {
+  background: rgba(28, 28, 32, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(63, 63, 70, 0.4);
 }
 
 .glass-dark {
@@ -63,14 +101,26 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
+html.dark .glass-dark {
+  background: rgba(18, 18, 20, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
 
 /* Floating Card Soft Shadow */
 .shadow-editorial {
   box-shadow: 0 20px 40px -15px rgba(24, 24, 27, 0.07), 0 0 1px 1px rgba(24, 24, 27, 0.03);
 }
+html.dark .shadow-editorial {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4), 0 0 1px 1px rgba(255, 255, 255, 0.04);
+}
 
 .shadow-editorial-lg {
   box-shadow: 0 30px 60px -20px rgba(24, 24, 27, 0.12), 0 0 1px 1px rgba(24, 24, 27, 0.04);
+}
+html.dark .shadow-editorial-lg {
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Custom leaflet map popup styling */
@@ -81,8 +131,16 @@ body {
   border: 1px solid #e5e0d8;
   background: #ffffff;
 }
+html.dark .leaflet-popup-content-wrapper {
+  background: #1c1c20;
+  border-color: #27272a;
+  color: #fbfbf9;
+}
 
 .leaflet-popup-content {
   margin: 0.5rem;
   font-family: inherit;
+}
+html.dark .leaflet-popup-tip {
+  background: #1c1c20;
 }

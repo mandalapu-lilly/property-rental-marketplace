@@ -134,23 +134,23 @@ export default function PropertyDetails() {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4 bg-[#fbfbf9]">
-        <Loader2 className="w-8 h-8 text-[#18181b] animate-spin" />
-        <p className="text-xs uppercase tracking-widest font-semibold text-[#71717a]">Loading residence details...</p>
+      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4 bg-[#fbfbf9] dark:bg-[#121214]">
+        <Loader2 className="w-8 h-8 text-[#18181b] dark:text-[#d4b996] animate-spin" />
+        <p className="text-xs uppercase tracking-widest font-semibold text-[#71717a] dark:text-[#a1a1aa]">Loading residence details...</p>
       </div>
     );
   }
 
   if (error || !property) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center p-6 bg-[#fbfbf9]">
-        <div className="max-w-md w-full bg-white p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial text-center space-y-4">
+      <div className="min-h-[60vh] flex flex-col items-center justify-center p-6 bg-[#fbfbf9] dark:bg-[#121214]">
+        <div className="max-w-md w-full bg-white dark:bg-[#1c1c20] p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial text-center space-y-4">
           <Building2 className="w-12 h-12 text-[#a1a1aa] mx-auto" />
-          <h2 className="font-editorial text-3xl font-light text-[#18181b]">Listing Unavailable</h2>
-          <p className="text-xs text-[#71717a]">{error || 'The requested property could not be found.'}</p>
+          <h2 className="font-editorial text-3xl font-light text-[#18181b] dark:text-[#f4f0e8]">Listing Unavailable</h2>
+          <p className="text-xs text-[#71717a] dark:text-[#a1a1aa]">{error || 'The requested property could not be found.'}</p>
           <Link
             to="/properties"
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#18181b] hover:bg-black text-white font-semibold text-xs uppercase tracking-wider rounded-full transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] dark:text-[#18181b] text-white font-semibold text-xs uppercase tracking-wider rounded-full transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Stays
@@ -161,13 +161,13 @@ export default function PropertyDetails() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] bg-[#fbfbf9] py-10 sm:py-14">
+    <div className="min-h-[calc(100vh-5rem)] bg-[#fbfbf9] dark:bg-[#121214] py-10 sm:py-14 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Navigation & Action Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <Link
             to="/properties"
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#71717a] hover:text-[#18181b] transition-colors w-fit px-4 py-2 rounded-full bg-white border border-[#e5e0d8] shadow-sm"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#71717a] hover:text-[#18181b] dark:text-[#a1a1aa] dark:hover:text-[#f4f0e8] transition-colors w-fit px-4 py-2 rounded-full bg-white dark:bg-[#1c1c20] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-sm"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to All Stays</span>
@@ -180,8 +180,8 @@ export default function PropertyDetails() {
                 onClick={() => toggleCompare(property)}
                 className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                   isInCompare(property._id)
-                    ? 'bg-[#18181b] text-white border-[#18181b] shadow-sm'
-                    : 'bg-white text-[#18181b] border-[#e5e0d8] hover:bg-[#f4f0e8]'
+                    ? 'bg-[#18181b] text-white border-[#18181b] dark:bg-[#d4b996] dark:text-[#18181b] dark:border-[#d4b996] shadow-sm'
+                    : 'bg-white text-[#18181b] border-[#e5e0d8] hover:bg-[#f4f0e8] dark:bg-[#1c1c20] dark:text-[#f4f0e8] dark:border-[#2e2e34] dark:hover:bg-[#27272a]'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
@@ -194,11 +194,11 @@ export default function PropertyDetails() {
               onClick={toggleFavorite}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 isFavorite
-                  ? 'bg-rose-50 text-rose-600 border-rose-200'
-                  : 'bg-white text-[#18181b] border-[#e5e0d8] hover:bg-[#f4f0e8]'
+                  ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-300 border-rose-200 dark:border-rose-900/50'
+                  : 'bg-white text-[#18181b] border-[#e5e0d8] hover:bg-[#f4f0e8] dark:bg-[#1c1c20] dark:text-[#f4f0e8] dark:border-[#2e2e34] dark:hover:bg-[#27272a]'
               }`}
             >
-              <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current text-rose-600' : ''}`} />
+              <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current text-rose-600 dark:text-rose-400' : ''}`} />
               <span>{isFavorite ? 'Saved in Wishlist' : 'Save to Wishlist'}</span>
             </button>
 
@@ -206,7 +206,7 @@ export default function PropertyDetails() {
               <>
                 <Link
                   to={`/properties/edit/${property._id}`}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#18181b] hover:bg-black text-white font-semibold text-xs uppercase tracking-wider rounded-full shadow-sm transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full shadow-sm transition-all"
                 >
                   <Edit className="w-3.5 h-3.5" />
                   <span>Edit Listing</span>
@@ -214,7 +214,7 @@ export default function PropertyDetails() {
                 <button
                   onClick={handleDelete}
                   disabled={deleting}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold text-xs uppercase tracking-wider rounded-full border border-rose-200 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/40 text-rose-700 dark:text-rose-300 font-semibold text-xs uppercase tracking-wider rounded-full border border-rose-200 dark:border-rose-900/50 transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>{deleting ? 'Deleting...' : 'Delete'}</span>
@@ -225,41 +225,41 @@ export default function PropertyDetails() {
         </div>
 
         {/* Main Title & Gallery Container */}
-        <div className="bg-white p-6 sm:p-10 rounded-[2.5rem] border border-[#e5e0d8] shadow-editorial space-y-8">
+        <div className="bg-white dark:bg-[#1c1c20] p-6 sm:p-10 rounded-[2.5rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-8">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div className="space-y-3">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="bg-[#18181b] text-white px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                <span className="bg-[#18181b] dark:bg-[#27272a] text-white dark:text-[#d4b996] px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                   {property.propertyType}
                 </span>
                 <span
                   className={`px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                     property.status === 'available'
-                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                      : 'bg-slate-100 text-slate-700 border border-slate-200'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700'
                   }`}
                 >
                   {property.status}
                 </span>
                 {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
-                  <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                     Verified Stay
                   </span>
                 )}
                 {property.totalReviews > 0 && (
-                  <span className="inline-flex items-center gap-1 bg-[#f4f0e8] text-[#18181b] border border-[#e5e0d8] px-3.5 py-1 rounded-full text-xs font-bold">
+                  <span className="inline-flex items-center gap-1 bg-[#f4f0e8] dark:bg-[#27272a] text-[#18181b] dark:text-[#f4f0e8] border border-[#e5e0d8] dark:border-[#3f3f46] px-3.5 py-1 rounded-full text-xs font-bold">
                     <Star className="w-3.5 h-3.5 fill-[#b58d59] text-[#b58d59]" />
                     {property.averageRating?.toFixed(1)} ({property.totalReviews} {property.totalReviews === 1 ? 'review' : 'reviews'})
                   </span>
                 )}
               </div>
 
-              <h1 className="font-editorial text-3xl sm:text-5xl font-light text-[#18181b] tracking-tight leading-tight">
+              <h1 className="font-editorial text-3xl sm:text-5xl font-light text-[#18181b] dark:text-[#f4f0e8] tracking-tight leading-tight">
                 {property.title}
               </h1>
-              <p className="flex items-center gap-1.5 text-[#71717a] text-xs sm:text-sm font-normal">
-                <MapPin className="w-4 h-4 text-[#8c827a] shrink-0" />
+              <p className="flex items-center gap-1.5 text-[#71717a] dark:text-[#a1a1aa] text-xs sm:text-sm font-normal">
+                <MapPin className="w-4 h-4 text-[#8c827a] dark:text-[#b58d59] shrink-0" />
                 <span>
                   {property.address}, {property.location}, {property.city}, {property.state},{' '}
                   {property.country}
@@ -267,13 +267,13 @@ export default function PropertyDetails() {
               </p>
             </div>
 
-            <div className="p-5 sm:p-6 bg-[#f4f0e8] rounded-[2rem] border border-[#e5e0d8] shrink-0 text-left md:text-right">
-              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#71717a] block">Monthly Rate</span>
+            <div className="p-5 sm:p-6 bg-[#f4f0e8] dark:bg-[#27272a] rounded-[2rem] border border-[#e5e0d8] dark:border-[#3f3f46] shrink-0 text-left md:text-right">
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#71717a] dark:text-[#a1a1aa] block">Monthly Rate</span>
               <div className="flex items-baseline md:justify-end gap-1 mt-1">
-                <span className="font-editorial text-3xl sm:text-4xl font-bold text-[#18181b]">
+                <span className="font-editorial text-3xl sm:text-4xl font-bold text-[#18181b] dark:text-[#d4b996]">
                   ₹{property.price?.toLocaleString()}
                 </span>
-                <span className="text-xs text-[#71717a] font-normal">/mo</span>
+                <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/mo</span>
               </div>
             </div>
           </div>
@@ -281,7 +281,7 @@ export default function PropertyDetails() {
           {/* Image Gallery */}
           {property.images && property.images.length > 0 ? (
             <div className="space-y-4">
-              <div className="h-80 sm:h-[480px] w-full rounded-[2rem] overflow-hidden bg-[#f4f0e8] border border-[#e5e0d8] relative shadow-inner">
+              <div className="h-80 sm:h-[480px] w-full rounded-[2rem] overflow-hidden bg-[#f4f0e8] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#2e2e34] relative shadow-inner">
                 <img
                   src={property.images[selectedImage]}
                   alt={property.title}
@@ -297,8 +297,8 @@ export default function PropertyDetails() {
                       onClick={() => setSelectedImage(idx)}
                       className={`relative w-24 h-20 rounded-2xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
                         selectedImage === idx
-                          ? 'border-[#18181b] scale-105 shadow-md'
-                          : 'border-[#e5e0d8] opacity-70 hover:opacity-100'
+                          ? 'border-[#18181b] dark:border-[#d4b996] scale-105 shadow-md'
+                          : 'border-[#e5e0d8] dark:border-[#3f3f46] opacity-70 hover:opacity-100'
                       }`}
                     >
                       <img src={img} alt="" className="w-full h-full object-cover" />
@@ -308,28 +308,28 @@ export default function PropertyDetails() {
               )}
             </div>
           ) : (
-            <div className="h-64 rounded-[2rem] bg-[#f4f0e8] border border-[#e5e0d8] flex flex-col items-center justify-center text-[#71717a] space-y-2">
+            <div className="h-64 rounded-[2rem] bg-[#f4f0e8] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#2e2e34] flex flex-col items-center justify-center text-[#71717a] dark:text-[#a1a1aa] space-y-2">
               <Building2 className="w-16 h-16" />
-              <span className="text-xs uppercase tracking-wider font-semibold text-[#71717a]">No Image Uploaded</span>
+              <span className="text-xs uppercase tracking-wider font-semibold text-[#71717a] dark:text-[#a1a1aa]">No Image Uploaded</span>
             </div>
           )}
 
           {/* Key Specs Row */}
-          <div className="grid grid-cols-3 gap-4 p-6 bg-[#fbfbf9] rounded-[2rem] border border-[#e5e0d8]">
+          <div className="grid grid-cols-3 gap-4 p-6 bg-[#fbfbf9] dark:bg-[#161618] rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34]">
             <div className="flex flex-col items-center justify-center text-center">
-              <Bed className="w-5 h-5 text-[#8c827a] mb-1" />
-              <span className="text-xl font-bold text-[#18181b]">{property.bedrooms}</span>
-              <span className="text-[11px] text-[#71717a] uppercase tracking-wider font-semibold">Bedrooms</span>
+              <Bed className="w-5 h-5 text-[#8c827a] dark:text-[#d4b996] mb-1" />
+              <span className="text-xl font-bold text-[#18181b] dark:text-[#f4f0e8]">{property.bedrooms}</span>
+              <span className="text-[11px] text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-wider font-semibold">Bedrooms</span>
             </div>
-            <div className="flex flex-col items-center justify-center text-center border-x border-[#e5e0d8]">
-              <Bath className="w-5 h-5 text-[#8c827a] mb-1" />
-              <span className="text-xl font-bold text-[#18181b]">{property.bathrooms}</span>
-              <span className="text-[11px] text-[#71717a] uppercase tracking-wider font-semibold">Bathrooms</span>
+            <div className="flex flex-col items-center justify-center text-center border-x border-[#e5e0d8] dark:border-[#2e2e34]">
+              <Bath className="w-5 h-5 text-[#8c827a] dark:text-[#d4b996] mb-1" />
+              <span className="text-xl font-bold text-[#18181b] dark:text-[#f4f0e8]">{property.bathrooms}</span>
+              <span className="text-[11px] text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-wider font-semibold">Bathrooms</span>
             </div>
             <div className="flex flex-col items-center justify-center text-center">
-              <Maximize2 className="w-5 h-5 text-[#8c827a] mb-1" />
-              <span className="text-xl font-bold text-[#18181b]">{property.area}</span>
-              <span className="text-[11px] text-[#71717a] uppercase tracking-wider font-semibold">Sq Ft Area</span>
+              <Maximize2 className="w-5 h-5 text-[#8c827a] dark:text-[#d4b996] mb-1" />
+              <span className="text-xl font-bold text-[#18181b] dark:text-[#f4f0e8]">{property.area}</span>
+              <span className="text-[11px] text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-wider font-semibold">Sq Ft Area</span>
             </div>
           </div>
         </div>
@@ -339,30 +339,30 @@ export default function PropertyDetails() {
           {/* Main Info (2 Cols) */}
           <div className="lg:col-span-2 space-y-8">
             {/* Description */}
-            <div className="bg-white p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial space-y-4">
-              <h2 className="font-editorial text-2xl font-bold text-[#18181b]">About this sanctuary</h2>
-              <p className="text-[#52525b] text-sm leading-relaxed whitespace-pre-line font-normal">
+            <div className="bg-white dark:bg-[#1c1c20] p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-4">
+              <h2 className="font-editorial text-2xl font-bold text-[#18181b] dark:text-[#f4f0e8]">About this sanctuary</h2>
+              <p className="text-[#52525b] dark:text-[#d4d4d8] text-sm leading-relaxed whitespace-pre-line font-normal">
                 {property.description}
               </p>
             </div>
 
             {/* Amenities */}
-            <div className="bg-white p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial space-y-4">
-              <h2 className="font-editorial text-2xl font-bold text-[#18181b]">Amenities & Features</h2>
+            <div className="bg-white dark:bg-[#1c1c20] p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-4">
+              <h2 className="font-editorial text-2xl font-bold text-[#18181b] dark:text-[#f4f0e8]">Amenities & Features</h2>
               {property.amenities && property.amenities.length > 0 ? (
                 <div className="flex flex-wrap gap-2.5">
                   {property.amenities.map((amenity, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#f4f0e8] border border-[#e5e0d8] text-[#18181b] text-xs font-semibold"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#f4f0e8] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#3f3f46] text-[#18181b] dark:text-[#f4f0e8] text-xs font-semibold"
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       {amenity}
                     </span>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-[#71717a] italic">No specific amenities listed.</p>
+                <p className="text-xs text-[#71717a] dark:text-[#a1a1aa] italic">No specific amenities listed.</p>
               )}
             </div>
 
@@ -373,28 +373,28 @@ export default function PropertyDetails() {
             <AvailabilityCalendar propertyId={property._id} price={property.price} />
 
             {/* Property Map */}
-            <div className="bg-white p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial space-y-4">
-              <h2 className="font-editorial text-2xl font-bold text-[#18181b] flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-[#8c827a]" />
+            <div className="bg-white dark:bg-[#1c1c20] p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-4">
+              <h2 className="font-editorial text-2xl font-bold text-[#18181b] dark:text-[#f4f0e8] flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-[#8c827a] dark:text-[#b58d59]" />
                 <span>Property Location on Map</span>
               </h2>
               <PropertyMap property={property} height="360px" />
             </div>
 
             {/* Reviews and Ratings Section */}
-            <div className="bg-white p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial space-y-6">
-              <div className="flex items-center justify-between border-b border-[#f4f0e8] pb-4">
+            <div className="bg-white dark:bg-[#1c1c20] p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-6">
+              <div className="flex items-center justify-between border-b border-[#f4f0e8] dark:border-[#2e2e34] pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-3 bg-[#f4f0e8] text-[#18181b] rounded-full">
+                  <div className="p-3 bg-[#f4f0e8] dark:bg-[#27272a] text-[#18181b] dark:text-[#d4b996] rounded-full">
                     <Star className="w-6 h-6 fill-[#b58d59] text-[#b58d59]" />
                   </div>
                   <div>
-                    <h2 className="font-editorial text-2xl font-bold text-[#18181b]">
+                    <h2 className="font-editorial text-2xl font-bold text-[#18181b] dark:text-[#f4f0e8]">
                       {property.totalReviews > 0
                         ? `${property.averageRating?.toFixed(1)} Rating`
                         : 'Guest Reviews'}
                     </h2>
-                    <p className="text-xs text-[#71717a]">
+                    <p className="text-xs text-[#71717a] dark:text-[#a1a1aa]">
                       {property.totalReviews > 0
                         ? `Based on ${property.totalReviews} verified guest reviews`
                         : 'No reviews yet for this property.'}
@@ -413,7 +413,7 @@ export default function PropertyDetails() {
               {/* Reviews List */}
               {reviews.length === 0 ? (
                 <div className="text-center py-6 space-y-2">
-                  <p className="text-sm text-[#71717a]">
+                  <p className="text-sm text-[#71717a] dark:text-[#a1a1aa]">
                     Be the first guest to review this property after completing your stay!
                   </p>
                 </div>
@@ -422,24 +422,24 @@ export default function PropertyDetails() {
                   {reviews.map((rev) => (
                     <div
                       key={rev._id}
-                      className="p-5 rounded-2xl bg-[#fbfbf9] border border-[#e5e0d8] space-y-2.5"
+                      className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34] space-y-2.5"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-[#18181b] text-white text-xs font-bold flex items-center justify-center font-editorial italic">
+                          <div className="w-8 h-8 rounded-full bg-[#18181b] dark:bg-[#27272a] text-white dark:text-[#d4b996] text-xs font-bold flex items-center justify-center font-editorial italic">
                             {rev.user?.name?.charAt(0) || 'U'}
                           </div>
                           <div>
                             <div className="flex items-center gap-1.5">
-                              <span className="text-xs font-bold text-[#18181b] block">
+                              <span className="text-xs font-bold text-[#18181b] dark:text-[#f4f0e8] block">
                                 {rev.user?.name || 'Verified Guest'}
                               </span>
-                              <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.2 rounded-full flex items-center gap-0.5">
+                              <span className="text-[10px] font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 px-2 py-0.2 rounded-full flex items-center gap-0.5">
                                 <CheckCircle2 className="w-2.5 h-2.5" />
                                 Verified Stay
                               </span>
                             </div>
-                            <span className="text-[10px] text-[#a1a1aa]">
+                            <span className="text-[10px] text-[#a1a1aa] dark:text-[#71717a]">
                               {new Date(rev.createdAt).toLocaleDateString()}
                             </span>
                           </div>
@@ -451,14 +451,14 @@ export default function PropertyDetails() {
                             <Star
                               key={star}
                               className={`w-3.5 h-3.5 ${
-                                star <= rev.rating ? 'fill-current' : 'text-[#e5e0d8]'
+                                star <= rev.rating ? 'fill-current' : 'text-[#e5e0d8] dark:text-[#3f3f46]'
                               }`}
                             />
                           ))}
                         </div>
                       </div>
 
-                      <p className="text-xs text-[#52525b] leading-relaxed pt-1">
+                      <p className="text-xs text-[#52525b] dark:text-[#d4d4d8] leading-relaxed pt-1">
                         {rev.comment}
                       </p>
                     </div>
@@ -471,37 +471,37 @@ export default function PropertyDetails() {
           {/* Sidebar (1 Col): Booking Card & Host Card */}
           <div className="space-y-6">
             {/* Booking Action Card */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial-lg space-y-6 sticky top-24">
+            <div className="bg-white dark:bg-[#1c1c20] p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial-lg space-y-6 sticky top-24">
               <div className="flex items-baseline justify-between">
                 <div>
-                  <span className="font-editorial text-3xl font-bold text-[#18181b]">
+                  <span className="font-editorial text-3xl font-bold text-[#18181b] dark:text-[#d4b996]">
                     ₹{property.price?.toLocaleString()}
                   </span>
-                  <span className="text-xs text-[#71717a] font-normal"> / mo</span>
+                  <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal"> / mo</span>
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 px-3 py-1 rounded-full">
                   {property.status === 'available' ? 'Available' : 'Reserved'}
                 </span>
               </div>
 
-              <div className="p-4 bg-[#f4f0e8] rounded-2xl border border-[#e5e0d8] space-y-2.5 text-xs text-[#52525b]">
+              <div className="p-4 bg-[#f4f0e8] dark:bg-[#27272a] rounded-2xl border border-[#e5e0d8] dark:border-[#3f3f46] space-y-2.5 text-xs text-[#52525b] dark:text-[#d4d4d8]">
                 <div className="flex justify-between">
                   <span>Minimum Stay</span>
-                  <span className="font-bold text-[#18181b]">1 Month</span>
+                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">1 Month</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Security Deposit</span>
-                  <span className="font-bold text-[#18181b]">1 Month Rent</span>
+                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">1 Month Rent</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Host Verified</span>
-                  <span className="font-bold text-emerald-700">Yes</span>
+                  <span className="font-bold text-emerald-700 dark:text-emerald-400">Yes</span>
                 </div>
               </div>
 
               <Link
                 to={`/properties/${property._id}/book`}
-                className="w-full inline-flex items-center justify-center gap-2 py-4 bg-[#18181b] hover:bg-black active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider rounded-full shadow-editorial transition-all text-center"
+                className="w-full inline-flex items-center justify-center gap-2 py-4 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full shadow-editorial transition-all text-center"
               >
                 <span>Reserve Sanctuary</span>
                 <ArrowRight className="w-4 h-4" />
@@ -509,25 +509,25 @@ export default function PropertyDetails() {
             </div>
 
             {/* Host Details */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] shadow-editorial space-y-4">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#71717a]">Host Profile</h3>
-              <div className="flex items-center gap-3 p-3.5 bg-[#f4f0e8] rounded-2xl border border-[#e5e0d8]">
-                <div className="w-10 h-10 rounded-full bg-[#18181b] text-white flex items-center justify-center font-editorial italic text-base">
+            <div className="bg-white dark:bg-[#1c1c20] p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-4">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#71717a] dark:text-[#a1a1aa]">Host Profile</h3>
+              <div className="flex items-center gap-3 p-3.5 bg-[#f4f0e8] dark:bg-[#27272a] rounded-2xl border border-[#e5e0d8] dark:border-[#3f3f46]">
+                <div className="w-10 h-10 rounded-full bg-[#18181b] dark:bg-[#121214] text-white dark:text-[#d4b996] flex items-center justify-center font-editorial italic text-base">
                   {property.owner?.name?.charAt(0) || 'H'}
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-[#18181b]">{property.owner?.name || 'Property Host'}</h4>
-                  <p className="text-[10px] uppercase tracking-wider text-[#71717a] font-semibold">{property.owner?.role || 'Host'}</p>
+                  <h4 className="text-sm font-bold text-[#18181b] dark:text-[#f4f0e8]">{property.owner?.name || 'Property Host'}</h4>
+                  <p className="text-[10px] uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] font-semibold">{property.owner?.role || 'Host'}</p>
                 </div>
               </div>
 
-              <div className="space-y-2 pt-1 text-xs text-[#71717a]">
+              <div className="space-y-2 pt-1 text-xs text-[#71717a] dark:text-[#a1a1aa]">
                 <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-[#a1a1aa]" />
+                  <Mail className="w-4 h-4 text-[#a1a1aa] dark:text-[#71717a]" />
                   <span className="truncate">{property.owner?.email || 'N/A'}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#a1a1aa]" />
+                  <Calendar className="w-4 h-4 text-[#a1a1aa] dark:text-[#71717a]" />
                   <span>Listed on {new Date(property.createdAt).toLocaleDateString()}</span>
                 </div>
               </div>
@@ -537,7 +537,7 @@ export default function PropertyDetails() {
                 <button
                   type="button"
                   onClick={() => setIsInquiryOpen(true)}
-                  className="w-full mt-3 py-3 px-4 bg-[#f4f0e8] hover:bg-[#ede7dc] text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full transition-colors flex items-center justify-center gap-2 cursor-pointer border border-[#ded7cb]"
+                  className="w-full mt-3 py-3 px-4 bg-[#f4f0e8] hover:bg-[#ede7dc] dark:bg-[#27272a] dark:hover:bg-[#323236] text-[#18181b] dark:text-[#f4f0e8] font-semibold text-xs uppercase tracking-wider rounded-full transition-colors flex items-center justify-center gap-2 cursor-pointer border border-[#ded7cb] dark:border-[#3f3f46]"
                 >
                   <Mail className="w-3.5 h-3.5" />
                   <span>Send Host an Inquiry</span>

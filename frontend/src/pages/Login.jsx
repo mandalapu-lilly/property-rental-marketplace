@@ -44,8 +44,8 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9]">
-      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] overflow-hidden">
+    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9] dark:bg-[#121214]">
+      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white dark:bg-[#1c1c20] rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] overflow-hidden">
         {/* Left Side: Large Cinematic Architectural Hero Column */}
         <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-between p-10 text-white overflow-hidden">
           <div
@@ -56,11 +56,13 @@ export default function Login() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-          {/* Top Tag */}
-          <div className="relative z-10">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#e5e0d8] block">
-              HavenStay Sanctuary
-            </span>
+          {/* Top Tag & Logo */}
+          <div className="relative z-10 flex items-center gap-3">
+            <img
+              src="/havenstay-logo.png"
+              alt="HavenStay"
+              className="h-10 w-auto object-contain brightness-0 invert"
+            />
           </div>
 
           {/* Bottom Editorial Caption */}
@@ -85,39 +87,39 @@ export default function Login() {
         </div>
 
         {/* Right Side: Minimal Login Card/Form */}
-        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
+        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white dark:bg-[#1c1c20]">
           <div className="max-w-md w-full mx-auto">
             {/* Form Header */}
             <div className="mb-8">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] block mb-2">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] dark:text-[#a1a1aa] block mb-2">
                 Member Portal
               </span>
-              <h2 className="font-editorial text-4xl sm:text-5xl font-light tracking-tight text-[#18181b]">
+              <h2 className="font-editorial text-4xl sm:text-5xl font-light tracking-tight text-[#18181b] dark:text-[#fbfbf9]">
                 Welcome Back
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-[#71717a]">
+              <p className="mt-2 text-xs sm:text-sm text-[#71717a] dark:text-[#a1a1aa]">
                 Sign in to manage your bookings, saved homes, and host properties.
               </p>
             </div>
 
             {/* Success Banner */}
             {successMessage && !error && (
-              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs sm:text-sm">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Registration completed!</p>
-                  <p className="text-emerald-700 mt-0.5">{successMessage}</p>
+                  <p className="text-emerald-700 dark:text-emerald-300 mt-0.5">{successMessage}</p>
                 </div>
               </div>
             )}
 
             {/* Error Banner */}
             {error && (
-              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs sm:text-sm">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs sm:text-sm">
+                <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Authentication failed</p>
-                  <p className="text-rose-700 mt-0.5">{error}</p>
+                  <p className="text-rose-700 dark:text-rose-300 mt-0.5">{error}</p>
                 </div>
               </div>
             )}
@@ -126,7 +128,7 @@ export default function Login() {
             <form className="space-y-5" onSubmit={handleSubmit}>
               {/* Email Field */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-2" htmlFor="email">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9] mb-2" htmlFor="email">
                   Email Address
                 </label>
                 <div className="relative">
@@ -142,7 +144,7 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@example.com"
-                    className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
+                    className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59] transition-all"
                   />
                 </div>
               </div>
@@ -150,12 +152,12 @@ export default function Login() {
               {/* Password Field */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b]" htmlFor="password">
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9]" htmlFor="password">
                     Password
                   </label>
                   <Link
                     to="/forgot-password"
-                    className="text-xs font-semibold text-[#71717a] hover:text-[#18181b] transition-colors"
+                    className="text-xs font-semibold text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-[#d4b996] transition-colors"
                   >
                     Forgot password?
                   </Link>
@@ -173,7 +175,7 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
+                    className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59] transition-all"
                   />
                 </div>
               </div>
@@ -182,7 +184,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 px-4 bg-[#18181b] hover:bg-black active:scale-[0.98] text-white text-xs font-semibold uppercase tracking-wider rounded-full shadow-editorial transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+                className="w-full py-3.5 px-4 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] active:scale-[0.98] text-white dark:text-[#18181b] text-xs font-semibold uppercase tracking-wider rounded-full shadow-editorial transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
               >
                 {isLoading ? (
                   <>
@@ -199,10 +201,10 @@ export default function Login() {
             </form>
 
             {/* Quick Demo Credentials */}
-            <div className="mt-6 pt-6 border-t border-[#f4f0e8] text-center">
-              <p className="text-xs text-[#71717a]">
+            <div className="mt-6 pt-6 border-t border-[#f4f0e8] dark:border-[#27272a] text-center">
+              <p className="text-xs text-[#71717a] dark:text-[#a1a1aa]">
                 Don't have an account yet?{' '}
-                <Link to="/register" className="font-bold text-[#18181b] hover:underline underline-offset-4">
+                <Link to="/register" className="font-bold text-[#18181b] dark:text-[#d4b996] hover:underline underline-offset-4">
                   Create Account
                 </Link>
               </p>

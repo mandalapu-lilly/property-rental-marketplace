@@ -168,26 +168,26 @@ export default function AddProperty() {
 
   if (!isHostOrAdmin) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 bg-[#fafafa]">
-        <div className="bg-white p-8 sm:p-10 rounded-[32px] border border-slate-200/80 text-center max-w-md shadow-sm space-y-4">
-          <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto">
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 bg-[#fbfbf9] dark:bg-[#121214]">
+        <div className="bg-white dark:bg-[#1c1c20] p-8 sm:p-10 rounded-[32px] border border-stone-200/80 dark:border-white/10 text-center max-w-md shadow-sm space-y-4">
+          <div className="w-14 h-14 bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center mx-auto">
             <ShieldAlert className="w-7 h-7" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Host Account Required</h2>
-          <p className="text-slate-500 text-xs sm:text-sm">
-            Only accounts with <strong className="text-slate-700">Host</strong> or{' '}
-            <strong className="text-slate-700">Admin</strong> roles can publish new properties.
+          <h2 className="text-xl font-bold text-stone-900 dark:text-[#fbfbf9]">Host Account Required</h2>
+          <p className="text-stone-500 dark:text-stone-400 text-xs sm:text-sm">
+            Only accounts with <strong className="text-stone-700 dark:text-stone-300">Host</strong> or{' '}
+            <strong className="text-stone-700 dark:text-stone-300">Admin</strong> roles can publish new properties.
           </p>
           <div className="pt-2 flex flex-col gap-2">
             <Link
               to="/dashboard"
-              className="py-3 px-5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition-all"
+              className="py-3 px-5 bg-[#18181b] hover:bg-stone-800 dark:bg-[#d4b996] dark:hover:bg-[#c5a880] dark:text-[#18181b] text-white font-bold text-xs rounded-xl transition-all"
             >
               Go to Dashboard
             </Link>
             <Link
               to="/properties"
-              className="py-2 text-slate-500 hover:text-slate-800 text-xs font-semibold"
+              className="py-2 text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200 text-xs font-semibold"
             >
               Browse Marketplace
             </Link>
@@ -198,34 +198,34 @@ export default function AddProperty() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa] py-10">
+    <div className="min-h-screen bg-[#fbfbf9] dark:bg-[#121214] py-10 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Header */}
         <div className="space-y-2">
           <Link
             to="/my-properties"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 group transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 group transition-colors"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
             <span>Return to Portfolio</span>
           </Link>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-[#fbfbf9] tracking-tight">
             Publish New Property Listing
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400">
             Provide property specifications, GPS coordinates, high-resolution photos, and amenities.
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="bg-white p-7 sm:p-10 rounded-[36px] border border-slate-200/80 shadow-[0_4px_25px_-4px_rgba(0,0,0,0.03)]">
+        <div className="bg-white dark:bg-[#1c1c20] p-7 sm:p-10 rounded-[36px] border border-stone-200/80 dark:border-white/10 shadow-[0_4px_25px_-4px_rgba(0,0,0,0.03)]">
           {error && (
-            <div className="mb-8 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs font-bold animate-fadeIn">
-              <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+            <div className="mb-8 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-800/40 text-rose-800 dark:text-rose-300 text-xs font-bold animate-fadeIn">
+              <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
               <div>
                 <p>Listing Submission Error</p>
-                <p className="font-normal text-rose-700 mt-0.5">{error}</p>
+                <p className="font-normal text-rose-700 dark:text-rose-300 mt-0.5">{error}</p>
               </div>
             </div>
           )}
@@ -233,14 +233,14 @@ export default function AddProperty() {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
             <div className="space-y-5">
-              <h2 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-stone-900 dark:text-[#fbfbf9] border-b border-stone-100 dark:border-white/5 pb-3 flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-[#b58d59] dark:text-[#d4b996]" />
                 <span>Primary Specifications</span>
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2 space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="title">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="title">
                     Property Title *
                   </label>
                   <input
@@ -251,12 +251,12 @@ export default function AddProperty() {
                     value={formData.title}
                     onChange={handleChange}
                     placeholder="e.g. Modern 2BHK Luxury Apartment in Indiranagar"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="propertyType">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="propertyType">
                     Property Type *
                   </label>
                   <select
@@ -264,24 +264,24 @@ export default function AddProperty() {
                     name="propertyType"
                     value={formData.propertyType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all cursor-pointer"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-bold text-stone-800 dark:text-[#fbfbf9] focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all cursor-pointer"
                   >
-                    <option value="Hotel">Hotel</option>
-                    <option value="Resort">Resort</option>
-                    <option value="Homestay">Homestay</option>
-                    <option value="Guest House">Guest House</option>
-                    <option value="Apartment">Apartment</option>
-                    <option value="House">House</option>
-                    <option value="Villa">Villa</option>
-                    <option value="Studio">Studio</option>
-                    <option value="Room">Room</option>
-                    <option value="Other">Other</option>
+                    <option value="Hotel" className="dark:bg-[#1c1c20]">Hotel</option>
+                    <option value="Resort" className="dark:bg-[#1c1c20]">Resort</option>
+                    <option value="Homestay" className="dark:bg-[#1c1c20]">Homestay</option>
+                    <option value="Guest House" className="dark:bg-[#1c1c20]">Guest House</option>
+                    <option value="Apartment" className="dark:bg-[#1c1c20]">Apartment</option>
+                    <option value="House" className="dark:bg-[#1c1c20]">House</option>
+                    <option value="Villa" className="dark:bg-[#1c1c20]">Villa</option>
+                    <option value="Studio" className="dark:bg-[#1c1c20]">Studio</option>
+                    <option value="Room" className="dark:bg-[#1c1c20]">Room</option>
+                    <option value="Other" className="dark:bg-[#1c1c20]">Other</option>
                   </select>
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="description">
+                <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="description">
                   Full Description *
                 </label>
                 <textarea
@@ -292,20 +292,20 @@ export default function AddProperty() {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Detail your space, interior furnishings, natural lighting, transit access, and neighborhood vibes..."
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all leading-relaxed"
+                  className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all leading-relaxed"
                 />
               </div>
             </div>
 
             {/* Pricing & Dimensions */}
             <div className="space-y-5">
-              <h2 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">
+              <h2 className="text-sm font-bold text-stone-900 dark:text-[#fbfbf9] border-b border-stone-100 dark:border-white/5 pb-3">
                 Pricing & Space Dimensions
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="price">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="price">
                     Monthly Rent (₹) *
                   </label>
                   <input
@@ -317,12 +317,12 @@ export default function AddProperty() {
                     value={formData.price}
                     onChange={handleChange}
                     placeholder="25000"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-bold text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="area">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="area">
                     Area (sq ft) *
                   </label>
                   <input
@@ -334,12 +334,12 @@ export default function AddProperty() {
                     value={formData.area}
                     onChange={handleChange}
                     placeholder="1200"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="bedrooms">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="bedrooms">
                     Bedrooms *
                   </label>
                   <input
@@ -350,12 +350,12 @@ export default function AddProperty() {
                     required
                     value={formData.bedrooms}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="bathrooms">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="bathrooms">
                     Bathrooms *
                   </label>
                   <input
@@ -366,7 +366,7 @@ export default function AddProperty() {
                     required
                     value={formData.bathrooms}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
               </div>
@@ -374,14 +374,14 @@ export default function AddProperty() {
 
             {/* Location Details & Map Coordinates */}
             <div className="space-y-5">
-              <h2 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-stone-900 dark:text-[#fbfbf9] border-b border-stone-100 dark:border-white/5 pb-3 flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#b58d59] dark:text-[#d4b996]" />
                 <span>Geographic Location & Coordinates</span>
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="location">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="location">
                     Locality / Suburb *
                   </label>
                   <input
@@ -392,12 +392,12 @@ export default function AddProperty() {
                     value={formData.location}
                     onChange={handleChange}
                     placeholder="e.g. Indiranagar, 100 Feet Road"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="address">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="address">
                     Street Address *
                   </label>
                   <input
@@ -408,14 +408,14 @@ export default function AddProperty() {
                     value={formData.address}
                     onChange={handleChange}
                     placeholder="e.g. #42, 5th Cross, 12th Main"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="city">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="city">
                     City *
                   </label>
                   <input
@@ -426,12 +426,12 @@ export default function AddProperty() {
                     value={formData.city}
                     onChange={handleChange}
                     placeholder="Bangalore"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="state">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="state">
                     State *
                   </label>
                   <input
@@ -442,12 +442,12 @@ export default function AddProperty() {
                     value={formData.state}
                     onChange={handleChange}
                     placeholder="Karnataka"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="country">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="country">
                     Country *
                   </label>
                   <input
@@ -458,19 +458,19 @@ export default function AddProperty() {
                     value={formData.country}
                     onChange={handleChange}
                     placeholder="India"
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                    className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59] focus:bg-white dark:focus:bg-[#18181b] transition-all"
                   />
                 </div>
               </div>
 
               {/* Coordinates Section */}
-              <div className="p-5 bg-slate-50/80 rounded-2xl border border-slate-200/80 space-y-3">
-                <span className="text-xs font-bold text-slate-800 block">
+              <div className="p-5 bg-stone-50/80 dark:bg-[#27272a]/60 rounded-2xl border border-stone-200/80 dark:border-white/10 space-y-3">
+                <span className="text-xs font-bold text-stone-800 dark:text-stone-200 block">
                   Map GPS Coordinates (Optional, enables interactive OpenStreetMap pin)
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" htmlFor="latitude">
+                    <label className="block text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider" htmlFor="latitude">
                       Latitude (-90 to 90)
                     </label>
                     <input
@@ -483,11 +483,11 @@ export default function AddProperty() {
                       value={formData.latitude}
                       onChange={handleChange}
                       placeholder="e.g. 12.9716"
-                      className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-2.5 bg-white dark:bg-[#1c1c20] border border-stone-200 dark:border-white/10 rounded-xl text-xs font-semibold text-stone-900 dark:text-[#fbfbf9] focus:outline-none focus:ring-2 focus:ring-[#b58d59]"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" htmlFor="longitude">
+                    <label className="block text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider" htmlFor="longitude">
                       Longitude (-180 to 180)
                     </label>
                     <input
@@ -500,7 +500,7 @@ export default function AddProperty() {
                       value={formData.longitude}
                       onChange={handleChange}
                       placeholder="e.g. 77.5946"
-                      className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-2.5 bg-white dark:bg-[#1c1c20] border border-stone-200 dark:border-white/10 rounded-xl text-xs font-semibold text-stone-900 dark:text-[#fbfbf9] focus:outline-none focus:ring-2 focus:ring-[#b58d59]"
                     />
                   </div>
                 </div>
@@ -509,12 +509,12 @@ export default function AddProperty() {
 
             {/* Amenities Section */}
             <div className="space-y-4">
-              <h2 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">
+              <h2 className="text-sm font-bold text-stone-900 dark:text-[#fbfbf9] border-b border-stone-100 dark:border-white/5 pb-3">
                 Amenities & Features
               </h2>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2.5">
+                <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2.5">
                   Select Featured Amenities
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -527,8 +527,8 @@ export default function AddProperty() {
                         onClick={() => toggleAmenity(amenity)}
                         className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 ${
                           isSelected
-                            ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                            : 'bg-slate-50 text-slate-700 border-slate-200/80 hover:bg-slate-100'
+                            ? 'bg-[#18181b] dark:bg-[#d4b996] text-white dark:text-[#18181b] border-[#18181b] dark:border-[#d4b996] shadow-sm'
+                            : 'bg-stone-50 dark:bg-[#27272a] text-stone-700 dark:text-stone-300 border-stone-200/80 dark:border-white/10 hover:bg-stone-100 dark:hover:bg-[#323238]'
                         }`}
                       >
                         {isSelected ? <Check className="w-3.5 h-3.5" /> : '+'}
@@ -540,7 +540,7 @@ export default function AddProperty() {
               </div>
 
               <div className="space-y-1.5 pt-2">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="amenities">
+                <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider" htmlFor="amenities">
                   Custom Amenities (comma separated)
                 </label>
                 <input
@@ -550,15 +550,15 @@ export default function AddProperty() {
                   value={formData.amenities}
                   onChange={handleChange}
                   placeholder="e.g. Rooftop Terrace, Private Study, EV Charger"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59]"
                 />
               </div>
             </div>
 
             {/* Image URLs Section */}
             <div className="space-y-4">
-              <h2 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                <ImageIcon className="w-4 h-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-stone-900 dark:text-[#fbfbf9] border-b border-stone-100 dark:border-white/5 pb-3 flex items-center gap-2">
+                <ImageIcon className="w-4 h-4 text-[#b58d59] dark:text-[#d4b996]" />
                 <span>Property Visual Gallery</span>
               </h2>
 
@@ -568,12 +568,12 @@ export default function AddProperty() {
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
                   placeholder="Paste direct high-resolution image URL (e.g. Unsplash URL)"
-                  className="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-1 px-4 py-3 bg-stone-50 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 rounded-2xl text-xs font-medium text-stone-900 dark:text-[#fbfbf9] placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#b58d59]"
                 />
                 <button
                   type="button"
                   onClick={handleAddImage}
-                  className="px-5 py-3 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-2xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
+                  className="px-5 py-3 bg-[#18181b] hover:bg-stone-800 dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] text-xs font-bold rounded-2xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add Photo</span>
@@ -585,13 +585,13 @@ export default function AddProperty() {
                   {images.map((url, idx) => (
                     <div
                       key={idx}
-                      className="relative h-28 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 group"
+                      className="relative h-28 rounded-2xl overflow-hidden bg-stone-100 dark:bg-[#27272a] border border-stone-200 dark:border-white/10 group"
                     >
                       <img src={url} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       <button
                         type="button"
                         onClick={() => handleRemoveImage(idx)}
-                        className="absolute top-2 right-2 p-1.5 rounded-xl bg-slate-900/80 hover:bg-rose-600 text-white backdrop-blur-sm shadow cursor-pointer transition-colors"
+                        className="absolute top-2 right-2 p-1.5 rounded-xl bg-[#18181b]/80 hover:bg-rose-600 text-white backdrop-blur-sm shadow cursor-pointer transition-colors"
                         title="Remove photo"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -603,17 +603,17 @@ export default function AddProperty() {
             </div>
 
             {/* Submit Actions */}
-            <div className="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
+            <div className="pt-6 border-t border-stone-100 dark:border-white/5 flex items-center justify-end gap-3">
               <Link
                 to="/my-properties"
-                className="px-5 py-3 text-slate-600 hover:text-slate-900 text-xs font-bold rounded-xl"
+                className="px-5 py-3 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-[#fbfbf9] text-xs font-bold rounded-xl"
               >
                 Cancel
               </Link>
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 hover:bg-slate-800 active:scale-95 text-white font-bold text-xs rounded-2xl shadow-xl disabled:opacity-60 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#18181b] hover:bg-stone-800 dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] active:scale-95 font-bold text-xs rounded-2xl shadow-xl disabled:opacity-60 transition-all cursor-pointer"
               >
                 {loading ? (
                   <>
@@ -622,7 +622,7 @@ export default function AddProperty() {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <Sparkles className="w-4 h-4 text-[#d4b996] dark:text-[#18181b]" />
                     <span>Publish Property</span>
                   </>
                 )}

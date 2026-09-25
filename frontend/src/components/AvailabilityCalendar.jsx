@@ -70,15 +70,15 @@ export default function AvailabilityCalendar({ propertyId, price = 0 }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 mb-8">
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+    <div className="bg-white dark:bg-[#1c1c20] rounded-2xl border border-[#e5e0d8] dark:border-[#27272a] shadow-editorial p-5 sm:p-6 mb-8">
+      <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#e8e3da] dark:border-[#27272a]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+          <div className="w-10 h-10 rounded-xl bg-[#f4f0e8] dark:bg-[#27272a] border border-[#ded7cb] dark:border-[#3f3f46] flex items-center justify-center text-[#b58d59] dark:text-[#d4b996]">
             <CalendarIcon className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-lg text-slate-900">Property Availability Calendar</h3>
-            <p className="text-xs text-slate-500">Live booking status and available stay dates</p>
+            <h3 className="font-bold text-lg text-[#18181b] dark:text-[#fbfbf9]">Property Availability Calendar</h3>
+            <p className="text-xs text-[#71717a] dark:text-[#a1a1aa]">Live booking status and available stay dates</p>
           </div>
         </div>
 
@@ -87,17 +87,17 @@ export default function AvailabilityCalendar({ propertyId, price = 0 }) {
           <button
             onClick={prevMonth}
             aria-label="Previous month"
-            className="p-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+            className="p-2 rounded-lg border border-[#e5e0d8] dark:border-[#27272a] text-[#52525b] dark:text-[#a1a1aa] hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] hover:text-[#18181b] dark:hover:text-white transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-          <span className="font-bold text-sm text-slate-800 min-w-[120px] text-center">
+          <span className="font-bold text-sm text-[#18181b] dark:text-[#fbfbf9] min-w-[120px] text-center">
             {monthNames[currentMonth]} {currentYear}
           </span>
           <button
             onClick={nextMonth}
             aria-label="Next month"
-            className="p-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+            className="p-2 rounded-lg border border-[#e5e0d8] dark:border-[#27272a] text-[#52525b] dark:text-[#a1a1aa] hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] hover:text-[#18181b] dark:hover:text-white transition-colors cursor-pointer"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -105,7 +105,7 @@ export default function AvailabilityCalendar({ propertyId, price = 0 }) {
       </div>
 
       {/* Calendar Grid */}
-      <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-semibold text-slate-400 mb-2">
+      <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-semibold text-[#8c827a] dark:text-[#71717a] mb-2">
         <span>Sun</span>
         <span>Mon</span>
         <span>Tue</span>
@@ -118,7 +118,7 @@ export default function AvailabilityCalendar({ propertyId, price = 0 }) {
       <div className="grid grid-cols-7 gap-1 sm:gap-2">
         {/* Empty slots for start of month */}
         {Array.from({ length: firstDayIndex }).map((_, i) => (
-          <div key={`empty-${i}`} className="h-10 sm:h-12 rounded-xl bg-slate-50/50" />
+          <div key={`empty-${i}`} className="h-10 sm:h-12 rounded-xl bg-[#fbfbf9]/50 dark:bg-[#18181b]/30" />
         ))}
 
         {/* Days of month */}
@@ -127,14 +127,14 @@ export default function AvailabilityCalendar({ propertyId, price = 0 }) {
           const booked = isDateBooked(day);
           const past = isPast(day);
 
-          let cellClass = "bg-emerald-50/80 border-emerald-200 text-emerald-800 hover:bg-emerald-100/80";
+          let cellClass = "bg-emerald-50/80 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/40 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100/80";
           let badgeText = "Available";
 
           if (past) {
-            cellClass = "bg-slate-50 border-slate-200/50 text-slate-300 cursor-not-allowed";
+            cellClass = "bg-[#fbfbf9] dark:bg-[#141417] border-[#e5e0d8]/50 dark:border-[#27272a] text-[#a1a1aa] dark:text-[#52525b] cursor-not-allowed";
             badgeText = "Past";
           } else if (booked) {
-            cellClass = "bg-rose-50 border-rose-200 text-rose-700 cursor-not-allowed";
+            cellClass = "bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/40 text-rose-700 dark:text-rose-300 cursor-not-allowed";
             badgeText = "Booked";
           }
 
@@ -152,17 +152,17 @@ export default function AvailabilityCalendar({ propertyId, price = 0 }) {
       </div>
 
       {/* Calendar Legend */}
-      <div className="flex flex-wrap items-center justify-center gap-6 mt-6 pt-4 border-t border-slate-100 text-xs font-medium text-slate-600">
+      <div className="flex flex-wrap items-center justify-center gap-6 mt-6 pt-4 border-t border-[#e8e3da] dark:border-[#27272a] text-xs font-medium text-[#52525b] dark:text-[#a1a1aa]">
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-md bg-emerald-100 border border-emerald-300" />
+          <span className="w-3 h-3 rounded-md bg-emerald-100 dark:bg-emerald-900/50 border border-emerald-300 dark:border-emerald-700" />
           <span>Available for Rent</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-md bg-rose-100 border border-rose-300" />
+          <span className="w-3 h-3 rounded-md bg-rose-100 dark:bg-rose-900/50 border border-rose-300 dark:border-rose-700" />
           <span>Already Booked</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-md bg-slate-100 border border-slate-300" />
+          <span className="w-3 h-3 rounded-md bg-[#f4f0e8] dark:bg-[#27272a] border border-[#ded7cb] dark:border-[#3f3f46]" />
           <span>Past Dates</span>
         </div>
       </div>

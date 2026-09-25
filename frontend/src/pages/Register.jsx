@@ -80,8 +80,8 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9]">
-      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] overflow-hidden">
+    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9] dark:bg-[#121214]">
+      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white dark:bg-[#1c1c20] rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] overflow-hidden">
         {/* Left Side: Architectural Visual Column (Desktop) */}
         <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-between p-10 text-white overflow-hidden">
           <div
@@ -92,11 +92,13 @@ export default function Register() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-          {/* Top Tag */}
-          <div className="relative z-10">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#e5e0d8] block">
-              Join HavenStay
-            </span>
+          {/* Top Tag & Logo */}
+          <div className="relative z-10 flex items-center gap-3">
+            <img
+              src="/havenstay-logo.png"
+              alt="HavenStay"
+              className="h-10 w-auto object-contain brightness-0 invert"
+            />
           </div>
 
           {/* Bottom Caption */}
@@ -121,28 +123,28 @@ export default function Register() {
         </div>
 
         {/* Right Side: Registration Form */}
-        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
+        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white dark:bg-[#1c1c20]">
           <div className="max-w-md w-full mx-auto">
             {/* Form Header */}
             <div className="mb-6">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] block mb-2">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] dark:text-[#a1a1aa] block mb-2">
                 New Membership
               </span>
-              <h2 className="font-editorial text-4xl sm:text-5xl font-light tracking-tight text-[#18181b]">
+              <h2 className="font-editorial text-4xl sm:text-5xl font-light tracking-tight text-[#18181b] dark:text-[#fbfbf9]">
                 Create Account
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-[#71717a]">
+              <p className="mt-2 text-xs sm:text-sm text-[#71717a] dark:text-[#a1a1aa]">
                 Join our community to reserve exceptional stays or list your properties.
               </p>
             </div>
 
             {/* Error Banner */}
             {error && (
-              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs sm:text-sm">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs sm:text-sm">
+                <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Registration issue</p>
-                  <p className="text-rose-700 mt-0.5">{error}</p>
+                  <p className="text-rose-700 dark:text-rose-300 mt-0.5">{error}</p>
                 </div>
               </div>
             )}
@@ -150,7 +152,7 @@ export default function Register() {
             <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Full Name */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="name">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9] mb-1.5" htmlFor="name">
                   Full Name
                 </label>
                 <div className="relative">
@@ -165,14 +167,14 @@ export default function Register() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Amulya Mandalapu"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59] transition-all"
                   />
                 </div>
               </div>
 
               {/* Email Field */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="email">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9] mb-1.5" htmlFor="email">
                   Email Address
                 </label>
                 <div className="relative">
@@ -188,14 +190,14 @@ export default function Register() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="name@example.com"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59] transition-all"
                   />
                 </div>
               </div>
 
               {/* Account Role Selection */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="role">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9] mb-1.5" htmlFor="role">
                   Account Type
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -204,8 +206,8 @@ export default function Register() {
                     onClick={() => setFormData({ ...formData, role: 'user' })}
                     className={`py-2.5 px-3 rounded-full border text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                       formData.role === 'user'
-                        ? 'border-[#18181b] bg-[#18181b] text-white shadow-sm'
-                        : 'border-[#e5e0d8] bg-[#fbfbf9] text-[#71717a] hover:bg-[#f4f0e8]'
+                        ? 'border-[#18181b] bg-[#18181b] dark:border-[#d4b996] dark:bg-[#d4b996] text-white dark:text-[#18181b] shadow-sm'
+                        : 'border-[#e5e0d8] dark:border-[#3f3f46] bg-[#fbfbf9] dark:bg-[#141417] text-[#71717a] dark:text-[#a1a1aa] hover:bg-[#f4f0e8] dark:hover:bg-[#27272a]'
                     }`}
                   >
                     Renter / Guest
@@ -215,8 +217,8 @@ export default function Register() {
                     onClick={() => setFormData({ ...formData, role: 'host' })}
                     className={`py-2.5 px-3 rounded-full border text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                       formData.role === 'host'
-                        ? 'border-[#18181b] bg-[#18181b] text-white shadow-sm'
-                        : 'border-[#e5e0d8] bg-[#fbfbf9] text-[#71717a] hover:bg-[#f4f0e8]'
+                        ? 'border-[#18181b] bg-[#18181b] dark:border-[#d4b996] dark:bg-[#d4b996] text-white dark:text-[#18181b] shadow-sm'
+                        : 'border-[#e5e0d8] dark:border-[#3f3f46] bg-[#fbfbf9] dark:bg-[#141417] text-[#71717a] dark:text-[#a1a1aa] hover:bg-[#f4f0e8] dark:hover:bg-[#27272a]'
                     }`}
                   >
                     Property Host
@@ -226,7 +228,7 @@ export default function Register() {
 
               {/* Password Field */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="password">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9] mb-1.5" htmlFor="password">
                   Password
                 </label>
                 <div className="relative">
@@ -242,14 +244,14 @@ export default function Register() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Minimum 6 characters"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59] transition-all"
                   />
                 </div>
               </div>
 
               {/* Confirm Password Field */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-1.5" htmlFor="confirmPassword">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9] mb-1.5" htmlFor="confirmPassword">
                   Confirm Password
                 </label>
                 <div className="relative">
@@ -265,7 +267,7 @@ export default function Register() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Repeat password"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59] transition-all"
                   />
                 </div>
               </div>
@@ -275,7 +277,7 @@ export default function Register() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-full shadow-editorial text-xs font-semibold uppercase tracking-wider text-white bg-[#18181b] hover:bg-black active:scale-[0.98] disabled:opacity-60 transition-all cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-full shadow-editorial text-xs font-semibold uppercase tracking-wider text-white bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] dark:text-[#18181b] active:scale-[0.98] disabled:opacity-60 transition-all cursor-pointer"
                 >
                   {isLoading ? (
                     <>
@@ -293,12 +295,12 @@ export default function Register() {
             </form>
 
             {/* Link to Login */}
-            <div className="mt-6 pt-6 border-t border-[#f4f0e8] text-center">
-              <p className="text-xs text-[#71717a]">
+            <div className="mt-6 pt-6 border-t border-[#f4f0e8] dark:border-[#27272a] text-center">
+              <p className="text-xs text-[#71717a] dark:text-[#a1a1aa]">
                 Already have an account?{' '}
                 <Link
                   to="/login"
-                  className="font-bold text-[#18181b] hover:underline underline-offset-4"
+                  className="font-bold text-[#18181b] dark:text-[#d4b996] hover:underline underline-offset-4"
                 >
                   Sign In
                 </Link>

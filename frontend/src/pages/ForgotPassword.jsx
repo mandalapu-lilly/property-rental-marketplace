@@ -45,8 +45,8 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9]">
-      <div className="max-w-4xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] overflow-hidden">
+    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#fbfbf9] dark:bg-[#121214]">
+      <div className="max-w-4xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 bg-white dark:bg-[#1c1c20] rounded-[2.5rem] shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] overflow-hidden">
         {/* Left Side: Architectural Visual Hero Column */}
         <div className="hidden lg:flex lg:col-span-5 relative bg-[#18181b] flex-col justify-between p-10 text-white overflow-hidden">
           <div
@@ -58,7 +58,7 @@ export default function ForgotPassword() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
           <div className="relative z-10">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#e5e0d8] block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#d4b996] block">
               Account Security
             </span>
           </div>
@@ -74,16 +74,16 @@ export default function ForgotPassword() {
         </div>
 
         {/* Right Side: Form */}
-        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
+        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white dark:bg-[#1c1c20]">
           <div className="max-w-md w-full mx-auto">
             <div className="mb-6">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] block mb-2">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#71717a] dark:text-[#a1a1aa] block mb-2">
                 Recovery
               </span>
-              <h2 className="font-editorial text-4xl font-light tracking-tight text-[#18181b]">
+              <h2 className="font-editorial text-4xl font-light tracking-tight text-[#18181b] dark:text-[#fbfbf9]">
                 Reset Password
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-[#71717a]">
+              <p className="mt-2 text-xs sm:text-sm text-[#71717a] dark:text-[#a1a1aa]">
                 Enter your account email and we'll generate a secure reset link.
               </p>
             </div>
@@ -91,11 +91,11 @@ export default function ForgotPassword() {
             {/* Success Banner */}
             {success && (
               <div className="mb-6 space-y-4">
-                <div className="flex items-start gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs sm:text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <p className="font-bold">Reset token generated!</p>
-                    <p className="text-emerald-700 mt-1">
+                    <p className="text-emerald-700 dark:text-emerald-300 mt-1">
                       A password reset session has been initialized for <strong className="font-bold">{email}</strong>.
                     </p>
                   </div>
@@ -104,7 +104,7 @@ export default function ForgotPassword() {
                 <button
                   type="button"
                   onClick={() => navigate(`/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`)}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-full shadow-editorial text-xs font-semibold uppercase tracking-wider text-white bg-[#18181b] hover:bg-black transition-all cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-full shadow-editorial text-xs font-semibold uppercase tracking-wider text-white bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] dark:text-[#18181b] transition-all cursor-pointer"
                 >
                   <span>Proceed to Set New Password</span>
                   <ArrowRight className="w-4 h-4" />
@@ -114,11 +114,11 @@ export default function ForgotPassword() {
 
             {/* Error Banner */}
             {error && (
-              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200/80 text-rose-800 text-xs sm:text-sm">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <div className="mb-6 flex items-start gap-3 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs sm:text-sm">
+                <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Request Failed</p>
-                  <p className="text-rose-700 mt-0.5">{error}</p>
+                  <p className="text-rose-700 dark:text-rose-300 mt-0.5">{error}</p>
                 </div>
               </div>
             )}
@@ -126,7 +126,7 @@ export default function ForgotPassword() {
             {!success && (
               <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] mb-2" htmlFor="email">
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#18181b] dark:text-[#fbfbf9] mb-2" htmlFor="email">
                     Account Email Address
                   </label>
                   <div className="relative">
@@ -142,7 +142,7 @@ export default function ForgotPassword() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@example.com"
-                      className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] border border-[#e5e0d8] rounded-xl text-[#18181b] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#18181b] focus:border-[#18181b] transition-all"
+                      className="block w-full pl-10 pr-4 py-3 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59] transition-all"
                     />
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default function ForgotPassword() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-full shadow-editorial text-xs font-semibold uppercase tracking-wider text-white bg-[#18181b] hover:bg-black active:scale-[0.98] disabled:opacity-60 transition-all cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-full shadow-editorial text-xs font-semibold uppercase tracking-wider text-white bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] dark:text-[#18181b] active:scale-[0.98] disabled:opacity-60 transition-all cursor-pointer"
                   >
                     {isLoading ? (
                       <>
@@ -169,10 +169,10 @@ export default function ForgotPassword() {
               </form>
             )}
 
-            <div className="mt-6 pt-6 border-t border-[#f4f0e8] flex items-center justify-center">
+            <div className="mt-6 pt-6 border-t border-[#f4f0e8] dark:border-[#27272a] flex items-center justify-center">
               <Link
                 to="/login"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#71717a] hover:text-[#18181b] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-[#d4b996] transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back to Sign In</span>

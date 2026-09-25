@@ -96,55 +96,55 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] py-10">
+    <div className="min-h-screen bg-[#fbfbf9] dark:bg-[#121214] py-10 transition-colors">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Profile Card Header */}
-        <div className="bg-white p-7 sm:p-9 rounded-[32px] border border-slate-200/80 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+        <div className="bg-white dark:bg-[#1c1c20] p-7 sm:p-9 rounded-[2.5rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
           <div className="flex items-center gap-5">
-            <div className="w-16 h-16 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-black text-2xl uppercase shadow-md shadow-slate-900/20">
+            <div className="w-16 h-16 rounded-2xl bg-[#18181b] dark:bg-[#121214] border border-transparent dark:border-[#3f3f46] text-white dark:text-[#d4b996] flex items-center justify-center font-editorial italic text-2xl uppercase shadow-md">
               {user?.name?.charAt(0) || 'U'}
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-black text-slate-900 tracking-tight">{user?.name}</h1>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+                <h1 className="font-editorial text-2xl sm:text-3xl font-light text-[#18181b] dark:text-[#f4f0e8] tracking-tight">{user?.name}</h1>
+                <span className="px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#f4f0e8] dark:bg-[#27272a] text-[#18181b] dark:text-[#d4b996] border border-[#e5e0d8] dark:border-[#3f3f46]">
                   {user?.role || 'user'}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-medium">{user?.email}</p>
+              <p className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-medium">{user?.email}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 w-fit">
-            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-200 dark:border-emerald-900/50 w-fit uppercase tracking-wider text-[10px]">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>Authenticated Member</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Profile Details Form */}
-          <div className="bg-white p-7 sm:p-8 rounded-[32px] border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-6">
-            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-              <User className="w-4 h-4 text-indigo-600" />
+          <div className="bg-white dark:bg-[#1c1c20] p-7 sm:p-8 rounded-[2.5rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-6">
+            <h2 className="font-editorial text-lg font-bold text-[#18181b] dark:text-[#f4f0e8] flex items-center gap-2 border-b border-[#f4f0e8] dark:border-[#2e2e34] pb-3">
+              <User className="w-4 h-4 text-[#b58d59]" />
               <span>Personal Identity</span>
             </h2>
 
             {profileMessage && (
-              <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-2xl font-bold animate-fadeIn">
+              <div className="p-3.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 text-emerald-800 dark:text-emerald-300 text-xs rounded-2xl font-bold animate-fadeIn">
                 {profileMessage}
               </div>
             )}
 
             {profileError && (
-              <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-2xl font-bold animate-fadeIn">
+              <div className="p-3.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 text-rose-800 dark:text-rose-300 text-xs rounded-2xl font-bold animate-fadeIn">
                 {profileError}
               </div>
             )}
 
             <form onSubmit={handleUpdateName} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="profile-name">
+                <label className="block text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]" htmlFor="profile-name">
                   Full Name
                 </label>
                 <input
@@ -153,12 +153,12 @@ export default function Profile() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                  className="w-full px-4 py-3 bg-[#fbfbf9] dark:bg-[#121214] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-2xl text-xs font-medium text-[#18181b] dark:text-[#f4f0e8] focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="profile-email">
+                <label className="block text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]" htmlFor="profile-email">
                   Email Address
                 </label>
                 <input
@@ -166,15 +166,15 @@ export default function Profile() {
                   type="email"
                   disabled
                   value={user?.email || ''}
-                  className="w-full px-4 py-3 bg-slate-100/80 border border-slate-200 rounded-2xl text-xs text-slate-400 font-medium cursor-not-allowed"
+                  className="w-full px-4 py-3 bg-[#f4f0e8] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-2xl text-xs text-[#71717a] dark:text-[#a1a1aa] font-medium cursor-not-allowed"
                 />
-                <span className="text-[10px] text-slate-400 pl-1 block">Account login email is permanently verified.</span>
+                <span className="text-[10px] text-[#71717a] dark:text-[#a1a1aa] pl-1 block">Account login email is permanently verified.</span>
               </div>
 
               <button
                 type="submit"
                 disabled={savingProfile}
-                className="w-full py-3.5 px-5 bg-slate-900 hover:bg-slate-800 active:scale-98 text-white font-bold text-xs rounded-2xl shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-3.5 px-5 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] active:scale-[0.98] text-white dark:text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full shadow-editorial transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {savingProfile ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 <span>Save Profile Info</span>
@@ -183,27 +183,27 @@ export default function Profile() {
           </div>
 
           {/* Change Password Form */}
-          <div className="bg-white p-7 sm:p-8 rounded-[32px] border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-6">
-            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-              <Lock className="w-4 h-4 text-indigo-600" />
+          <div className="bg-white dark:bg-[#1c1c20] p-7 sm:p-8 rounded-[2.5rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-6">
+            <h2 className="font-editorial text-lg font-bold text-[#18181b] dark:text-[#f4f0e8] flex items-center gap-2 border-b border-[#f4f0e8] dark:border-[#2e2e34] pb-3">
+              <Lock className="w-4 h-4 text-[#b58d59]" />
               <span>Update Password</span>
             </h2>
 
             {passwordMessage && (
-              <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-2xl font-bold animate-fadeIn">
+              <div className="p-3.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 text-emerald-800 dark:text-emerald-300 text-xs rounded-2xl font-bold animate-fadeIn">
                 {passwordMessage}
               </div>
             )}
 
             {passwordError && (
-              <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-2xl font-bold animate-fadeIn">
+              <div className="p-3.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 text-rose-800 dark:text-rose-300 text-xs rounded-2xl font-bold animate-fadeIn">
                 {passwordError}
               </div>
             )}
 
             <form onSubmit={handleChangePassword} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="cur-pass">
+                <label className="block text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]" htmlFor="cur-pass">
                   Current Password *
                 </label>
                 <input
@@ -213,12 +213,12 @@ export default function Profile() {
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                  className="w-full px-4 py-3 bg-[#fbfbf9] dark:bg-[#121214] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-2xl text-xs font-medium text-[#18181b] dark:text-[#f4f0e8] focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="new-pass">
+                <label className="block text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]" htmlFor="new-pass">
                   New Password *
                 </label>
                 <input
@@ -228,12 +228,12 @@ export default function Profile() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Minimum 6 characters"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                  className="w-full px-4 py-3 bg-[#fbfbf9] dark:bg-[#121214] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-2xl text-xs font-medium text-[#18181b] dark:text-[#f4f0e8] focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="conf-pass">
+                <label className="block text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]" htmlFor="conf-pass">
                   Confirm New Password *
                 </label>
                 <input
@@ -243,14 +243,14 @@ export default function Profile() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter new password"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                  className="w-full px-4 py-3 bg-[#fbfbf9] dark:bg-[#121214] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-2xl text-xs font-medium text-[#18181b] dark:text-[#f4f0e8] focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={savingPassword}
-                className="w-full py-3.5 px-5 bg-slate-900 hover:bg-slate-800 active:scale-98 text-white font-bold text-xs rounded-2xl shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-3.5 px-5 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] active:scale-[0.98] text-white dark:text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full shadow-editorial transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {savingPassword ? <Loader2 className="w-4 h-4 animate-spin" /> : <Key className="w-4 h-4" />}
                 <span>Update Password</span>
