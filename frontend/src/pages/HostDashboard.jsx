@@ -71,105 +71,103 @@ export default function HostDashboard() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-slate-50 py-10">
+    <div className="min-h-[calc(100vh-5rem)] bg-[#fafafa] py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)]">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200 uppercase tracking-wider">
-                Host Management Hub
-              </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-bold border border-amber-200/80 uppercase tracking-wider">
+              <span>Host Management Hub</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-2">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
               Welcome back, {user?.name}!
             </h1>
-            <p className="text-slate-500 text-sm mt-1">
-              Overview of your listings, guest reservations, and earnings performance.
+            <p className="text-slate-500 text-xs sm:text-sm mt-1">
+              Overview of your property portfolio, guest reservations, and earnings metrics.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 flex-wrap">
             <Link
               to="/host-bookings"
-              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors"
+              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition-colors"
             >
               Manage Bookings
             </Link>
             <Link
               to="/properties/add"
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl shadow-md shadow-indigo-600/20 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>Add Property</span>
+              <span>List New Stay</span>
             </Link>
           </div>
         </div>
 
         {/* Metrics Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Card 1: Properties */}
-          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-2">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Total Properties
               </span>
               <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-                <Building className="w-5 h-5" />
+                <Building className="w-4 h-4" />
               </div>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-slate-900">{stats?.totalProperties || 0}</span>
-              <span className="text-xs text-slate-500 font-medium">({stats?.availableProperties || 0} Active)</span>
+              <span className="text-3xl font-extrabold text-slate-900">{stats?.totalProperties || 0}</span>
+              <span className="text-xs text-slate-400 font-semibold">({stats?.availableProperties || 0} Active)</span>
             </div>
           </div>
 
           {/* Card 2: Bookings */}
-          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-2">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Total Bookings
               </span>
               <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                <Calendar className="w-5 h-5" />
+                <Calendar className="w-4 h-4" />
               </div>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-slate-900">{stats?.totalBookings || 0}</span>
+              <span className="text-3xl font-extrabold text-slate-900">{stats?.totalBookings || 0}</span>
               <span className="text-xs text-amber-600 font-bold">({stats?.pendingBookings || 0} Pending)</span>
             </div>
           </div>
 
           {/* Card 3: Earnings */}
-          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-2">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Estimated Earnings
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                Estimated Revenue
               </span>
               <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                <DollarSign className="w-5 h-5" />
+                <DollarSign className="w-4 h-4" />
               </div>
             </div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-black text-slate-900">
+            <div className="flex items-baseline gap-1">
+              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                 ₹{(stats?.totalEarnings || 0).toLocaleString()}
               </span>
             </div>
           </div>
 
           {/* Card 4: Average Rating */}
-          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-2">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Rating Average
               </span>
               <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
-                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
               </div>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-slate-900">{stats?.avgRating ? stats.avgRating : '5.0'}</span>
-              <span className="text-xs text-slate-500 font-medium">({stats?.totalReviews || 0} Reviews)</span>
+              <span className="text-3xl font-extrabold text-slate-900">{stats?.avgRating ? stats.avgRating : '5.0'}</span>
+              <span className="text-xs text-slate-400 font-semibold">({stats?.totalReviews || 0} Reviews)</span>
             </div>
           </div>
         </div>
@@ -178,29 +176,29 @@ export default function HostDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
             to="/my-properties"
-            className="group bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-slate-300 transition-all space-y-3"
+            className="group bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] hover:shadow-xl hover:-translate-y-0.5 transition-all space-y-3"
           >
             <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
               <Building2 className="w-5 h-5" />
             </div>
             <div className="flex items-center justify-between">
-              <h3 className="font-bold text-slate-900 text-base">My Property Listings</h3>
+              <h3 className="font-bold text-slate-900 text-base group-hover:text-indigo-600 transition-colors">My Property Listings</h3>
               <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors" />
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
-              View, edit, or remove your published properties. Update pricing and amenities.
+              View, edit, or remove your published properties. Update pricing, photos, and amenities.
             </p>
           </Link>
 
           <Link
             to="/host-bookings"
-            className="group bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-slate-300 transition-all space-y-3"
+            className="group bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] hover:shadow-xl hover:-translate-y-0.5 transition-all space-y-3"
           >
             <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-105 transition-transform">
               <Calendar className="w-5 h-5" />
             </div>
             <div className="flex items-center justify-between">
-              <h3 className="font-bold text-slate-900 text-base">Reservation Requests</h3>
+              <h3 className="font-bold text-slate-900 text-base group-hover:text-amber-600 transition-colors">Reservation Requests</h3>
               <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-amber-600 transition-colors" />
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
@@ -210,7 +208,7 @@ export default function HostDashboard() {
 
           <Link
             to="/properties/add"
-            className="group bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-3xl shadow-md hover:shadow-lg transition-all space-y-3"
+            className="group bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all space-y-3"
           >
             <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-indigo-300 group-hover:scale-105 transition-transform">
               <Plus className="w-5 h-5" />
@@ -219,29 +217,30 @@ export default function HostDashboard() {
               <h3 className="font-bold text-white text-base">Publish a New Stay</h3>
               <ArrowUpRight className="w-4 h-4 text-indigo-300" />
             </div>
-            <p className="text-xs text-indigo-200/80 leading-relaxed">
-              Add photos, specify GPS coordinates, set rent, and reach verified tenants.
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Add photos, specify GPS coordinates, set rent, and reach verified tenants instantly.
             </p>
           </Link>
         </div>
+
         {/* Host Analytics & Performance Breakdown */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-6">
           <div className="flex items-center justify-between border-b border-slate-100 pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-slate-900">Host Performance & Occupancy Analytics</h2>
+                <h2 className="text-base sm:text-lg font-bold text-slate-900">Performance & Occupancy Analytics</h2>
                 <p className="text-xs text-slate-500">Live booking conversion and listing statistics</p>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
-              <span className="text-xs text-slate-500 font-semibold uppercase">Booking Conversion</span>
-              <div className="text-2xl font-black text-indigo-600">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="p-5 bg-slate-50/80 rounded-2xl border border-slate-200/60 space-y-1">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Booking Conversion</span>
+              <div className="text-2xl font-extrabold text-indigo-600">
                 {stats?.totalBookings > 0
                   ? Math.round(((stats?.confirmedBookings || 0) / stats.totalBookings) * 100)
                   : 100}%
@@ -249,9 +248,9 @@ export default function HostDashboard() {
               <p className="text-[11px] text-slate-400">Confirmed vs total reservations</p>
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
-              <span className="text-xs text-slate-500 font-semibold uppercase">Listing Occupancy</span>
-              <div className="text-2xl font-black text-emerald-600">
+            <div className="p-5 bg-slate-50/80 rounded-2xl border border-slate-200/60 space-y-1">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Listing Occupancy</span>
+              <div className="text-2xl font-extrabold text-emerald-600">
                 {stats?.totalProperties > 0
                   ? Math.round((((stats?.totalProperties - stats?.availableProperties) || 0) / stats.totalProperties) * 100)
                   : 0}%
@@ -259,9 +258,9 @@ export default function HostDashboard() {
               <p className="text-[11px] text-slate-400">Currently reserved listings</p>
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
-              <span className="text-xs text-slate-500 font-semibold uppercase">Average Revenue / Stay</span>
-              <div className="text-2xl font-black text-slate-900">
+            <div className="p-5 bg-slate-50/80 rounded-2xl border border-slate-200/60 space-y-1">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Average Revenue / Stay</span>
+              <div className="text-2xl font-extrabold text-slate-900">
                 ₹{stats?.confirmedBookings > 0
                   ? Math.round((stats?.totalEarnings || 0) / stats.confirmedBookings).toLocaleString()
                   : '0'}
@@ -272,14 +271,14 @@ export default function HostDashboard() {
         </div>
 
         {/* Received Tenant Inquiries Section */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-6">
           <div className="flex items-center justify-between border-b border-slate-100 pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-base sm:text-lg font-bold text-slate-900">
                   Guest Inquiries ({inquiries.length})
                 </h2>
                 <p className="text-xs text-slate-500">Messages sent directly by prospective renters</p>
@@ -288,7 +287,7 @@ export default function HostDashboard() {
           </div>
 
           {inquiries.length === 0 ? (
-            <div className="text-center py-8 text-slate-400 text-sm">
+            <div className="text-center py-8 text-slate-400 text-xs sm:text-sm">
               No inquiries received yet. When tenants contact you from your listing pages, they will appear here.
             </div>
           ) : (
@@ -298,13 +297,13 @@ export default function HostDashboard() {
                   key={inq._id}
                   className={`p-5 rounded-2xl border transition-all space-y-3 ${
                     inq.status === 'unread'
-                      ? 'bg-indigo-50/40 border-indigo-200 shadow-sm'
-                      : 'bg-slate-50 border-slate-200/80'
+                      ? 'bg-indigo-50/40 border-indigo-200/80 shadow-sm'
+                      : 'bg-slate-50/80 border-slate-200/80'
                   }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-bold text-sm text-slate-900">
                           {inq.sender?.name || 'Prospective Guest'}
                         </span>
@@ -323,7 +322,7 @@ export default function HostDashboard() {
 
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider ${
+                        className={`text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider ${
                           inq.status === 'unread'
                             ? 'bg-rose-100 text-rose-700'
                             : inq.status === 'replied'
@@ -336,7 +335,7 @@ export default function HostDashboard() {
                       {inq.status === 'unread' && (
                         <button
                           onClick={() => handleUpdateInquiryStatus(inq._id, 'read')}
-                          className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 px-2 py-1 rounded bg-white border border-indigo-200"
+                          className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 px-2.5 py-1 rounded-lg bg-white border border-indigo-200 cursor-pointer"
                         >
                           Mark Read
                         </button>
@@ -344,7 +343,7 @@ export default function HostDashboard() {
                       {inq.status !== 'replied' && (
                         <button
                           onClick={() => handleUpdateInquiryStatus(inq._id, 'replied')}
-                          className="text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-white border border-emerald-200"
+                          className="text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2.5 py-1 rounded-lg bg-white border border-emerald-200 cursor-pointer"
                         >
                           Mark Replied
                         </button>
@@ -352,7 +351,7 @@ export default function HostDashboard() {
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-700 bg-white p-3 rounded-xl border border-slate-200/70 whitespace-pre-line">
+                  <p className="text-xs text-slate-700 bg-white p-3.5 rounded-xl border border-slate-200/70 whitespace-pre-line leading-relaxed">
                     "{inq.message}"
                   </p>
 

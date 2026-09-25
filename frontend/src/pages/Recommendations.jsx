@@ -38,7 +38,6 @@ export default function Recommendations() {
   const [propertyType, setPropertyType] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [bedrooms, setBedrooms] = useState('');
-  const [showTuner, setShowTuner] = useState(false);
 
   // Fetch user favorites to highlight wishlist state
   useEffect(() => {
@@ -128,34 +127,34 @@ export default function Recommendations() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#fafafa] py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        
         {/* Header Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-8 sm:p-12 mb-8 shadow-xl border border-indigo-900/50">
-          <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
-          <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-4">
+        <div className="relative overflow-hidden rounded-[36px] bg-slate-950 text-white p-8 sm:p-12 shadow-xl border border-slate-800">
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="relative z-10 max-w-3xl space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>AI-Powered Smart Match Engine</span>
+              <span>AI-Powered Match Engine</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
               Recommended for You
             </h1>
-            <p className="mt-3 text-base sm:text-lg text-slate-300">
-              Personalized property selections matching your budget, preferred locations, and lifestyle
-              preferences with transparent match reasoning.
+            <p className="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed">
+              Tailored property recommendations calculated based on your budget, search history, and amenities preferences.
             </p>
 
             {isAuthenticated && (
-              <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-indigo-200">
-                <span className="inline-flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
+              <div className="pt-2 flex flex-wrap items-center gap-2 text-xs text-indigo-200">
+                <span className="inline-flex items-center gap-1.5 bg-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-sm font-semibold">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  Personalized for <strong>{user?.name}</strong>
+                  <span>Personalized for <strong>{user?.name}</strong></span>
                 </span>
                 {profileApplied?.hasUserHistory && (
-                  <span className="inline-flex items-center gap-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full">
+                  <span className="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3.5 py-1.5 rounded-full font-semibold">
                     <TrendingUp className="w-3.5 h-3.5" />
-                    Informed by your saved favorites & bookings
+                    <span>Informed by your activity</span>
                   </span>
                 )}
               </div>
@@ -164,59 +163,57 @@ export default function Recommendations() {
         </div>
 
         {/* Preference Tuner Bar */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 mb-8 transition-all">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-            <div className="flex items-center gap-2">
-              <SlidersHorizontal className="w-5 h-5 text-indigo-600" />
-              <h2 className="text-base font-bold text-slate-900">Fine-Tune AI Match Criteria</h2>
-              <span className="text-xs text-slate-500 hidden sm:inline">
-                (Adjust parameters to recalculate compatibility scores in real-time)
-              </span>
+        <div className="bg-white rounded-[32px] p-7 sm:p-8 shadow-sm border border-slate-200/80 space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <SlidersHorizontal className="w-4 h-4" />
+              </div>
+              <div>
+                <h2 className="text-sm font-bold text-slate-900">Fine-Tune AI Match Criteria</h2>
+                <span className="text-xs text-slate-400">Adjust parameters to recalculate compatibility scores</span>
+              </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              {(city || propertyType || maxPrice || bedrooms) && (
-                <button
-                  onClick={handleResetFilters}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  Reset
-                </button>
-              )}
-            </div>
+            {(city || propertyType || maxPrice || bedrooms) && (
+              <button
+                onClick={handleResetFilters}
+                className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset</span>
+              </button>
+            )}
           </div>
 
-          {/* Quick Filters Form */}
+          {/* Quick Filters Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Preferred City */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Target City / Location
+            <div className="space-y-1">
+              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                Target City
               </label>
               <div className="relative">
-                <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                 <input
                   type="text"
-                  placeholder="e.g. Guntur, Hyderabad, Goa"
+                  placeholder="e.g. Bangalore, Mumbai"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none"
                 />
               </div>
             </div>
 
-            {/* Property Type */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <div className="space-y-1">
+              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                 Property Type
               </label>
               <select
                 value={propertyType}
                 onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                className="w-full px-3.5 py-2.5 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none cursor-pointer"
               >
-                <option value="">All Property Types</option>
+                <option value="">All Types</option>
                 <option value="Hotel">Hotel</option>
                 <option value="Resort">Resort</option>
                 <option value="Homestay">Homestay</option>
@@ -229,9 +226,8 @@ export default function Recommendations() {
               </select>
             </div>
 
-            {/* Max Budget */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <div className="space-y-1">
+              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                 Max Monthly Rent (₹)
               </label>
               <input
@@ -240,17 +236,16 @@ export default function Recommendations() {
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
                 min="0"
-                className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                className="w-full px-3.5 py-2.5 text-xs font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none"
               />
             </div>
 
-            {/* Bedrooms */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Bedrooms</label>
+            <div className="space-y-1">
+              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">Bedrooms</label>
               <select
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
-                className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                className="w-full px-3.5 py-2.5 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none cursor-pointer"
               >
                 <option value="">Any Bedrooms</option>
                 <option value="1">1+ BHK</option>
@@ -262,27 +257,18 @@ export default function Recommendations() {
           </div>
         </div>
 
-        {/* Results Info */}
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-sm font-semibold text-slate-700">
-            Showing <span className="text-indigo-600 font-bold">{recommendations.length}</span>{' '}
-            AI-Matched Properties
-          </p>
-        </div>
-
         {/* Loading State */}
         {loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm animate-pulse flex flex-col space-y-3"
+                className="bg-white rounded-[32px] border border-slate-200/80 p-5 shadow-sm animate-pulse flex flex-col space-y-3"
               >
-                <div className="h-52 bg-slate-200 rounded-xl w-full"></div>
-                <div className="h-5 bg-slate-200 rounded w-3/4"></div>
-                <div className="h-4 bg-slate-200 rounded w-1/2"></div>
-                <div className="h-20 bg-slate-100 rounded-xl"></div>
-                <div className="h-10 bg-slate-200 rounded-xl w-full mt-auto"></div>
+                <div className="h-52 bg-slate-100 rounded-2xl w-full"></div>
+                <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+                <div className="h-3 bg-slate-100 rounded w-1/2"></div>
+                <div className="h-16 bg-slate-50 rounded-xl"></div>
               </div>
             ))}
           </div>
@@ -290,28 +276,28 @@ export default function Recommendations() {
 
         {/* Error State */}
         {!loading && error && (
-          <div className="p-6 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-3">
+          <div className="p-6 rounded-[28px] bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-3">
             <AlertCircle className="w-6 h-6 text-rose-600 shrink-0" />
-            <p className="text-sm font-semibold">{error}</p>
+            <p className="text-sm font-bold">{error}</p>
           </div>
         )}
 
         {/* Empty State */}
         {!loading && !error && recommendations.length === 0 && (
-          <div className="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-sm max-w-xl mx-auto">
-            <div className="w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-4">
+          <div className="bg-white rounded-[36px] p-12 text-center border border-slate-200/80 shadow-sm max-w-xl mx-auto space-y-4">
+            <div className="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto">
               <Building className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900">No matching properties found</h3>
-            <p className="mt-2 text-sm text-slate-600">
+            <h3 className="text-xl font-bold text-slate-900">No matching recommendations found</h3>
+            <p className="text-xs sm:text-sm text-slate-500">
               Try adjusting your max rent, target city, or property type to view more available recommendations.
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-2xl shadow-lg transition-colors cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />
-              Reset All Filters
+              <span>Reset All Filters</span>
             </button>
           </div>
         )}
@@ -321,153 +307,145 @@ export default function Recommendations() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recommendations.map((property) => {
               const isFav = favorites.has(property._id);
-              const score = property.matchScore || 85;
 
               return (
                 <div
                   key={property._id}
-                  className="group bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col overflow-hidden"
+                  className="group bg-white rounded-[32px] border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between overflow-hidden"
                 >
                   {/* Image Container */}
-                  <div className="relative h-56 w-full overflow-hidden bg-slate-100">
-                    <img
-                      src={
-                        property.images && property.images.length > 0
-                          ? property.images[0]
-                          : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80'
-                      }
-                      alt={property.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div>
+                    <div className="relative h-56 w-full overflow-hidden bg-slate-100">
+                      <img
+                        src={
+                          property.images && property.images.length > 0
+                            ? property.images[0]
+                            : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80'
+                        }
+                        alt={property.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
 
-                    {/* Match Score Badge */}
-                    <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md border border-white/20 text-white text-xs font-bold shadow-lg">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-                      <span className="text-emerald-400 font-extrabold">{property.matchPercentage}</span>
-                      <span className="text-slate-200">Match</span>
-                    </div>
-
-                    {/* Property Type Pill */}
-                    <div className="absolute bottom-3 left-3 z-10 px-2.5 py-0.5 rounded-lg bg-white/90 backdrop-blur-md text-slate-800 text-[11px] font-bold shadow">
-                      {property.propertyType}
-                    </div>
-
-                    {/* Wishlist Button */}
-                    <button
-                      onClick={(e) => handleToggleFavorite(e, property._id)}
-                      className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${
-                        isFav
-                          ? 'bg-rose-500 text-white shadow-md scale-110'
-                          : 'bg-white/80 hover:bg-white text-slate-700 hover:text-rose-500'
-                      }`}
-                      title={isFav ? 'Remove from favorites' : 'Add to favorites'}
-                    >
-                      <Heart className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
-                    </button>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="p-5 flex-1 flex flex-col">
-                    {/* Location & Rating */}
-                    <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
-                      <div className="flex items-center gap-1 truncate max-w-[200px]">
-                        <MapPin className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-                        <span className="truncate font-medium">
-                          {property.location}, {property.city}
-                        </span>
+                      {/* Match Score Badge */}
+                      <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold shadow-lg">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                        <span className="text-emerald-400 font-extrabold">{property.matchPercentage}</span>
+                        <span className="text-slate-200 font-medium">Match</span>
                       </div>
-                      <div className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md font-bold text-xs shrink-0">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                        <span>{property.averageRating ? property.averageRating.toFixed(1) : 'New'}</span>
+
+                      {/* Property Type Pill */}
+                      <div className="absolute bottom-3.5 left-3.5 z-10 px-3 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-bold shadow border border-white/50">
+                        {property.propertyType}
                       </div>
+
+                      {/* Wishlist Button */}
+                      <button
+                        onClick={(e) => handleToggleFavorite(e, property._id)}
+                        className={`absolute top-3.5 right-3.5 z-10 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${
+                          isFav
+                            ? 'bg-rose-500 text-white shadow-md scale-110'
+                            : 'bg-white/80 hover:bg-white text-slate-700 hover:text-rose-500'
+                        }`}
+                        title={isFav ? 'Remove from favorites' : 'Add to favorites'}
+                      >
+                        <Heart className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
+                      </button>
                     </div>
 
-                    {/* Title & Verified Badge */}
-                    <div className="space-y-1">
-                      {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/90 px-2 py-0.5 rounded-full">
-                          <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
-                          ✓ Verified Property
-                        </span>
-                      )}
+                    {/* Body Content */}
+                    <div className="p-6 space-y-3">
+                      <div className="flex items-center justify-between text-xs text-slate-400">
+                        <div className="flex items-center gap-1 truncate max-w-[200px]">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span className="truncate font-medium text-slate-500">
+                            {property.location}, {property.city}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-amber-600 font-bold text-xs bg-amber-50 px-2 py-0.5 rounded-md shrink-0">
+                          <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                          <span>{property.averageRating ? property.averageRating.toFixed(1) : '5.0'}</span>
+                        </div>
+                      </div>
+
+                      {/* Title */}
                       <Link to={`/properties/${property._id}`} className="block group-hover:text-indigo-600 transition-colors">
                         <h3 className="font-bold text-slate-900 text-base line-clamp-1">
                           {property.title}
                         </h3>
                       </Link>
+
+                      {/* Price */}
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-xl font-black text-slate-900">
+                          {formatCurrency(property.price)}
+                        </span>
+                        <span className="text-xs text-slate-400 font-medium">/mo</span>
+                      </div>
+
+                      {/* Specs */}
+                      <div className="flex items-center gap-4 py-2 border-y border-slate-100 text-xs text-slate-500 font-medium">
+                        <div className="flex items-center gap-1">
+                          <Bed className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{property.bedrooms} Beds</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Bath className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{property.bathrooms} Baths</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Maximize2 className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{property.area} sqft</span>
+                        </div>
+                      </div>
+
+                      {/* Why Recommended */}
+                      <div className="bg-indigo-50/50 border border-indigo-100/80 rounded-2xl p-3 space-y-1.5">
+                        <div className="flex items-center gap-1.5 text-indigo-950 font-bold text-[11px]">
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                          <span>Why Recommended:</span>
+                        </div>
+                        <ul className="space-y-1 text-[11px] text-slate-600">
+                          {property.reasons && property.reasons.map((reason, idx) => (
+                            <li key={idx} className="flex items-start gap-1.5">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                              <span className="leading-tight">{reason}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
+                  </div>
 
-                    {/* Price */}
-                    <div className="mt-2 mb-3">
-                      <span className="text-xl font-extrabold text-slate-900">
-                        {formatCurrency(property.price)}
-                      </span>
-                      <span className="text-xs text-slate-500 font-medium"> / month</span>
-                    </div>
-
-                    {/* Specs / Features */}
-                    <div className="flex items-center gap-4 py-2 border-y border-slate-100 text-xs text-slate-600 mb-4">
-                      <div className="flex items-center gap-1">
-                        <Bed className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{property.bedrooms} Beds</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Bath className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{property.bathrooms} Baths</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Maximize2 className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{property.area} sqft</span>
-                      </div>
-                    </div>
-
-                    {/* "Why Recommended" Box */}
-                    <div className="bg-indigo-50/70 border border-indigo-100 rounded-xl p-3.5 mb-4 mt-auto">
-                      <div className="flex items-center gap-1.5 text-indigo-950 font-bold text-xs mb-2">
-                        <Sparkles className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
-                        <span>Why Recommended:</span>
-                      </div>
-                      <ul className="space-y-1.5 text-xs text-slate-700">
-                        {property.reasons && property.reasons.map((reason, idx) => (
-                          <li key={idx} className="flex items-start gap-1.5">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                            <span className="leading-tight">{reason}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="space-y-2">
-                      <div className="grid grid-cols-2 gap-2">
-                        <Link
-                          to={`/properties/${property._id}`}
-                          className="w-full py-2.5 px-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold text-center transition-colors"
-                        >
-                          Details
-                        </Link>
-                        <Link
-                          to={`/properties/${property._id}/book`}
-                          className="w-full py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold text-center shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-1 transition-colors"
-                        >
-                          <span>Book</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </Link>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() => toggleCompare(property)}
-                        className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                          isInCompare(property._id)
-                            ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
-                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                        }`}
+                  {/* Actions Footer */}
+                  <div className="p-6 pt-0 space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      <Link
+                        to={`/properties/${property._id}`}
+                        className="w-full py-2.5 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold text-center transition-colors"
                       >
-                        <Layers className="w-3.5 h-3.5" />
-                        <span>{isInCompare(property._id) ? '✓ In Comparison List' : 'Add to Compare'}</span>
-                      </button>
+                        Details
+                      </Link>
+                      <Link
+                        to={`/properties/${property._id}/book`}
+                        className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold text-center shadow-sm flex items-center justify-center gap-1 transition-colors"
+                      >
+                        <span>Reserve</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={() => toggleCompare(property)}
+                      className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                        isInCompare(property._id)
+                          ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
+                          : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      }`}
+                    >
+                      <Layers className="w-3.5 h-3.5" />
+                      <span>{isInCompare(property._id) ? '✓ In Comparison List' : 'Compare'}</span>
+                    </button>
                   </div>
                 </div>
               );

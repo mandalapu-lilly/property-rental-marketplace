@@ -12,6 +12,8 @@ import {
   AlertCircle,
   Loader2,
   Save,
+  ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 
 export default function Profile() {
@@ -94,47 +96,55 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-slate-50 py-10">
+    <div className="min-h-screen bg-[#fafafa] py-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Header */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold text-2xl uppercase shadow-md shadow-indigo-600/30">
+        
+        {/* Profile Card Header */}
+        <div className="bg-white p-7 sm:p-9 rounded-[32px] border border-slate-200/80 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+          <div className="flex items-center gap-5">
+            <div className="w-16 h-16 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-black text-2xl uppercase shadow-md shadow-slate-900/20">
               {user?.name?.charAt(0) || 'U'}
             </div>
-            <div>
-              <h1 className="text-2xl font-black text-slate-900 tracking-tight">{user?.name}</h1>
-              <p className="text-xs text-slate-500">{user?.email}</p>
-              <span className="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700">
-                {user?.role || 'user'} Account
-              </span>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-black text-slate-900 tracking-tight">{user?.name}</h1>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+                  {user?.role || 'user'}
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 font-medium">{user?.email}</p>
             </div>
+          </div>
+
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 w-fit">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>Authenticated Member</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Profile Details Form */}
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-5">
-            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-              <User className="w-5 h-5 text-indigo-600" />
-              <span>Personal Details</span>
+          <div className="bg-white p-7 sm:p-8 rounded-[32px] border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-6">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+              <User className="w-4 h-4 text-indigo-600" />
+              <span>Personal Identity</span>
             </h2>
 
             {profileMessage && (
-              <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl font-semibold">
+              <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-2xl font-bold animate-fadeIn">
                 {profileMessage}
               </div>
             )}
 
             {profileError && (
-              <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl font-semibold">
+              <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-2xl font-bold animate-fadeIn">
                 {profileError}
               </div>
             )}
 
             <form onSubmit={handleUpdateName} className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="profile-name">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="profile-name">
                   Full Name
                 </label>
                 <input
@@ -143,12 +153,12 @@ export default function Profile() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="profile-email">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="profile-email">
                   Email Address
                 </label>
                 <input
@@ -156,44 +166,44 @@ export default function Profile() {
                   type="email"
                   disabled
                   value={user?.email || ''}
-                  className="w-full px-3.5 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed"
+                  className="w-full px-4 py-3 bg-slate-100/80 border border-slate-200 rounded-2xl text-xs text-slate-400 font-medium cursor-not-allowed"
                 />
-                <span className="text-[10px] text-slate-400 mt-1 block">Email cannot be changed directly.</span>
+                <span className="text-[10px] text-slate-400 pl-1 block">Account login email is permanently verified.</span>
               </div>
 
               <button
                 type="submit"
                 disabled={savingProfile}
-                className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                className="w-full py-3.5 px-5 bg-slate-900 hover:bg-slate-800 active:scale-98 text-white font-bold text-xs rounded-2xl shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {savingProfile ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                <span>Update Details</span>
+                <span>Save Profile Info</span>
               </button>
             </form>
           </div>
 
           {/* Change Password Form */}
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-5">
-            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-              <Lock className="w-5 h-5 text-indigo-600" />
-              <span>Change Password</span>
+          <div className="bg-white p-7 sm:p-8 rounded-[32px] border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-6">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+              <Lock className="w-4 h-4 text-indigo-600" />
+              <span>Update Password</span>
             </h2>
 
             {passwordMessage && (
-              <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl font-semibold">
+              <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-2xl font-bold animate-fadeIn">
                 {passwordMessage}
               </div>
             )}
 
             {passwordError && (
-              <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl font-semibold">
+              <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-2xl font-bold animate-fadeIn">
                 {passwordError}
               </div>
             )}
 
             <form onSubmit={handleChangePassword} className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="cur-pass">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="cur-pass">
                   Current Password *
                 </label>
                 <input
@@ -203,12 +213,12 @@ export default function Profile() {
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="new-pass">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="new-pass">
                   New Password *
                 </label>
                 <input
@@ -218,12 +228,12 @@ export default function Profile() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Minimum 6 characters"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="conf-pass">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider" htmlFor="conf-pass">
                   Confirm New Password *
                 </label>
                 <input
@@ -233,17 +243,17 @@ export default function Profile() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter new password"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={savingPassword}
-                className="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                className="w-full py-3.5 px-5 bg-slate-900 hover:bg-slate-800 active:scale-98 text-white font-bold text-xs rounded-2xl shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {savingPassword ? <Loader2 className="w-4 h-4 animate-spin" /> : <Key className="w-4 h-4" />}
-                <span>Change Password</span>
+                <span>Update Password</span>
               </button>
             </form>
           </div>

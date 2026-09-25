@@ -309,20 +309,24 @@ export default function Properties() {
     sort !== 'newest';
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-slate-50 py-8">
+    <div className="min-h-[calc(100vh-5rem)] bg-[#fafafa] py-8 sm:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Property Listings
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold mb-2">
+              <Compass className="w-3.5 h-3.5" />
+              <span>Explore Accommodations</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Curated Stays & Hotels
             </h1>
-            <p className="text-slate-500 text-sm sm:text-base mt-1">
-              Search, filter, and discover rental homes, apartments, and luxury villas.
+            <p className="text-slate-500 text-xs sm:text-sm mt-1">
+              Search, filter, and discover rental homes, hotel suites, apartments, and luxury villas.
             </p>
           </div>
 
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2.5 flex-wrap">
             {/* Saved Searches Drawer */}
             <SavedSearchesDrawer
               currentFilters={{
@@ -340,40 +344,40 @@ export default function Properties() {
             />
 
             {/* View Mode Toggle */}
-            <div className="inline-flex rounded-xl p-1 bg-slate-200/80 border border-slate-200">
+            <div className="inline-flex rounded-2xl p-1 bg-slate-200/70 border border-slate-200/80">
               <button
                 type="button"
                 onClick={() => setViewMode('list')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   viewMode === 'list'
                     ? 'bg-white text-slate-900 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <List className="w-3.5 h-3.5" />
-                <span>List View</span>
+                <span>List</span>
               </button>
               <button
                 type="button"
                 onClick={() => setViewMode('map')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   viewMode === 'map'
                     ? 'bg-white text-slate-900 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <MapIcon className="w-3.5 h-3.5" />
-                <span>Map View</span>
+                <span>Map</span>
               </button>
             </div>
 
             <button
               onClick={() => handleApplyFilters()}
               disabled={loading}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 text-sm font-semibold transition-all disabled:opacity-50 cursor-pointer shadow-sm"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-all disabled:opacity-50 cursor-pointer shadow-sm"
               title="Refresh Listings"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-indigo-600' : ''}`} />
               <span className="hidden sm:inline">Refresh</span>
             </button>
           </div>
@@ -382,12 +386,12 @@ export default function Properties() {
         {/* Search, Filter & Sort Control Panel */}
         <form
           onSubmit={handleApplyFilters}
-          className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-5"
+          className="bg-white p-5 sm:p-7 rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] space-y-5"
         >
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h2 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-indigo-600" />
-              <span>Search & Filter Properties</span>
+              <span>Search & Filter Stays</span>
             </h2>
             {hasActiveFilters && (
               <button
@@ -396,16 +400,16 @@ export default function Properties() {
                 className="inline-flex items-center gap-1 text-xs font-semibold text-rose-600 hover:text-rose-700 cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
-                <span>Clear Filters</span>
+                <span>Reset All Filters</span>
               </button>
             )}
           </div>
 
           {/* Quick Popular City Selection Pills */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <span className="text-xs font-semibold text-slate-500 shrink-0 flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-indigo-600" />
-              Quick Cities:
+            <span className="text-xs font-semibold text-slate-400 shrink-0 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-indigo-500" />
+              Cities:
             </span>
             <div className="flex items-center gap-1.5 flex-nowrap">
               {popularCities.map((c) => {
@@ -419,7 +423,7 @@ export default function Properties() {
                     onClick={() => handleSelectCityChip(c)}
                     className={`px-3 py-1 rounded-full text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                       isSelected
-                        ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/30'
+                        ? 'bg-slate-900 text-white shadow-sm'
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
                     }`}
                   >
@@ -430,11 +434,11 @@ export default function Properties() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5">
             {/* 1. Search by City / Location */}
             <div className="xl:col-span-2">
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="city-input">
-                Search by City / Location
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="city-input">
+                City / Location
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -445,22 +449,22 @@ export default function Properties() {
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  placeholder="Enter city or locality..."
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                  placeholder="Search city or neighborhood..."
+                  className="w-full pl-9 pr-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all"
                 />
               </div>
             </div>
 
             {/* 2. Property Type */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="property-type">
-                Property Type
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="property-type">
+                Stay Type
               </label>
               <select
                 id="property-type"
                 value={propertyType}
                 onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all cursor-pointer"
               >
                 {propertyTypes.map((type) => (
                   <option key={type} value={type}>
@@ -470,9 +474,9 @@ export default function Properties() {
               </select>
             </div>
 
-            {/* 3. Minimum Price */}
+            {/* 3. Min Price */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="min-price">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="min-price">
                 Min Price (₹)
               </label>
               <input
@@ -481,14 +485,14 @@ export default function Properties() {
                 min="0"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                placeholder="e.g. 10000"
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Min ₹"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all"
               />
             </div>
 
-            {/* 4. Maximum Price */}
+            {/* 4. Max Price */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="max-price">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="max-price">
                 Max Price (₹)
               </label>
               <input
@@ -497,21 +501,21 @@ export default function Properties() {
                 min="0"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                placeholder="e.g. 50000"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Max ₹"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all"
               />
             </div>
 
             {/* 5. Bedrooms */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="bedrooms-select">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="bedrooms-select">
                 Bedrooms
               </label>
               <select
                 id="bedrooms-select"
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all cursor-pointer"
               >
                 {bedroomOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -520,17 +524,19 @@ export default function Properties() {
                 ))}
               </select>
             </div>
+          </div>
 
-            {/* 6. Minimum Rating */}
+          {/* Secondary Filter Row: Rating & Verified */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="rating-select">
-                Min Rating
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="rating-select">
+                Minimum Rating
               </label>
               <select
                 id="rating-select"
                 value={minRating}
                 onChange={(e) => setMinRating(e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer"
               >
                 {ratingOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -540,16 +546,15 @@ export default function Properties() {
               </select>
             </div>
 
-            {/* 7. Verification Badge Filter */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1" htmlFor="verification-select">
-                Verification
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1" htmlFor="verification-select">
+                Host Verification
               </label>
               <select
                 id="verification-select"
                 value={verificationStatus}
                 onChange={(e) => setVerificationStatus(e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer"
               >
                 <option value="All">All Properties</option>
                 <option value="approved">✓ Verified Only</option>
@@ -558,17 +563,17 @@ export default function Properties() {
           </div>
 
           {/* Sort By & Submit Buttons Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-3 border-t border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-slate-100">
             {/* Sort Dropdown */}
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+              <span className="text-xs font-bold text-slate-600 flex items-center gap-1.5">
                 <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
-                Sort By:
+                Sort:
               </span>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"
               >
                 {sortOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -583,14 +588,14 @@ export default function Properties() {
               <button
                 type="button"
                 onClick={handleClearFilters}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer"
               >
-                Clear Filters
+                Reset
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center gap-1.5 px-5 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold text-xs rounded-xl shadow-md shadow-indigo-600/20 disabled:opacity-50 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-5 py-2 bg-slate-900 hover:bg-indigo-600 active:bg-slate-950 text-white font-bold text-xs rounded-xl shadow-md disabled:opacity-50 transition-all cursor-pointer"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>Apply Filters</span>
@@ -690,16 +695,16 @@ export default function Properties() {
               {properties.map((property) => (
                 <div
                   key={property._id}
-                  className="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between overflow-hidden group"
+                  className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.04)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
                 >
                   <div>
                     {/* Property Image Cover */}
-                    <div className="relative h-52 bg-slate-100 overflow-hidden">
+                    <div className="relative h-56 bg-slate-100 overflow-hidden">
                       {property.images && property.images.length > 0 ? (
                         <img
                           src={property.images[0]}
                           alt={property.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           onError={(e) => {
                             e.target.style.display = 'none';
                             e.target.nextSibling.style.display = 'flex';
@@ -715,7 +720,7 @@ export default function Properties() {
                       </div>
 
                       {/* Property Type Badge */}
-                      <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-indigo-700 shadow-sm border border-white/50">
+                      <span className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold text-slate-900 shadow-sm border border-slate-100">
                         {property.propertyType}
                       </span>
 
@@ -723,10 +728,10 @@ export default function Properties() {
                       <button
                         type="button"
                         onClick={(e) => toggleFavorite(property._id, e)}
-                        className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md shadow-md transition-transform hover:scale-110 cursor-pointer ${
+                        className={`absolute top-3.5 right-3.5 p-2.5 rounded-full backdrop-blur-md shadow-md transition-all duration-200 hover:scale-110 cursor-pointer ${
                           favorites.has(property._id)
-                            ? 'bg-rose-500 text-white'
-                            : 'bg-white/80 text-slate-600 hover:text-rose-500'
+                            ? 'bg-rose-500 text-white shadow-rose-500/30'
+                            : 'bg-white/85 text-slate-700 hover:text-rose-500 hover:bg-white'
                         }`}
                         title={favorites.has(property._id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
                       >
@@ -740,9 +745,9 @@ export default function Properties() {
 
                     {/* Body Details */}
                     <div className="p-5 space-y-3">
-                      <div className="flex items-center justify-between gap-1.5 text-xs font-semibold text-slate-500">
-                        <div className="flex items-center gap-1 truncate">
-                          <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <div className="flex items-center justify-between gap-1.5 text-xs font-medium text-slate-500">
+                        <div className="flex items-center gap-1.5 truncate">
+                          <MapPin className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
                           <span className="truncate">
                             {property.location}, {property.city}
                           </span>
@@ -751,7 +756,7 @@ export default function Properties() {
                           <div className="flex items-center gap-1 text-amber-500 shrink-0 font-bold">
                             <Star className="w-3.5 h-3.5 fill-current" />
                             <span>{property.averageRating?.toFixed(1)}</span>
-                            <span className="text-slate-400 font-normal">({property.totalReviews})</span>
+                            <span className="text-slate-400 font-normal text-[11px]">({property.totalReviews})</span>
                           </div>
                         )}
                       </div>
@@ -759,14 +764,14 @@ export default function Properties() {
                       {/* Verified Badge */}
                       {(property.verificationStatus === 'approved' || !property.verificationStatus) && (
                         <div className="flex items-center">
-                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/90 px-2 py-0.5 rounded-full">
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full">
                             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             ✓ Verified Property
                           </span>
                         </div>
                       )}
 
-                      <h2 className="text-lg font-bold text-slate-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">
+                      <h2 className="text-base font-bold text-slate-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">
                         {property.title}
                       </h2>
 
@@ -775,16 +780,12 @@ export default function Properties() {
                       </p>
 
                       {/* Specs Row */}
-                      <div className="pt-2 flex items-center gap-4 text-xs text-slate-600 border-t border-slate-100">
-                        <div className="flex items-center gap-1">
+                      <div className="pt-2 flex items-center gap-4 text-xs font-medium text-slate-600 border-t border-slate-100">
+                        <div className="flex items-center gap-1.5">
                           <Bed className="w-3.5 h-3.5 text-slate-400" />
-                          <span>{property.bedrooms} Beds</span>
+                          <span>{property.bedrooms} {property.bedrooms === 1 ? 'Bed' : 'Beds'}</span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Bath className="w-3.5 h-3.5 text-slate-400" />
-                          <span>{property.bathrooms} Baths</span>
-                        </div>
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1.5">
                           <Maximize2 className="w-3.5 h-3.5 text-slate-400" />
                           <span>{property.area} sqft</span>
                         </div>
@@ -793,35 +794,37 @@ export default function Properties() {
                   </div>
 
                   {/* Card Footer */}
-                  <div className="p-5 pt-0 flex items-center justify-between border-t border-slate-50 mt-2 gap-2">
+                  <div className="p-5 pt-0 flex items-center justify-between border-t border-slate-100/80 mt-2 gap-2">
                     <div>
-                      <span className="text-xs text-slate-400 block font-medium">Rent</span>
-                      <span className="text-lg font-extrabold text-slate-900">
-                        ₹{property.price?.toLocaleString()}
-                      </span>
-                      <span className="text-xs text-slate-500">/mo</span>
+                      <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">Rate</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-lg font-extrabold text-slate-900">
+                          ₹{property.price?.toLocaleString()}
+                        </span>
+                        <span className="text-xs text-slate-400 font-medium">/mo</span>
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => toggleCompare(property)}
-                        className={`inline-flex items-center gap-1 px-3 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                        className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
                           isInCompare(property._id)
-                            ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/30'
+                            ? 'bg-indigo-600 text-white shadow-sm'
                             : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                         }`}
                         title={isInCompare(property._id) ? 'Remove from Comparison' : 'Add to Comparison'}
                       >
                         <Layers className="w-3.5 h-3.5" />
-                        <span>{isInCompare(property._id) ? 'In Compare' : 'Compare'}</span>
+                        <span>{isInCompare(property._id) ? 'Added' : 'Compare'}</span>
                       </button>
 
                       <Link
                         to={`/properties/${property._id}`}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 text-xs font-bold rounded-xl transition-all shadow-sm"
+                        className="inline-flex items-center gap-1 px-4 py-2 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm"
                       >
-                        <span>Details</span>
+                        <span>View</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>

@@ -13,6 +13,7 @@ import {
   Mail,
   MapPin,
   RefreshCw,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 export default function HostBookings() {
@@ -86,53 +87,53 @@ export default function HostBookings() {
       case 'rejected':
         return 'bg-rose-50 text-rose-700 border-rose-200';
       case 'cancelled':
-        return 'bg-slate-100 text-slate-700 border-slate-200';
+        return 'bg-slate-100 text-slate-600 border-slate-200';
       default:
         return 'bg-amber-50 text-amber-700 border-amber-200';
     }
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-slate-50 py-10">
+    <div className="min-h-screen bg-[#fafafa] py-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-7 sm:p-9 rounded-[32px] border border-slate-200/80 shadow-sm">
           <div>
             <Link
               to="/host-dashboard"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 mb-2"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 mb-2 group transition-colors"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              Back to Host Dashboard
+              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+              <span>Back to Host Overview</span>
             </Link>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Incoming Reservation Requests
+              Incoming Guest Reservations
             </h1>
-            <p className="text-slate-500 text-sm mt-1">
-              Review guest booking requests and confirm or decline dates.
+            <p className="text-slate-500 text-xs sm:text-sm mt-1">
+              Review guest bookings, confirm dates, and manage your property schedule.
             </p>
           </div>
 
           <button
             onClick={fetchHostBookings}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors cursor-pointer w-fit"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-2xl transition-colors cursor-pointer w-fit"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-            <span>Refresh</span>
+            <span>Sync Requests</span>
           </button>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-none">
           {['all', 'pending', 'confirmed', 'completed', 'rejected', 'cancelled'].map((tab) => (
             <button
               key={tab}
               onClick={() => setFilterTab(tab)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-5 py-2.5 rounded-full text-xs font-bold capitalize transition-all cursor-pointer whitespace-nowrap ${
                 filterTab === tab
-                  ? 'bg-indigo-600 text-white shadow-md'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                  ? 'bg-slate-900 text-white shadow-md shadow-slate-900/10'
+                  : 'bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50'
               }`}
             >
               {tab}
@@ -142,20 +143,24 @@ export default function HostBookings() {
 
         {/* Content */}
         {loading ? (
-          <div className="min-h-[40vh] flex flex-col items-center justify-center space-y-3">
-            <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
-            <p className="text-slate-500 font-medium text-sm">Loading incoming bookings...</p>
+          <div className="min-h-[40vh] flex flex-col items-center justify-center space-y-4">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 animate-pulse">
+              <Loader2 className="w-6 h-6 animate-spin" />
+            </div>
+            <p className="text-slate-500 font-medium text-sm">Fetching incoming guest bookings...</p>
           </div>
         ) : error ? (
-          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-6 text-center text-rose-800 text-sm font-semibold max-w-md mx-auto">
+          <div className="bg-rose-50 border border-rose-200 rounded-3xl p-6 text-center text-rose-800 text-sm font-semibold max-w-md mx-auto">
             {error}
           </div>
         ) : filteredBookings.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-lg mx-auto shadow-sm space-y-3">
-            <Calendar className="w-12 h-12 text-slate-300 mx-auto" />
-            <h3 className="text-lg font-bold text-slate-900">No {filterTab !== 'all' ? filterTab : ''} bookings</h3>
-            <p className="text-xs text-slate-500">
-              When tenants book your properties, their reservation requests will appear here.
+          <div className="bg-white rounded-[32px] border border-slate-200/80 p-12 text-center max-w-lg mx-auto shadow-sm space-y-3">
+            <div className="w-16 h-16 rounded-3xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+              <Calendar className="w-8 h-8" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">No {filterTab !== 'all' ? filterTab : ''} booking requests</h3>
+            <p className="text-xs sm:text-sm text-slate-500">
+              When prospective tenants place reservations on your properties, they will appear in this inbox.
             </p>
           </div>
         ) : (
@@ -167,18 +172,18 @@ export default function HostBookings() {
               return (
                 <div
                   key={booking._id}
-                  className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-[28px] border border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-slate-300 transition-all"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <span
-                        className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider border ${getStatusBadge(
+                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getStatusBadge(
                           booking.status
                         )}`}
                       >
                         {booking.status}
                       </span>
-                      <span className="text-xs text-slate-400">
+                      <span className="text-[11px] text-slate-400">
                         Received on {new Date(booking.createdAt).toLocaleDateString()}
                       </span>
                     </div>
@@ -192,8 +197,8 @@ export default function HostBookings() {
                       <span>Guest: <strong className="text-slate-800">{booking.user?.name}</strong> ({booking.user?.email})</span>
                     </div>
 
-                    <div className="flex items-center gap-4 text-xs text-slate-600 pt-1">
-                      <span className="flex items-center gap-1 font-medium">
+                    <div className="flex items-center gap-4 text-xs text-slate-600 pt-1 font-medium">
+                      <span className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-slate-400" />
                         {new Date(booking.startDate).toLocaleDateString()} – {new Date(booking.endDate).toLocaleDateString()}
                       </span>
@@ -202,9 +207,9 @@ export default function HostBookings() {
                     </div>
                   </div>
 
-                  <div className="flex flex-row md:flex-col items-center md:items-end justify-between border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 gap-3">
+                  <div className="flex flex-row md:flex-col items-center md:items-end justify-between border-t md:border-t-0 pt-4 md:pt-0 border-slate-100 gap-3">
                     <div className="text-left md:text-right">
-                      <span className="text-xs text-slate-400 block font-medium">Earnings</span>
+                      <span className="text-[11px] text-slate-400 block font-semibold uppercase tracking-wider">Gross Booking Value</span>
                       <span className="text-lg font-black text-slate-900">
                         ₹{booking.totalPrice?.toLocaleString()}
                       </span>
@@ -215,15 +220,15 @@ export default function HostBookings() {
                         <button
                           onClick={() => handleConfirm(booking._id)}
                           disabled={actionLoading === booking._id}
-                          className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-sm transition-colors cursor-pointer flex items-center gap-1"
+                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-sm transition-colors cursor-pointer flex items-center gap-1.5"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>Accept</span>
+                          <span>Accept Stay</span>
                         </button>
                         <button
                           onClick={() => handleReject(booking._id)}
                           disabled={actionLoading === booking._id}
-                          className="px-3.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-lg border border-rose-200 transition-colors cursor-pointer flex items-center gap-1"
+                          className="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 transition-colors cursor-pointer flex items-center gap-1.5"
                         >
                           <XCircle className="w-3.5 h-3.5" />
                           <span>Decline</span>
