@@ -10,6 +10,8 @@ import CompareBar from './components/CompareBar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Properties from './pages/Properties';
 import PropertyDetails from './pages/PropertyDetails';
 import Compare from './pages/Compare';
@@ -41,6 +43,8 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/properties" element={<Properties />} />
                   <Route path="/properties/:id" element={<PropertyDetails />} />
                   <Route path="/compare" element={<Compare />} />

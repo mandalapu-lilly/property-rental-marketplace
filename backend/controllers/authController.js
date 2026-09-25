@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
@@ -244,6 +245,107 @@ export const changePassword = async (req, res, next) => {
 
     return res.status(200).json({
       message: 'Password changed successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc    Forgot Password - request password reset token / code
+ * @route   POST /api/auth/forgot-password
+ * @access  Public
+ */
+export const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || !email.trim()) {
+      return res.status(400).json({ error: 'Please provide an email address' });
+    }
+
+    const trimmedEmail = email.trim().toLowerCase();
+    const user = await User.findOne({ email: trimmedEmail });
+
+    if (!user) {
+      return res.status(404).json({ error: 'No account with that email address exists' });
+    }
+
+    // Generate random 32-byte hex reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+
+    // Hash token and store in database with 30-minute expiry
+    const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordExpire = Date.now() + 30 * 60 * 1000; // 30 minutes
+
+    await user.save({ validateBeforeSave: false });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Password reset instructions generated successfully.',
+      resetToken,
+      email: user.email,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc    Reset Password using reset token
+ * @route   POST /api/auth/reset-password
+ * @access  Public
+ */
+export const resetPassword = async (req, res, next) => {
+  try {
+    const { token, newPassword, confirmPassword, email } = req.body;
+
+    if (!newPassword || !confirmPassword) {
+      return res.status(400).json({ error: 'Please provide both new password and confirm password' });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ error: 'New password must be at least 6 characters long' });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ error: 'New password and confirm password do not match' });
+    }
+
+    let user;
+
+    if (token) {
+      const hashedToken = crypto.createHash('sha256').update(token.trim()).digest('hex');
+      user = await User.findOne({
+        resetPasswordToken: hashedToken,
+        resetPasswordExpire: { $gt: Date.now() },
+      });
+    }
+
+    // Fallback: If email provided and reset is within valid window
+    if (!user && email) {
+      const trimmedEmail = email.trim().toLowerCase();
+      user = await User.findOne({
+        email: trimmedEmail,
+        resetPasswordExpire: { $gt: Date.now() },
+      });
+    }
+
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid or expired password reset token. Please request a new link.' });
+    }
+
+    // Update password (hashed automatically via pre-save hook)
+    user.password = newPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Your password has been reset successfully. You can now sign in with your new password.',
     });
   } catch (error) {
     next(error);

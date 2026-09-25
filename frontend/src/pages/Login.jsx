@@ -113,6 +113,12 @@ export default function Login() {
                 <label className="block text-sm font-semibold text-slate-700" htmlFor="password">
                   Password
                 </label>
+                <Link
+                  to="/forgot-password"
+                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 hover:underline transition-colors"
+                >
+                  Forgot password?
+                </Link>
               </div>
               <div className="relative rounded-xl">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
