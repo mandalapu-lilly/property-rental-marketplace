@@ -61,13 +61,13 @@ export default function Navbar() {
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-3 group transition-transform duration-200 hover:scale-[1.01]"
+            className="flex items-center gap-3 group transition-transform duration-200 hover:scale-[1.01] shrink-0"
           >
-            <div className="p-1 rounded-lg bg-[#fbfbf9] dark:bg-[#1c1c20] border border-[#e8e3da] dark:border-[#27272a] shadow-xs flex items-center justify-center">
+            <div className="p-1 sm:p-1.5 rounded-xl bg-[#fbfbf9] dark:bg-[#1c1c20] border border-[#e8e3da] dark:border-[#27272a] shadow-xs flex items-center justify-center">
               <img
                 src="/havenstay-logo.png"
                 alt="HavenStay Logo"
-                className="h-9 w-auto object-contain rounded"
+                className="h-9 sm:h-10 md:h-[44px] lg:h-[46px] w-auto object-contain rounded"
               />
             </div>
           </Link>

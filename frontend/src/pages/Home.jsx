@@ -172,7 +172,7 @@ export default function Home() {
                 <div>
                   <span className="text-[9px] uppercase tracking-wider text-[#a1a1aa] block font-semibold">Rate</span>
                   <span className="text-base font-bold text-[#18181b] dark:text-[#fbfbf9]">
-                    ₹{leadProperty?.price?.toLocaleString() || '45,000'}
+                    ₹{leadProperty?.price?.toLocaleString() || '24,000'}
                     <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/mo</span>
                   </span>
                 </div>
@@ -242,7 +242,7 @@ export default function Home() {
                 min="0"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                placeholder="e.g. 65,000"
+                placeholder="e.g. 35,000"
                 className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] focus:outline-none"
               />
             </div>
@@ -596,7 +596,7 @@ export default function Home() {
                 <img
                   src="/havenstay-logo.png"
                   alt="HavenStay"
-                  className="h-8 w-auto object-contain rounded"
+                  className="h-10 sm:h-11 w-auto object-contain rounded"
                 />
               </div>
             </div>
