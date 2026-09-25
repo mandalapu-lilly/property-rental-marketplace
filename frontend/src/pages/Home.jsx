@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useCompare } from '../context/CompareContext';
 import RecommendationsSection from '../components/RecommendationsSection';
+import ArchitecturalVilla3D from '../components/ArchitecturalVilla3D';
+import Card3DTilt from '../components/Card3DTilt';
 import {
   Search,
   MapPin,
@@ -18,6 +20,8 @@ import {
   Layers,
   CheckCircle2,
   Key,
+  Box,
+  Eye,
 } from 'lucide-react';
 
 export default function Home() {
@@ -29,6 +33,17 @@ export default function Home() {
   const [maxPrice, setMaxPrice] = useState('');
   const [featuredProperties, setFeaturedProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [heroMode, setHeroMode] = useState('3d'); // '3d' | 'photo'
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'));
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const fetchFeatured = async () => {
@@ -110,37 +125,74 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Hero Column: Large Architectural Image & Floating Card */}
-          <div className="lg:col-span-6 relative">
-            {/* Cinematic Main Property Image */}
-            <div className="relative h-[380px] sm:h-[480px] lg:h-[540px] rounded-[2.5rem] overflow-hidden shadow-editorial bg-[#e8e3da] dark:bg-[#27272a]">
-              <img
-                src={
-                  leadProperty?.images?.[0] ||
-                  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80'
-                }
-                alt="Luxury Architectural Home"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-
-              {/* Floating Top Badge */}
-              <div className="absolute top-6 left-6 flex items-center gap-2">
-                <span className="px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-[#18181b]/90 backdrop-blur-md text-[#18181b] dark:text-[#fbfbf9] text-xs font-semibold tracking-wider uppercase shadow-sm border border-white/20">
-                  {leadProperty?.propertyType || 'Curated'}
-                </span>
-                <span className="px-3.5 py-1.5 rounded-full bg-[#18181b]/80 dark:bg-[#121214]/90 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/10">
-                  <Star className="w-3.5 h-3.5 fill-[#d4b996] text-[#d4b996]" />
-                  <span>{leadProperty?.averageRating || 4.9}</span>
-                </span>
-              </div>
+          {/* Right Hero Column: Interactive 3D Architectural Villa Pavilion & Overlay */}
+          <div className="lg:col-span-6 relative perspective-1000">
+            {/* View Mode Pill Switcher */}
+            <div className="absolute top-4 left-6 z-30 flex items-center gap-1 p-1 rounded-full bg-white/90 dark:bg-[#18181b]/90 backdrop-blur-md border border-[#e5e0d8] dark:border-[#3f3f46] shadow-sm text-xs">
+              <button
+                type="button"
+                onClick={() => setHeroMode('3d')}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
+                  heroMode === '3d'
+                    ? 'bg-[#18181b] text-white dark:bg-[#d4b996] dark:text-[#18181b] shadow-sm'
+                    : 'text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-white'
+                }`}
+              >
+                <Box className="w-3.5 h-3.5" />
+                <span>3D Spatial Model</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setHeroMode('photo')}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
+                  heroMode === 'photo'
+                    ? 'bg-[#18181b] text-white dark:bg-[#d4b996] dark:text-[#18181b] shadow-sm'
+                    : 'text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-white'
+                }`}
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>Curated Photo</span>
+              </button>
             </div>
 
-            {/* Floating Editorial Property Card (Overlay) */}
-            <div className="mt-4 lg:mt-0 lg:absolute lg:-bottom-8 lg:-left-10 bg-white/95 dark:bg-[#1c1c20]/95 backdrop-blur-xl p-5 sm:p-6 rounded-[2rem] shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] max-w-sm w-full transition-all hover:-translate-y-1 duration-300">
+            {/* 3D Visual or Cinematic Photo Container */}
+            {heroMode === '3d' ? (
+              <div className="relative h-[420px] sm:h-[480px] lg:h-[540px] rounded-[2.5rem] overflow-hidden shadow-editorial-lg">
+                <ArchitecturalVilla3D isDark={isDark} />
+              </div>
+            ) : (
+              <div className="relative h-[420px] sm:h-[480px] lg:h-[540px] rounded-[2.5rem] overflow-hidden shadow-editorial-lg bg-[#e8e3da] dark:bg-[#27272a]">
+                <img
+                  src={
+                    leadProperty?.images?.[0] ||
+                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80'
+                  }
+                  alt="Luxury Architectural Home"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+
+                <div className="absolute bottom-6 left-6 flex items-center gap-2">
+                  <span className="px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-[#18181b]/90 backdrop-blur-md text-[#18181b] dark:text-[#fbfbf9] text-xs font-semibold tracking-wider uppercase shadow-sm border border-white/20">
+                    {leadProperty?.propertyType || 'Curated'}
+                  </span>
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#18181b]/80 dark:bg-[#121214]/90 backdrop-blur-md text-white text-xs font-medium flex items-center gap-1 border border-white/10">
+                    <Star className="w-3.5 h-3.5 fill-[#d4b996] text-[#d4b996]" />
+                    <span>{leadProperty?.averageRating || 4.9}</span>
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Floating Editorial 3D Tilt Card (Overlay) */}
+            <Card3DTilt
+              maxTilt={6}
+              scale={1.02}
+              className="mt-4 lg:mt-0 lg:absolute lg:-bottom-8 lg:-left-8 bg-white/95 dark:bg-[#1c1c20]/95 backdrop-blur-xl p-5 sm:p-6 rounded-[2rem] shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] max-w-sm w-full z-20"
+            >
               {/* Category Pills Header */}
               <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-[#71717a] dark:text-[#a1a1aa] mb-2.5">
-                <span>Interior</span>
+                <span>3D Modeled</span>
                 <span>•</span>
                 <span>Architecture</span>
                 <span>•</span>
@@ -152,7 +204,7 @@ export default function Home() {
                   {leadProperty?.title || 'Modern Architectural Haven'}
                 </h3>
                 <p className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">
-                  {leadProperty?.location ? `${leadProperty.location}, ${leadProperty.city}` : 'Elegant living & pure comfort'}
+                  {leadProperty?.location ? `${leadProperty.location}, ${leadProperty.city}` : 'Spatial 3D depth & natural daylight'}
                 </p>
               </div>
 
@@ -185,7 +237,7 @@ export default function Home() {
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
-            </div>
+            </Card3DTilt>
           </div>
         </div>
 
@@ -400,9 +452,11 @@ export default function Home() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredProperties.map((prop) => (
-                <div
+                <Card3DTilt
                   key={prop._id}
-                  className="bg-white dark:bg-[#1c1c20] rounded-[2rem] border border-[#e5e0d8] dark:border-[#27272a] shadow-editorial hover:shadow-editorial-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+                  maxTilt={6}
+                  scale={1.015}
+                  className="bg-white dark:bg-[#1c1c20] rounded-[2rem] border border-[#e5e0d8] dark:border-[#27272a] shadow-editorial hover:shadow-editorial-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group"
                 >
                   <div>
                     {/* Image Container with Badges */}
@@ -499,7 +553,7 @@ export default function Home() {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </Card3DTilt>
               ))}
             </div>
           )}
