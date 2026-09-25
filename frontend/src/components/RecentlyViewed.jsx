@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Trash2, MapPin, ArrowRight, IndianRupee, ShieldCheck } from 'lucide-react';
+import { Clock, Trash2, MapPin, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const STORAGE_KEY = 'havenstay_recently_viewed';
 
@@ -60,58 +60,53 @@ export default function RecentlyViewed({ currentPropertyId = null }) {
   if (recentItems.length === 0) return null;
 
   return (
-    <div className="my-10 bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-sm">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+    <div className="my-10 bg-white rounded-[2rem] border border-[#e5e0d8] p-6 sm:p-8 shadow-editorial">
+      <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#f4f0e8]">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-[#f4f0e8] text-[#18181b] flex items-center justify-center border border-[#e5e0d8]">
             <Clock className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-bold text-base text-slate-900">Recently Viewed Properties</h3>
-            <p className="text-xs text-slate-500">Pick up right where you left off</p>
+            <h3 className="font-editorial text-2xl font-bold text-[#18181b]">Recently Viewed Stays</h3>
+            <p className="text-xs text-[#71717a]">Pick up right where you left off</p>
           </div>
         </div>
         <button
           onClick={clearHistory}
-          className="text-xs font-semibold text-slate-500 hover:text-rose-600 flex items-center gap-1 transition-colors px-2.5 py-1 rounded-lg hover:bg-rose-50"
+          className="text-xs font-semibold uppercase tracking-wider text-[#71717a] hover:text-rose-600 flex items-center gap-1.5 transition-colors px-3 py-1.5 rounded-full hover:bg-rose-50 cursor-pointer"
         >
           <Trash2 className="w-3.5 h-3.5" />
           <span>Clear History</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {recentItems.slice(0, 4).map((prop) => (
           <Link
             key={prop._id}
             to={`/properties/${prop._id}`}
-            className="group block bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 hover:shadow-md hover:border-indigo-200 transition-all"
+            className="group block bg-[#fbfbf9] rounded-2xl overflow-hidden border border-[#e5e0d8] hover:shadow-editorial hover:border-[#18181b] transition-all"
           >
-            <div className="aspect-[16/10] relative overflow-hidden bg-slate-200">
+            <div className="aspect-[16/10] relative overflow-hidden bg-[#f4f0e8]">
               <img
                 src={prop.images?.[0] || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80'}
                 alt={prop.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <span className="absolute bottom-2 left-2 bg-slate-900/80 backdrop-blur-sm text-white text-xs font-bold px-2 py-0.5 rounded-md">
+              <span className="absolute bottom-2.5 left-2.5 bg-[#18181b]/85 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full">
                 ₹{prop.price?.toLocaleString()}
-                <span className="text-[10px] font-normal text-slate-300">/mo</span>
+                <span className="text-[10px] font-normal text-[#d4cdc3]">/mo</span>
               </span>
-              {prop.verificationStatus === 'approved' && (
-                <span className="absolute top-2 right-2 bg-emerald-600/90 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                  <ShieldCheck className="w-3 h-3" />
-                  Verified
-                </span>
-              )}
             </div>
-            <div className="p-3">
-              <h4 className="font-semibold text-xs text-slate-900 truncate group-hover:text-indigo-600 transition-colors">
+
+            <div className="p-4 space-y-1.5">
+              <div className="flex items-center justify-between gap-1 text-[11px] text-[#71717a]">
+                <span className="truncate">{prop.location}, {prop.city}</span>
+                <span className="text-[10px] font-bold uppercase text-[#18181b]">{prop.propertyType}</span>
+              </div>
+              <h4 className="font-editorial text-base font-bold text-[#18181b] truncate group-hover:text-[#8c827a] transition-colors">
                 {prop.title}
               </h4>
-              <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-1 truncate">
-                <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
-                {prop.location}, {prop.city}
-              </p>
             </div>
           </Link>
         ))}

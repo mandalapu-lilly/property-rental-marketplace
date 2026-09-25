@@ -38,10 +38,23 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle unauthenticated 401 responses
+// Response interceptor with retry mechanism for Render cold starts
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const config = error.config;
+
+    // Retry once on network error or timeout (Render cold starts)
+    if (config && !config._retry && (!error.response || error.code === 'ECONNABORTED')) {
+      config._retry = true;
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        return await api(config);
+      } catch (retryError) {
+        return Promise.reject(retryError);
+      }
+    }
+
     // If backend returns 401 Unauthorized and user is not on login/register page, clear session
     if (error.response && error.response.status === 401) {
       if (typeof window !== 'undefined') {
