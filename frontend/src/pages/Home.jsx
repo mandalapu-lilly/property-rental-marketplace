@@ -592,6 +592,7 @@ export default function Home() {
               <Link to="/properties" className="hover:text-[#18181b] dark:hover:text-white transition-colors">Stays</Link>
               <Link to="/recommendations" className="hover:text-[#18181b] dark:hover:text-white transition-colors">AI Match</Link>
               <Link to="/compare" className="hover:text-[#18181b] dark:hover:text-white transition-colors">Compare</Link>
+              <Link to="/support" className="hover:text-[#18181b] dark:hover:text-white transition-colors">Support & FAQ</Link>
               <Link to="/login" className="hover:text-[#18181b] dark:hover:text-white transition-colors">Sign In</Link>
               <Link to="/register" className="hover:text-[#18181b] dark:hover:text-white transition-colors">Host Hub</Link>
             </div>

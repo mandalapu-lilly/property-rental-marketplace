@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from 'lucide-react';
+import PasswordStrengthIndicator, { isPasswordStrong } from '../components/PasswordStrengthIndicator';
 
 export default function Profile() {
   const { user } = useAuth();
@@ -66,8 +67,8 @@ export default function Profile() {
       return;
     }
 
-    if (newPassword.length < 6) {
-      setPasswordError('New password must be at least 6 characters long.');
+    if (!isPasswordStrong(newPassword)) {
+      setPasswordError('New password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).');
       return;
     }
 
@@ -227,9 +228,11 @@ export default function Profile() {
                   required
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Minimum 6 characters"
+                  placeholder="Create a strong password"
                   className="w-full px-4 py-3 bg-[#fbfbf9] dark:bg-[#121214] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-2xl text-xs font-medium text-[#18181b] dark:text-[#f4f0e8] focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
                 />
+                {/* Dynamic Password Strength Indicator */}
+                <PasswordStrengthIndicator password={newPassword} showRequirements={true} />
               </div>
 
               <div className="space-y-1.5">
@@ -243,8 +246,22 @@ export default function Profile() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter new password"
-                  className="w-full px-4 py-3 bg-[#fbfbf9] dark:bg-[#121214] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-2xl text-xs font-medium text-[#18181b] dark:text-[#f4f0e8] focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
+                  className={`w-full px-4 py-3 bg-[#fbfbf9] dark:bg-[#121214] border rounded-2xl text-xs font-medium text-[#18181b] dark:text-[#f4f0e8] focus:outline-none transition-all ${
+                    confirmPassword && newPassword !== confirmPassword
+                      ? 'border-rose-400 dark:border-rose-700 focus:ring-1 focus:ring-rose-500'
+                      : 'border-[#e5e0d8] dark:border-[#3f3f46] focus:ring-1 focus:ring-[#b58d59]'
+                  }`}
                 />
+                {confirmPassword && newPassword !== confirmPassword && (
+                  <p className="mt-1 text-[11px] font-semibold text-rose-600 dark:text-rose-400">
+                    Passwords do not match.
+                  </p>
+                )}
+                {confirmPassword && newPassword === confirmPassword && newPassword.length > 0 && (
+                  <p className="mt-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
+                    ✓ Passwords match
+                  </p>
+                )}
               </div>
 
               <button

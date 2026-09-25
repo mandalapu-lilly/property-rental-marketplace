@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../services/api';
 import { Lock, KeyRound, AlertCircle, CheckCircle2, ArrowRight, ArrowLeft, Loader2, Eye, EyeOff } from 'lucide-react';
+import PasswordStrengthIndicator, { isPasswordStrong } from '../components/PasswordStrengthIndicator';
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -32,13 +33,13 @@ export default function ResetPassword() {
       return;
     }
 
-    if (newPassword.length < 6) {
-      setError('Password must be at least 6 characters long.');
+    if (!isPasswordStrong(newPassword)) {
+      setError('Password does not meet the security requirements. It must contain at least 8 characters, an uppercase letter, a lowercase letter, a number, and a special character.');
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError('New password and confirm password do not match.');
+      setError('Passwords do not match.');
       return;
     }
 
@@ -190,7 +191,7 @@ export default function ResetPassword() {
                         required
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        placeholder="At least 6 characters"
+                        placeholder="Create a strong password"
                         className="block w-full pl-10 pr-10 py-2.5 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
                       />
                       <button
@@ -201,6 +202,8 @@ export default function ResetPassword() {
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
+                    {/* Dynamic Password Strength Checklist */}
+                    <PasswordStrengthIndicator password={newPassword} showRequirements={true} />
                   </div>
 
                   {/* Confirm Password */}
@@ -220,9 +223,23 @@ export default function ResetPassword() {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Repeat your new password"
-                        className="block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] dark:bg-[#141417] border border-[#e5e0d8] dark:border-[#27272a] rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none focus:ring-1 focus:ring-[#b58d59] transition-all"
+                        className={`block w-full pl-10 pr-4 py-2.5 bg-[#fbfbf9] dark:bg-[#141417] border rounded-xl text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] text-sm focus:outline-none transition-all ${
+                          confirmPassword && newPassword !== confirmPassword
+                            ? 'border-rose-400 dark:border-rose-700 focus:ring-1 focus:ring-rose-500'
+                            : 'border-[#e5e0d8] dark:border-[#27272a] focus:ring-1 focus:ring-[#b58d59] focus:border-[#b58d59]'
+                        }`}
                       />
                     </div>
+                    {confirmPassword && newPassword !== confirmPassword && (
+                      <p className="mt-1.5 text-[11px] font-semibold text-rose-600 dark:text-rose-400">
+                        Passwords do not match.
+                      </p>
+                    )}
+                    {confirmPassword && newPassword === confirmPassword && newPassword.length > 0 && (
+                      <p className="mt-1.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
+                        ✓ Passwords match
+                      </p>
+                    )}
                   </div>
 
                   {/* Submit Button */}

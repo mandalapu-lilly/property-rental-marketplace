@@ -16,6 +16,17 @@ const isValidEmail = (email) => {
   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
 };
 
+// Strong password validation: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
+const isStrongPassword = (password) => {
+  if (!password || typeof password !== 'string') return false;
+  if (password.length < 8) return false;
+  if (!/[A-Z]/.test(password)) return false;
+  if (!/[a-z]/.test(password)) return false;
+  if (!/[0-9]/.test(password)) return false;
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) return false;
+  return true;
+};
+
 /**
  * @desc    Register a new user
  * @route   POST /api/auth/register
@@ -40,10 +51,10 @@ export const registerUser = async (req, res, next) => {
       });
     }
 
-    // 3. Validate password length
-    if (password.length < 6) {
+    // 3. Validate strong password requirements
+    if (!isStrongPassword(password)) {
       return res.status(400).json({
-        error: 'Password must be at least 6 characters long',
+        error: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).',
       });
     }
 
@@ -216,9 +227,9 @@ export const changePassword = async (req, res, next) => {
       });
     }
 
-    if (newPassword.length < 6) {
+    if (!isStrongPassword(newPassword)) {
       return res.status(400).json({
-        error: 'New password must be at least 6 characters long',
+        error: 'New password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).',
       });
     }
 
@@ -305,8 +316,10 @@ export const resetPassword = async (req, res, next) => {
       return res.status(400).json({ error: 'Please provide both new password and confirm password' });
     }
 
-    if (newPassword.length < 6) {
-      return res.status(400).json({ error: 'New password must be at least 6 characters long' });
+    if (!isStrongPassword(newPassword)) {
+      return res.status(400).json({
+        error: 'New password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).',
+      });
     }
 
     if (newPassword !== confirmPassword) {

@@ -27,6 +27,7 @@ import {
   Bell,
   Sun,
   Moon,
+  HelpCircle,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -264,6 +265,15 @@ export default function Navbar() {
                             <span>My Properties</span>
                           </Link>
                         )}
+
+                        <Link
+                          to="/support"
+                          onClick={() => setUserDropdownOpen(false)}
+                          className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#52525b] dark:text-[#d4d4d8] hover:bg-[#f8f6f0] dark:hover:bg-[#27272a] hover:text-[#18181b] dark:hover:text-[#fbfbf9] transition-colors"
+                        >
+                          <HelpCircle className="w-4 h-4 text-[#a1a1aa]" />
+                          <span>Help & Support</span>
+                        </Link>
                       </div>
 
                       <div className="border-t border-[#f4f0e8] dark:border-[#27272a] pt-1">
@@ -381,6 +391,19 @@ export default function Navbar() {
                   {compareCount}
                 </span>
               )}
+            </Link>
+
+            <Link
+              to="/support"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                isActive('/support')
+                  ? 'bg-[#18181b] dark:bg-[#d4b996] text-white dark:text-[#18181b]'
+                  : 'text-[#18181b] dark:text-[#fbfbf9] hover:bg-[#f4f0e8] dark:hover:bg-[#1c1c20]'
+              }`}
+            >
+              <HelpCircle className="w-4 h-4 text-[#71717a] dark:text-[#a1a1aa]" />
+              <span>Help & Support</span>
             </Link>
 
             {isAuthenticated && (

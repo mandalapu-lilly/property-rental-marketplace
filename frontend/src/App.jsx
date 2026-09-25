@@ -29,6 +29,7 @@ import HostBookings from './pages/HostBookings';
 import HostDashboard from './pages/HostDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
+import Support from './pages/Support';
 
 function App() {
   return (
@@ -51,6 +52,9 @@ function App() {
                     <Route path="/properties/:id" element={<PropertyDetails />} />
                     <Route path="/compare" element={<Compare />} />
                     <Route path="/recommendations" element={<Recommendations />} />
+                    <Route path="/support" element={<Support />} />
+                    <Route path="/help" element={<Support />} />
+                    <Route path="/contact" element={<Support />} />
 
                     {/* Authenticated User Routes */}
                     <Route
