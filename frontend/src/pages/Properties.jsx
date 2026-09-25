@@ -563,7 +563,7 @@ export default function Properties() {
             <p className="text-rose-800 dark:text-rose-300 font-bold">{error}</p>
             <div className="flex justify-center gap-3">
               <button
-                onClick={() => handleApplyFilters()}
+                onClick={() => fetchProperties()}
                 className="px-4 py-2 bg-rose-600 text-white text-xs font-semibold rounded-full hover:bg-rose-700 transition-colors cursor-pointer"
               >
                 Retry
