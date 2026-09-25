@@ -74,7 +74,7 @@ const allCityProperties = [
     area: 3200,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -141,7 +141,7 @@ const allCityProperties = [
     bedrooms: 2,
     bathrooms: 2,
     area: 950,
-    amenities: ['High-speed Wi-speed', 'Air Conditioning', 'Free Parking', 'Kitchen', 'Elevator', '24/7 Security'],
+    amenities: ['High-speed Wi-Fi', 'Air Conditioning', 'Free Parking', 'Kitchen', 'Elevator', '24/7 Security'],
     images: [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80'
@@ -170,8 +170,8 @@ const allCityProperties = [
     area: 1750,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', '24/7 Security', 'Elevator', 'Gym'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.9,
@@ -193,8 +193,8 @@ const allCityProperties = [
     area: 3100,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.88,
@@ -216,7 +216,8 @@ const allCityProperties = [
     area: 1400,
     amenities: ['Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Elevator'],
     images: [
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.72,
@@ -242,7 +243,7 @@ const allCityProperties = [
     area: 1800,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', '24/7 Security', 'Elevator'],
     images: [
-      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -265,7 +266,7 @@ const allCityProperties = [
     area: 4200,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -288,7 +289,8 @@ const allCityProperties = [
     area: 1950,
     amenities: ['High-speed Wi-Fi', 'Air Conditioning', 'Free Parking', 'Swimming Pool', 'Gym', 'Elevator', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.8,
@@ -314,7 +316,7 @@ const allCityProperties = [
     area: 1700,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', 'Elevator', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -337,8 +339,8 @@ const allCityProperties = [
     area: 3500,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', 'Pet Friendly'],
     images: [
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.95,
@@ -388,7 +390,7 @@ const allCityProperties = [
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', '24/7 Security', 'Elevator'],
     images: [
       'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.93,
@@ -410,8 +412,8 @@ const allCityProperties = [
     area: 3000,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.88,
@@ -433,7 +435,8 @@ const allCityProperties = [
     area: 1400,
     amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Kitchen', 'Balcony'],
     images: [
-      'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.86,
@@ -459,7 +462,7 @@ const allCityProperties = [
     area: 1650,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', 'Elevator', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -482,8 +485,8 @@ const allCityProperties = [
     area: 2900,
     amenities: ['Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Balcony', 'Garden', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.88,
@@ -509,8 +512,8 @@ const allCityProperties = [
     area: 1550,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', '24/7 Security', 'Elevator', 'Gym'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.91,
@@ -532,6 +535,7 @@ const allCityProperties = [
     area: 1300,
     amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Kitchen', 'Balcony'],
     images: [
+      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -558,8 +562,9 @@ const allCityProperties = [
     area: 3400,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Garden', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.98,
@@ -581,7 +586,7 @@ const allCityProperties = [
     area: 1400,
     amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -604,7 +609,8 @@ const allCityProperties = [
     area: 2800,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Balcony'],
     images: [
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.93,
@@ -653,8 +659,8 @@ const allCityProperties = [
     area: 2200,
     amenities: ['Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Elevator', '24/7 Security', 'Balcony'],
     images: [
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.96,
@@ -676,7 +682,8 @@ const allCityProperties = [
     area: 550,
     amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Kitchen', 'Elevator'],
     images: [
-      'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.82,
@@ -702,8 +709,8 @@ const allCityProperties = [
     area: 1850,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', 'Elevator', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.95,
@@ -725,7 +732,7 @@ const allCityProperties = [
     area: 2300,
     amenities: ['Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -752,8 +759,8 @@ const allCityProperties = [
     area: 2100,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', 'Garden', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.97,
@@ -775,8 +782,8 @@ const allCityProperties = [
     area: 2900,
     amenities: ['Free Parking', 'Air Conditioning', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Pet Friendly'],
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.91,
@@ -802,7 +809,7 @@ const allCityProperties = [
     area: 1600,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -825,7 +832,7 @@ const allCityProperties = [
     area: 3600,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -852,8 +859,8 @@ const allCityProperties = [
     area: 1900,
     amenities: ['Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security', 'Pet Friendly'],
     images: [
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.93,
@@ -875,6 +882,7 @@ const allCityProperties = [
     area: 1450,
     amenities: ['Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Balcony', 'Pet Friendly'],
     images: [
+      'https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -901,7 +909,7 @@ const allCityProperties = [
     area: 3100,
     amenities: ['Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security', 'Pet Friendly'],
     images: [
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -924,6 +932,7 @@ const allCityProperties = [
     area: 1500,
     amenities: ['Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Balcony'],
     images: [
+      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -950,7 +959,7 @@ const allCityProperties = [
     area: 1600,
     amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Balcony', '24/7 Security'],
     images: [
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
@@ -973,7 +982,7 @@ const allCityProperties = [
     area: 2800,
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', 'Pet Friendly'],
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',

@@ -26,6 +26,7 @@ import {
   Map as MapIcon,
   ShieldCheck,
   Layers,
+  Compass,
 } from 'lucide-react';
 
 export default function Properties() {
