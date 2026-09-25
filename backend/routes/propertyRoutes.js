@@ -4,6 +4,7 @@ import {
   getProperties,
   getFeaturedProperties,
   getPropertyById,
+  getPropertyAvailability,
   getSimilarProperties,
   getMyProperties,
   updateProperty,
@@ -26,6 +27,7 @@ router.get('/my', protect, getMyProperties);
 
 // Specific property routes
 router.get('/:id', getPropertyById);
+router.get('/:id/availability', getPropertyAvailability);
 router.get('/:id/similar', getSimilarProperties);
 
 // Review subroutes for property

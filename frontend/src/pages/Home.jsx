@@ -19,6 +19,9 @@ import {
   Layers,
   CheckCircle2,
   Key,
+  Calendar,
+  Users,
+  ChevronDown,
 } from 'lucide-react';
 
 export default function Home() {
@@ -27,10 +30,17 @@ export default function Home() {
 
   const [city, setCity] = useState('');
   const [propertyType, setPropertyType] = useState('All Types');
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [showGuestPicker, setShowGuestPicker] = useState(false);
   const [maxPrice, setMaxPrice] = useState('');
   const [featuredProperties, setFeaturedProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDark, setIsDark] = useState(false);
+
+  const totalGuests = adults + children;
 
   useEffect(() => {
     setIsDark(document.documentElement.classList.contains('dark'));
@@ -60,6 +70,9 @@ export default function Home() {
     e.preventDefault();
     const params = new URLSearchParams();
     if (city.trim()) params.set('city', city.trim());
+    if (checkIn) params.set('checkIn', checkIn);
+    if (checkOut) params.set('checkOut', checkOut);
+    if (totalGuests > 1) params.set('guests', totalGuests.toString());
     if (propertyType && propertyType !== 'All Types') params.set('propertyType', propertyType);
     if (maxPrice) params.set('maxPrice', maxPrice);
 
@@ -176,64 +189,142 @@ export default function Home() {
           </div>
 
         {/* Integrated Clean Search Capsule */}
-        <div className="mt-14 max-w-4xl mx-auto">
+        <div className="mt-14 max-w-5xl mx-auto">
           <form
             onSubmit={handleHeroSearch}
-            className="bg-white dark:bg-[#1c1c20] p-3 rounded-3xl sm:rounded-full shadow-editorial border border-[#e5e0d8] dark:border-[#27272a] grid grid-cols-1 sm:grid-cols-12 gap-2 text-[#18181b] dark:text-[#fbfbf9]"
+            className="bg-white dark:bg-[#1c1c20] p-3 sm:p-2.5 rounded-3xl sm:rounded-full shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] grid grid-cols-1 sm:grid-cols-12 gap-2 text-[#18181b] dark:text-[#fbfbf9] relative"
           >
-            {/* City Input */}
-            <div className="sm:col-span-4 px-4 py-2 hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] rounded-2xl sm:rounded-full transition-colors">
+            {/* 1. WHERE */}
+            <div className="sm:col-span-3 px-4 py-2 hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] rounded-2xl sm:rounded-full transition-colors">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-0.5">
-                Destination / City
+                Where
               </label>
               <div className="relative flex items-center">
-                <MapPin className="w-4 h-4 text-[#8c827a] dark:text-[#a1a1aa] mr-2 shrink-0" />
+                <MapPin className="w-4 h-4 text-[#8c827a] dark:text-[#d4b996] mr-2 shrink-0" />
                 <input
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  placeholder="e.g. Goa, Mumbai, Jaipur..."
+                  placeholder="Search destinations..."
                   className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] focus:outline-none"
                 />
               </div>
             </div>
 
-            {/* Property Type Dropdown */}
-            <div className="sm:col-span-3 px-4 py-2 hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] rounded-2xl sm:rounded-full transition-colors border-t sm:border-t-0 sm:border-l border-[#f4f0e8] dark:border-[#27272a]">
+            {/* 2. CHECK-IN */}
+            <div className="sm:col-span-2.5 sm:col-span-3 px-4 py-2 hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] rounded-2xl sm:rounded-full transition-colors border-t sm:border-t-0 sm:border-l border-[#f4f0e8] dark:border-[#27272a]">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-0.5">
-                Category
+                Check-in
               </label>
-              <select
-                value={propertyType}
-                onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#18181b] dark:text-[#fbfbf9] focus:outline-none cursor-pointer"
+              <div className="relative flex items-center">
+                <Calendar className="w-4 h-4 text-[#8c827a] dark:text-[#d4b996] mr-2 shrink-0" />
+                <input
+                  type="date"
+                  min={new Date().toISOString().split('T')[0]}
+                  value={checkIn}
+                  onChange={(e) => {
+                    setCheckIn(e.target.value);
+                    if (checkOut && new Date(e.target.value) >= new Date(checkOut)) {
+                      setCheckOut('');
+                    }
+                  }}
+                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#18181b] dark:text-[#fbfbf9] focus:outline-none cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {/* 3. CHECK-OUT */}
+            <div className="sm:col-span-2.5 sm:col-span-2 px-4 py-2 hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] rounded-2xl sm:rounded-full transition-colors border-t sm:border-t-0 sm:border-l border-[#f4f0e8] dark:border-[#27272a]">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-0.5">
+                Check-out
+              </label>
+              <div className="relative flex items-center">
+                <Calendar className="w-4 h-4 text-[#8c827a] dark:text-[#d4b996] mr-2 shrink-0" />
+                <input
+                  type="date"
+                  min={checkIn || new Date().toISOString().split('T')[0]}
+                  value={checkOut}
+                  onChange={(e) => setCheckOut(e.target.value)}
+                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#18181b] dark:text-[#fbfbf9] focus:outline-none cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {/* 4. GUESTS */}
+            <div className="sm:col-span-2 px-4 py-2 hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] rounded-2xl sm:rounded-full transition-colors border-t sm:border-t-0 sm:border-l border-[#f4f0e8] dark:border-[#27272a] relative">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-0.5">
+                Guests
+              </label>
+              <button
+                type="button"
+                onClick={() => setShowGuestPicker(!showGuestPicker)}
+                className="w-full flex items-center justify-between text-xs sm:text-sm font-semibold text-[#18181b] dark:text-[#fbfbf9] text-left cursor-pointer focus:outline-none"
               >
-                <option value="All Types" className="dark:bg-[#1c1c20]">All Categories</option>
-                <option value="Hotel" className="dark:bg-[#1c1c20]">Luxury Hotels</option>
-                <option value="Resort" className="dark:bg-[#1c1c20]">Beach & Eco Resorts</option>
-                <option value="Homestay" className="dark:bg-[#1c1c20]">Heritage Homestays</option>
-                <option value="Apartment" className="dark:bg-[#1c1c20]">Designer Apartments</option>
-                <option value="Villa" className="dark:bg-[#1c1c20]">Private Villas</option>
-                <option value="Studio" className="dark:bg-[#1c1c20]">Modern Studios</option>
-              </select>
+                <div className="flex items-center gap-1.5 truncate">
+                  <Users className="w-4 h-4 text-[#8c827a] dark:text-[#d4b996] shrink-0" />
+                  <span>{totalGuests} {totalGuests === 1 ? 'Guest' : 'Guests'}</span>
+                </div>
+                <ChevronDown className="w-3.5 h-3.5 text-[#71717a]" />
+              </button>
+
+              {/* Guest Picker Popover */}
+              {showGuestPicker && (
+                <div
+                  className="absolute left-0 sm:left-auto sm:right-0 top-full mt-3 w-64 p-4 bg-white dark:bg-[#1c1c20] rounded-2xl shadow-editorial-lg border border-[#e5e0d8] dark:border-[#27272a] z-50 space-y-3 animate-fadeIn"
+                  onMouseLeave={() => setShowGuestPicker(false)}
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-[#f4f0e8] dark:border-[#27272a]">
+                    <div>
+                      <p className="text-xs font-bold text-[#18181b] dark:text-[#fbfbf9]">Adults</p>
+                      <p className="text-[10px] text-[#71717a] dark:text-[#a1a1aa]">Ages 13 or above</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setAdults(Math.max(1, adults - 1))}
+                        className="w-7 h-7 rounded-full border border-[#e5e0d8] dark:border-[#3f3f46] flex items-center justify-center text-xs font-bold hover:bg-[#f4f0e8] dark:hover:bg-[#27272a]"
+                      >
+                        -
+                      </button>
+                      <span className="text-xs font-bold w-4 text-center">{adults}</span>
+                      <button
+                        type="button"
+                        onClick={() => setAdults(Math.min(10, adults + 1))}
+                        className="w-7 h-7 rounded-full border border-[#e5e0d8] dark:border-[#3f3f46] flex items-center justify-center text-xs font-bold hover:bg-[#f4f0e8] dark:hover:bg-[#27272a]"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-bold text-[#18181b] dark:text-[#fbfbf9]">Children</p>
+                      <p className="text-[10px] text-[#71717a] dark:text-[#a1a1aa]">Ages 2–12</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setChildren(Math.max(0, children - 1))}
+                        className="w-7 h-7 rounded-full border border-[#e5e0d8] dark:border-[#3f3f46] flex items-center justify-center text-xs font-bold hover:bg-[#f4f0e8] dark:hover:bg-[#27272a]"
+                      >
+                        -
+                      </button>
+                      <span className="text-xs font-bold w-4 text-center">{children}</span>
+                      <button
+                        type="button"
+                        onClick={() => setChildren(Math.min(6, children + 1))}
+                        className="w-7 h-7 rounded-full border border-[#e5e0d8] dark:border-[#3f3f46] flex items-center justify-center text-xs font-bold hover:bg-[#f4f0e8] dark:hover:bg-[#27272a]"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Max Budget */}
-            <div className="sm:col-span-3 px-4 py-2 hover:bg-[#fbfbf9] dark:hover:bg-[#27272a] rounded-2xl sm:rounded-full transition-colors border-t sm:border-t-0 sm:border-l border-[#f4f0e8] dark:border-[#27272a]">
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-0.5">
-                Max Budget (₹)
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                placeholder="e.g. 35,000"
-                className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#18181b] dark:text-[#fbfbf9] placeholder-[#a1a1aa] focus:outline-none"
-              />
-            </div>
-
-            {/* Search Submit */}
+            {/* 5. SEARCH BUTTON */}
             <div className="sm:col-span-2 flex items-center">
               <button
                 type="submit"

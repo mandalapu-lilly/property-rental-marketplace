@@ -1,6 +1,34 @@
 import mongoose from 'mongoose';
 import Property from '../models/Property.js';
+import Booking from '../models/Booking.js';
 import { notifyAdmins } from '../services/notificationService.js';
+
+/**
+ * @desc    Get booked date ranges for a property (Public)
+ * @route   GET /api/properties/:id/availability
+ * @access  Public
+ */
+export const getPropertyAvailability = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid property ID' });
+    }
+
+    const bookings = await Booking.find({
+      property: id,
+      status: { $in: ['pending', 'confirmed'] },
+      endDate: { $gte: new Date() },
+    }).select('startDate endDate status');
+
+    return res.status(200).json({
+      success: true,
+      bookings,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 /**
  * @desc    Create a new property listing

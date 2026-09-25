@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { useParams, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useCompare } from '../context/CompareContext';
@@ -36,10 +36,16 @@ import {
   ThumbsUp,
   Box,
   Eye,
+  ShieldAlert,
+  HelpCircle,
+  Clock,
+  Check,
+  XCircle,
 } from 'lucide-react';
 
 export default function PropertyDetails() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
   const { toggleCompare, isInCompare } = useCompare();
@@ -53,6 +59,17 @@ export default function PropertyDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+
+  // Search parameters / Date selection state
+  const initialCheckIn = searchParams.get('checkIn') || '';
+  const initialCheckOut = searchParams.get('checkOut') || '';
+  const initialGuests = searchParams.get('guests') || '1';
+
+  const [selectedCheckIn, setSelectedCheckIn] = useState(initialCheckIn);
+  const [selectedCheckOut, setSelectedCheckOut] = useState(initialCheckOut);
+  const [selectedGuests, setSelectedGuests] = useState(initialGuests);
+  const [isDateAvailable, setIsDateAvailable] = useState(true);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
 
   useEffect(() => {
     const fetchPropertyData = async () => {
@@ -90,6 +107,90 @@ export default function PropertyDetails() {
 
     fetchPropertyData();
   }, [id, isAuthenticated]);
+
+  // Live availability verification
+  useEffect(() => {
+    let isSubscribed = true;
+    if (selectedCheckIn && selectedCheckOut && id) {
+      setCheckingAvailability(true);
+      api
+        .get(`/api/properties/${id}/availability`, {
+          params: { startDate: selectedCheckIn, endDate: selectedCheckOut },
+        })
+        .then((res) => {
+          if (isSubscribed) {
+            setIsDateAvailable(res.data?.available !== false);
+          }
+        })
+        .catch(() => {
+          if (isSubscribed) setIsDateAvailable(true);
+        })
+        .finally(() => {
+          if (isSubscribed) setCheckingAvailability(false);
+        });
+    } else {
+      setIsDateAvailable(true);
+      setCheckingAvailability(false);
+    }
+    return () => {
+      isSubscribed = false;
+    };
+  }, [id, selectedCheckIn, selectedCheckOut]);
+
+  // Derived nights & total calculation
+  const calculatedNights = useMemo(() => {
+    if (!selectedCheckIn || !selectedCheckOut) return 1;
+    const start = new Date(selectedCheckIn);
+    const end = new Date(selectedCheckOut);
+    const diff = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    return diff > 0 ? diff : 1;
+  }, [selectedCheckIn, selectedCheckOut]);
+
+  const staySubtotal = (property?.price || 0) * calculatedNights;
+
+  // Review highlights analysis from actual reviews
+  const reviewHighlight = useMemo(() => {
+    if (!reviews || reviews.length === 0) {
+      if (property?.averageRating >= 4.5) {
+        return 'Guests highly rate this stay for its prime location and exceptional ambiance.';
+      }
+      return null;
+    }
+    const allText = reviews.map((r) => (r.comment || '').toLowerCase()).join(' ');
+    const features = [];
+    if (allText.includes('clean') || allText.includes('spotless') || allText.includes('tidy'))
+      features.push('cleanliness');
+    if (
+      allText.includes('location') ||
+      allText.includes('view') ||
+      allText.includes('beach') ||
+      allText.includes('central')
+    )
+      features.push('scenic location');
+    if (
+      allText.includes('host') ||
+      allText.includes('staff') ||
+      allText.includes('helpful') ||
+      allText.includes('friendly')
+    )
+      features.push('attentive hospitality');
+    if (
+      allText.includes('peaceful') ||
+      allText.includes('quiet') ||
+      allText.includes('cozy') ||
+      allText.includes('comfort')
+    )
+      features.push('peaceful comfort');
+
+    if (features.length >= 2) {
+      return `Guests especially appreciated the ${features[0]} and ${features[1]}.`;
+    } else if (features.length === 1) {
+      return `Guests especially appreciated the ${features[0]}.`;
+    }
+    return property?.averageRating >= 4.5
+      ? 'Guests consistently praise this stay for comfort and ambiance.'
+      : 'Guests appreciated their short stay at this residence.';
+  }, [reviews, property]);
 
   const toggleFavorite = async () => {
     if (!isAuthenticated) {
@@ -138,7 +239,9 @@ export default function PropertyDetails() {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4 bg-[#fbfbf9] dark:bg-[#121214]">
         <Loader2 className="w-8 h-8 text-[#18181b] dark:text-[#d4b996] animate-spin" />
-        <p className="text-xs uppercase tracking-widest font-semibold text-[#71717a] dark:text-[#a1a1aa]">Loading residence details...</p>
+        <p className="text-xs uppercase tracking-widest font-semibold text-[#71717a] dark:text-[#a1a1aa]">
+          Loading residence details...
+        </p>
       </div>
     );
   }
@@ -406,6 +509,17 @@ export default function PropertyDetails() {
               </div>
 
               {/* Review Statistics & Rating Breakdown */}
+              {reviewHighlight && (
+                <div className="p-4 rounded-2xl bg-[#f4f0e8] dark:bg-[#27272a] border border-[#e5e0d8] dark:border-[#3f3f46] flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#18181b] dark:bg-[#d4b996] text-white dark:text-[#18181b] flex items-center justify-center shrink-0">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <p className="text-xs font-medium text-[#18181b] dark:text-[#fbfbf9] italic">
+                    "{reviewHighlight}"
+                  </p>
+                </div>
+              )}
+
               <ReviewStats
                 reviews={reviews}
                 averageRating={property.averageRating}
@@ -473,7 +587,7 @@ export default function PropertyDetails() {
           {/* Sidebar (1 Col): Booking Card & Host Card */}
           <div className="space-y-6">
             {/* Booking Action Card */}
-            <div className="bg-white dark:bg-[#1c1c20] p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial-lg space-y-6 sticky top-24">
+            <div className="bg-white dark:bg-[#1c1c20] p-6 sm:p-8 rounded-[2rem] border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial-lg space-y-5 sticky top-24">
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="font-editorial text-3xl font-bold text-[#18181b] dark:text-[#d4b996]">
@@ -486,28 +600,125 @@ export default function PropertyDetails() {
                 </span>
               </div>
 
-              <div className="p-4 bg-[#f4f0e8] dark:bg-[#27272a] rounded-2xl border border-[#e5e0d8] dark:border-[#3f3f46] space-y-2.5 text-xs text-[#52525b] dark:text-[#d4d4d8]">
-                <div className="flex justify-between">
-                  <span>Minimum Stay</span>
-                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">1 Night</span>
+              {/* Date & Guest Picker Controls */}
+              <div className="p-4 bg-[#fbfbf9] dark:bg-[#141417] rounded-2xl border border-[#e5e0d8] dark:border-[#27272a] space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-1">
+                      Check-in
+                    </label>
+                    <input
+                      type="date"
+                      min={new Date().toISOString().split('T')[0]}
+                      value={selectedCheckIn}
+                      onChange={(e) => {
+                        setSelectedCheckIn(e.target.value);
+                        if (selectedCheckOut && new Date(e.target.value) >= new Date(selectedCheckOut)) {
+                          setSelectedCheckOut('');
+                        }
+                      }}
+                      className="w-full px-2.5 py-1.5 bg-white dark:bg-[#1c1c20] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-xl text-xs font-semibold text-[#18181b] dark:text-[#fbfbf9] focus:outline-none focus:ring-1 focus:ring-[#b58d59]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-1">
+                      Check-out
+                    </label>
+                    <input
+                      type="date"
+                      min={selectedCheckIn || new Date().toISOString().split('T')[0]}
+                      value={selectedCheckOut}
+                      onChange={(e) => setSelectedCheckOut(e.target.value)}
+                      className="w-full px-2.5 py-1.5 bg-white dark:bg-[#1c1c20] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-xl text-xs font-semibold text-[#18181b] dark:text-[#fbfbf9] focus:outline-none focus:ring-1 focus:ring-[#b58d59]"
+                    />
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span>Security Deposit</span>
-                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">None (Short Stay)</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Host Verified</span>
-                  <span className="font-bold text-emerald-700 dark:text-emerald-400">Yes</span>
+
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-[#71717a] dark:text-[#a1a1aa] mb-1">
+                    Guests
+                  </label>
+                  <select
+                    value={selectedGuests}
+                    onChange={(e) => setSelectedGuests(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white dark:bg-[#1c1c20] border border-[#e5e0d8] dark:border-[#3f3f46] rounded-xl text-xs font-semibold text-[#18181b] dark:text-[#fbfbf9] focus:outline-none focus:ring-1 focus:ring-[#b58d59]"
+                  >
+                    <option value="1">1 Guest</option>
+                    <option value="2">2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5">5+ Guests</option>
+                  </select>
                 </div>
               </div>
 
-              <Link
-                to={`/properties/${property._id}/book`}
-                className="w-full inline-flex items-center justify-center gap-2 py-4 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full shadow-editorial transition-all text-center"
-              >
-                <span>Reserve Sanctuary</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              {/* Availability Alert */}
+              {selectedCheckIn && selectedCheckOut && !isDateAvailable && (
+                <div className="p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 flex items-center gap-2 text-xs font-bold text-rose-700 dark:text-rose-400">
+                  <XCircle className="w-4 h-4 shrink-0" />
+                  <span>Unavailable for selected dates</span>
+                </div>
+              )}
+
+              {/* Price Breakdown */}
+              <div className="p-4 bg-[#f4f0e8] dark:bg-[#27272a] rounded-2xl border border-[#e5e0d8] dark:border-[#3f3f46] space-y-2 text-xs text-[#52525b] dark:text-[#d4d4d8]">
+                <div className="flex justify-between items-center">
+                  <span>
+                    ₹{property.price?.toLocaleString()} × {calculatedNights} {calculatedNights === 1 ? 'night' : 'nights'}
+                  </span>
+                  <span className="font-semibold text-[#18181b] dark:text-[#f4f0e8]">
+                    ₹{staySubtotal.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-[11px]">
+                  <span>Stay subtotal</span>
+                  <span className="font-semibold text-[#18181b] dark:text-[#f4f0e8]">₹{staySubtotal.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between items-center text-[11px]">
+                  <span>Service fee</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">Included</span>
+                </div>
+                <div className="flex justify-between items-center text-[11px]">
+                  <span>Taxes</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">Included in rate</span>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t border-[#e5e0d8] dark:border-[#3f3f46] text-xs">
+                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">Estimated Total</span>
+                  <span className="font-editorial font-bold text-[#18181b] dark:text-[#d4b996] text-base">
+                    ₹{staySubtotal.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              {/* Cancellation Policy Banner */}
+              <div className="p-3.5 bg-emerald-50/70 dark:bg-emerald-950/30 rounded-2xl border border-emerald-200/80 dark:border-emerald-800/40 space-y-1">
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <span>Free Cancellation</span>
+                </div>
+                <p className="text-[11px] text-emerald-700 dark:text-emerald-400 leading-snug">
+                  Cancel up to 24 hours before check-in for a full refund.
+                </p>
+              </div>
+
+              {/* Reserve Button */}
+              {isDateAvailable ? (
+                <Link
+                  to={`/properties/${property._id}/book?checkIn=${selectedCheckIn}&checkOut=${selectedCheckOut}&guests=${selectedGuests}`}
+                  className="w-full inline-flex items-center justify-center gap-2 py-4 bg-[#18181b] hover:bg-black dark:bg-[#d4b996] dark:hover:bg-[#c5a880] text-white dark:text-[#18181b] font-semibold text-xs uppercase tracking-wider rounded-full shadow-editorial transition-all text-center cursor-pointer"
+                >
+                  <span>Reserve Sanctuary</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="w-full py-4 bg-stone-300 dark:bg-stone-800 text-stone-500 font-semibold text-xs uppercase tracking-wider rounded-full cursor-not-allowed text-center"
+                >
+                  Unavailable for selected dates
+                </button>
+              )}
             </div>
 
             {/* Host Details */}

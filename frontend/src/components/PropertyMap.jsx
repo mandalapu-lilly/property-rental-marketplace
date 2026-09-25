@@ -114,9 +114,16 @@ export default function PropertyMap({ property, properties = [], height = '450px
                 )}
 
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#b58d59] dark:text-[#d4b996] bg-[#f4f0e8] dark:bg-[#27272a] px-2 py-0.5 rounded border border-[#ded7cb] dark:border-[#3f3f46]">
-                    {item.propertyType}
-                  </span>
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#b58d59] dark:text-[#d4b996] bg-[#f4f0e8] dark:bg-[#27272a] px-2 py-0.5 rounded border border-[#ded7cb] dark:border-[#3f3f46]">
+                      {item.propertyType}
+                    </span>
+                    {item.averageRating > 0 && (
+                      <span className="text-[11px] font-bold text-[#18181b] dark:text-[#fbfbf9] flex items-center gap-0.5">
+                        ★ {item.averageRating.toFixed(1)}
+                      </span>
+                    )}
+                  </div>
                   <h4 className="font-bold text-xs text-[#18181b] dark:text-[#fbfbf9] mt-1 line-clamp-1">
                     {item.title}
                   </h4>

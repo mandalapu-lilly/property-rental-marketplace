@@ -97,9 +97,11 @@ export default function Favorites() {
             <div className="w-16 h-16 rounded-3xl bg-rose-50 dark:bg-rose-950/40 text-rose-500 flex items-center justify-center mx-auto">
               <Heart className="w-8 h-8" />
             </div>
-            <h3 className="font-editorial text-2xl font-light text-[#18181b] dark:text-[#f4f0e8]">Your wishlist is empty</h3>
+            <h3 className="font-editorial text-2xl font-light text-[#18181b] dark:text-[#f4f0e8]">
+              No saved stays yet.
+            </h3>
             <p className="text-xs sm:text-sm text-[#71717a] dark:text-[#a1a1aa] max-w-xs mx-auto">
-              Browse listings and tap the heart icon on any property to save it for future consideration.
+              Browse listings and tap the heart icon on any property to save it for your next trip.
             </p>
             <Link
               to="/properties"

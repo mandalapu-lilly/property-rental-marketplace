@@ -222,13 +222,16 @@ export default function MyBookings() {
 
                     {/* Details */}
                     <div className="space-y-1.5">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span
                           className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getStatusBadge(
                             booking.status
                           )}`}
                         >
                           {booking.status}
+                        </span>
+                        <span className="text-[10px] font-mono text-[#71717a] dark:text-[#a1a1aa] bg-[#f4f0e8] dark:bg-[#27272a] px-2 py-0.5 rounded-md border border-[#e5e0d8] dark:border-[#3f3f46]">
+                          ID: {booking._id?.substring(booking._id.length - 8).toUpperCase()}
                         </span>
                         <span className="text-[11px] text-[#71717a] dark:text-[#a1a1aa]">
                           Reserved on {new Date(booking.createdAt).toLocaleDateString()}
@@ -255,7 +258,7 @@ export default function MyBookings() {
                           {Math.max(1, Math.ceil((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))) === 1 ? 'night' : 'nights'}
                         </span>
                         <span>•</span>
-                        <span>{booking.guests} Guest(s)</span>
+                        <span>{booking.guests} {booking.guests === 1 ? 'Guest' : 'Guests'}</span>
                       </div>
                     </div>
                   </div>
@@ -269,7 +272,7 @@ export default function MyBookings() {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap justify-end">
                       {prop && (
                         <Link
                           to={`/properties/${prop._id}`}
@@ -288,6 +291,14 @@ export default function MyBookings() {
                           <span>Review</span>
                         </button>
                       )}
+
+                      <Link
+                        to="/support"
+                        className="px-3.5 py-2 bg-white dark:bg-[#141417] text-[#71717a] dark:text-[#a1a1aa] hover:text-[#18181b] dark:hover:text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-[#e5e0d8] dark:border-[#3f3f46] transition-colors"
+                        title="Contact Support regarding this stay"
+                      >
+                        Help
+                      </Link>
 
                       {canCancel && (
                         <button
