@@ -189,18 +189,50 @@ export const getProperties = async (req, res, next) => {
       filter.status = 'available';
     }
 
-    // 3. City filter (case-insensitive regex)
+    // 3. City & Locality filter (matches city, neighborhood/location, state, or address)
+    const orConditions = [];
+
     if (city && city.trim() !== '') {
       const safeCity = city.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      filter.city = { $regex: new RegExp(safeCity, 'i') };
+      const cityRegex = new RegExp(safeCity, 'i');
+      orConditions.push({
+        $or: [
+          { city: cityRegex },
+          { location: cityRegex },
+          { state: cityRegex },
+          { address: cityRegex },
+          { title: cityRegex },
+        ],
+      });
     }
 
-    // 4. Property Type filter (exact match)
+    // 4. General search keyword across title, location, city, and description
+    if (search && search.trim() !== '') {
+      const safeSearch = search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const searchRegex = new RegExp(safeSearch, 'i');
+      orConditions.push({
+        $or: [
+          { title: searchRegex },
+          { location: searchRegex },
+          { city: searchRegex },
+          { address: searchRegex },
+          { description: searchRegex },
+        ],
+      });
+    }
+
+    if (orConditions.length === 1) {
+      Object.assign(filter, orConditions[0]);
+    } else if (orConditions.length > 1) {
+      filter.$and = orConditions;
+    }
+
+    // 5. Property Type filter (exact match)
     if (propertyType && propertyType.trim() !== '' && propertyType !== 'All' && propertyType !== 'All Types') {
       filter.propertyType = propertyType.trim();
     }
 
-    // 5. Price range filter
+    // 6. Price range filter
     if ((minPrice !== undefined && minPrice !== '') || (maxPrice !== undefined && maxPrice !== '')) {
       filter.price = {};
       if (minPrice !== undefined && minPrice !== '') {
@@ -211,14 +243,9 @@ export const getProperties = async (req, res, next) => {
       }
     }
 
-    // 6. Minimum bedrooms filter
+    // 7. Minimum bedrooms filter
     if (bedrooms !== undefined && bedrooms !== '' && bedrooms !== 'Any') {
       filter.bedrooms = { $gte: Number(bedrooms) };
-    }
-
-    // 7. Minimum bathrooms filter
-    if (bathrooms !== undefined && bathrooms !== '' && bathrooms !== 'Any') {
-      filter.bathrooms = { $gte: Number(bathrooms) };
     }
 
     // 7b. Minimum rating filter
@@ -230,18 +257,6 @@ export const getProperties = async (req, res, next) => {
     // 7c. Verification status filter
     if (verificationStatus && verificationStatus !== 'All') {
       filter.verificationStatus = verificationStatus;
-    }
-
-    // 8. General search keyword across title, location, city, and address
-    if (search && search.trim() !== '') {
-      const safeSearch = search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(safeSearch, 'i');
-      filter.$or = [
-        { title: regex },
-        { location: regex },
-        { city: regex },
-        { address: regex },
-      ];
     }
 
     // 9. Sorting options

@@ -80,6 +80,37 @@ export default function Properties() {
     { label: '3.5+ Stars', value: '3.5' },
   ];
 
+  const popularCities = [
+    'All Cities',
+    'Guntur',
+    'Vijayawada',
+    'Hyderabad',
+    'Bangalore',
+    'Goa',
+    'Visakhapatnam',
+    'Tirupati',
+    'Mumbai',
+    'Delhi',
+    'Jaipur',
+    'Kochi',
+    'Ooty',
+    'Manali',
+    'Pondicherry',
+    'Chennai',
+  ];
+
+  const handleSelectCityChip = (selectedCity) => {
+    const cityName = selectedCity === 'All Cities' ? '' : selectedCity;
+    setCity(cityName);
+    const newParams = new URLSearchParams(searchParams);
+    if (cityName) {
+      newParams.set('city', cityName);
+    } else {
+      newParams.delete('city');
+    }
+    setSearchParams(newParams);
+  };
+
   const sortOptions = [
     { label: 'Newest', value: 'newest' },
     { label: 'Price: Low to High', value: 'price_asc' },
@@ -368,6 +399,35 @@ export default function Properties() {
                 <span>Clear Filters</span>
               </button>
             )}
+          </div>
+
+          {/* Quick Popular City Selection Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <span className="text-xs font-semibold text-slate-500 shrink-0 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-indigo-600" />
+              Quick Cities:
+            </span>
+            <div className="flex items-center gap-1.5 flex-nowrap">
+              {popularCities.map((c) => {
+                const isSelected =
+                  (c === 'All Cities' && !city) ||
+                  (city && city.toLowerCase() === c.toLowerCase());
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => handleSelectCityChip(c)}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                      isSelected
+                        ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/30'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                    }`}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">

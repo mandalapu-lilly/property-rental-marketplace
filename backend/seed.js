@@ -7,10 +7,10 @@ const MONGODB_URI =
   process.env.MONGODB_URI ||
   'mongodb+srv://mandalapulilly_db_user:31UTfHycs5edAckm@cluster0.oqala68.mongodb.net/property_marketplace?retryWrites=true&w=majority';
 
-const moreProperties = [
-  // -------------------------------------------------------------
-  // GUNTUR (Hotels, Resorts, Homestays, Villas, Apartments, Studios)
-  // -------------------------------------------------------------
+const allCityProperties = [
+  // =========================================================================
+  // 1. GUNTUR (Hotels, Resorts, Homestays, Villas, Studios, Apartments)
+  // =========================================================================
   {
     title: 'Grand Minerva Luxury Hotel & Executive Suites',
     description: 'Premier 4-star luxury hotel in prime Lakshmipuram. Features plush executive suites, 24/7 room service, multi-cuisine dining, rooftop infinity pool, and airport concierge.',
@@ -25,7 +25,7 @@ const moreProperties = [
     bedrooms: 2,
     bathrooms: 2,
     area: 1600,
-    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', '24/7 Security', 'Elevator', 'Balcony'],
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', '24/7 Security', 'Elevator', 'Balcony', 'Gym'],
     images: [
       'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
@@ -75,8 +75,7 @@ const moreProperties = [
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
     images: [
       'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.92,
@@ -106,28 +105,6 @@ const moreProperties = [
     totalReviews: 21,
   },
   {
-    title: 'Heritage Pepper City Guest House',
-    description: 'Cozy and budget-friendly guest house catering to families and travelers with well-appointed air-conditioned rooms, clean amenities, and immediate access to transit hubs.',
-    propertyType: 'Guest House',
-    price: 11000,
-    location: 'Old Guntur',
-    address: '6-12-9, Station Road, Near Railway Terminal',
-    city: 'Guntur',
-    state: 'Andhra Pradesh',
-    country: 'India',
-    coordinates: { latitude: 16.311, longitude: 80.448 },
-    bedrooms: 2,
-    bathrooms: 2,
-    area: 1100,
-    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', '24/7 Security'],
-    images: [
-      'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.6,
-    totalReviews: 15,
-  },
-  {
     title: 'Emerald Palms Luxury Villa',
     description: 'Spectacular 4BHK private luxury villa with a private swimming pool, landscaped lawn, modern modular kitchen, and serene views. Ideal for family vacations and weekend getaways in Guntur.',
     propertyType: 'Villa',
@@ -144,58 +121,11 @@ const moreProperties = [
     amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', '24/7 Security', 'Balcony', 'Garden'],
     images: [
       'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.9,
     totalReviews: 24,
-  },
-  {
-    title: 'Krishna Valley Royal Villa',
-    description: 'Opulent multi-level private villa with panoramic green views, Italian marble flooring, rooftop terrace garden, and private parking. Premium stay located close to the city center.',
-    propertyType: 'Villa',
-    price: 28500,
-    location: 'Amaravathi Road',
-    address: '8-14-32, Amaravathi Road, Near Nagarjuna University',
-    city: 'Guntur',
-    state: 'Andhra Pradesh',
-    country: 'India',
-    coordinates: { latitude: 16.3312, longitude: 80.4589 },
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 2800,
-    amenities: ['Free Parking', 'Air Conditioning', 'High-speed Wi-Fi', 'Balcony', 'Garden', 'Kitchen', 'Pet Friendly'],
-    images: [
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.8,
-    totalReviews: 18,
-  },
-  {
-    title: 'Brundavan Gardens Modern 2BHK Flat',
-    description: 'Cozy and well-ventilated 2BHK residential flat in prime Brundavan Gardens. Fully equipped modular kitchen, 24/7 water supply, power backup, and lift access.',
-    propertyType: 'Apartment',
-    price: 15000,
-    location: 'Brundavan Gardens',
-    address: 'Flat 302, Sri Sai Towers, 4th Line, Brundavan Gardens',
-    city: 'Guntur',
-    state: 'Andhra Pradesh',
-    country: 'India',
-    coordinates: { latitude: 16.3021, longitude: 80.4412 },
-    bedrooms: 2,
-    bathrooms: 2,
-    area: 1250,
-    amenities: ['Elevator', '24/7 Security', 'Free Parking', 'Kitchen', 'Balcony', 'Air Conditioning'],
-    images: [
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.65,
-    totalReviews: 14,
   },
   {
     title: 'Guntur Central Premium 2BHK Studio Apartment',
@@ -211,7 +141,7 @@ const moreProperties = [
     bedrooms: 2,
     bathrooms: 2,
     area: 950,
-    amenities: ['High-speed Wi-Fi', 'Air Conditioning', 'Free Parking', 'Kitchen', 'Elevator', '24/7 Security'],
+    amenities: ['High-speed Wi-speed', 'Air Conditioning', 'Free Parking', 'Kitchen', 'Elevator', '24/7 Security'],
     images: [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80'
@@ -220,32 +150,10 @@ const moreProperties = [
     averageRating: 4.75,
     totalReviews: 19,
   },
-  {
-    title: 'Guntur Tech Park Budget 1BHK Studio',
-    description: 'Affordable, fully furnished single studio room for working professionals and students with high-speed Wi-Fi, air conditioning, study desk, and attached washroom.',
-    propertyType: 'Studio',
-    price: 9500,
-    location: 'Pattabhipuram',
-    address: '12-3-45, Pattabhipuram Main Road',
-    city: 'Guntur',
-    state: 'Andhra Pradesh',
-    country: 'India',
-    coordinates: { latitude: 16.3155, longitude: 80.4289 },
-    bedrooms: 1,
-    bathrooms: 1,
-    area: 450,
-    amenities: ['High-speed Wi-Fi', 'Air Conditioning', '24/7 Security'],
-    images: [
-      'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.5,
-    totalReviews: 9,
-  },
 
-  // -------------------------------------------------------------
-  // VIJAYAWADA
-  // -------------------------------------------------------------
+  // =========================================================================
+  // 2. VIJAYAWADA
+  // =========================================================================
   {
     title: 'Novotel Gateway Grand Luxury Hotel',
     description: '5-star premium hospitality experience in central Vijayawada with skyline views of the Krishna river, executive lounge, infinity rooftop pool, and multi-cuisine restaurants.',
@@ -293,29 +201,6 @@ const moreProperties = [
     totalReviews: 31,
   },
   {
-    title: 'Prakasam Barrage View Luxury Penthouse',
-    description: 'Ultra-luxurious riverfront 3BHK penthouse overlooking the scenic Krishna River. Floor-to-ceiling glass windows, ambient recessed lighting, modular kitchen, and private terrace.',
-    propertyType: 'Apartment',
-    price: 34000,
-    location: 'Governorpet',
-    address: 'Tower 9, Riverside Heights, MG Road',
-    city: 'Vijayawada',
-    state: 'Andhra Pradesh',
-    country: 'India',
-    coordinates: { latitude: 16.5062, longitude: 80.648 },
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 2400,
-    amenities: ['High-speed Wi-Fi', 'Swimming Pool', 'Air Conditioning', 'Free Parking', 'Kitchen', 'Elevator', 'Balcony', '24/7 Security'],
-    images: [
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.88,
-    totalReviews: 22,
-  },
-  {
     title: 'Benz Circle Executive 2BHK Apartment',
     description: 'Centrally located luxury apartment in the bustling heart of Vijayawada near Benz Circle. Walk to top malls, gourmet restaurants, and hospitals.',
     propertyType: 'Apartment',
@@ -338,9 +223,9 @@ const moreProperties = [
     totalReviews: 16,
   },
 
-  // -------------------------------------------------------------
-  // HYDERABAD
-  // -------------------------------------------------------------
+  // =========================================================================
+  // 3. HYDERABAD
+  // =========================================================================
   {
     title: 'The Kohinoor Palace Luxury Heritage Hotel',
     description: 'World-class 5-star heritage boutique hotel in posh Banjara Hills. Royal chandeliers, private marble suites, gourmet Hyderabadi dining, spa, and valet parking.',
@@ -388,29 +273,6 @@ const moreProperties = [
     totalReviews: 38,
   },
   {
-    title: 'Jubilee Hills Garden Villa Homestay',
-    description: 'Charming private bungalow homestay in upscale Jubilee Hills. Green gardens, curated art, peaceful neighborhood, and personalized home cooked meals.',
-    propertyType: 'Homestay',
-    price: 29000,
-    location: 'Jubilee Hills',
-    address: 'Road No. 36, Near Peddamma Temple, Jubilee Hills',
-    city: 'Hyderabad',
-    state: 'Telangana',
-    country: 'India',
-    coordinates: { latitude: 17.4319, longitude: 78.4073 },
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 2600,
-    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Kitchen', 'Garden', 'Balcony'],
-    images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.87,
-    totalReviews: 29,
-  },
-  {
     title: 'Hitec City Smart High-Rise Apartment',
     description: 'Modern 3BHK flat in Cyber Towers corridor with smart automated lighting, high-speed fiber internet, clubhouse gym, and supermarket within the society.',
     propertyType: 'Apartment',
@@ -432,32 +294,10 @@ const moreProperties = [
     averageRating: 4.8,
     totalReviews: 31,
   },
-  {
-    title: 'Gachibowli Cyber Towers Luxury Studio',
-    description: 'Fully furnished designer studio apartment ideal for tech professionals. Equipped with modular pantry, workstation, 50-inch smart TV, and rooftop lounge.',
-    propertyType: 'Studio',
-    price: 18000,
-    location: 'Gachibowli',
-    address: 'Suite 602, Silicon Heights, Financial District',
-    city: 'Hyderabad',
-    state: 'Telangana',
-    country: 'India',
-    coordinates: { latitude: 17.44, longitude: 78.3489 },
-    bedrooms: 1,
-    bathrooms: 1,
-    area: 650,
-    amenities: ['High-speed Wi-Fi', 'Air Conditioning', 'Free Parking', 'Kitchen', 'Gym', 'Elevator'],
-    images: [
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.75,
-    totalReviews: 20,
-  },
 
-  // -------------------------------------------------------------
-  // BANGALORE
-  // -------------------------------------------------------------
+  // =========================================================================
+  // 4. BANGALORE
+  // =========================================================================
   {
     title: 'The Chancery Pavilion Grand Hotel',
     description: 'Sophisticated 5-star hotel in Bangalore city center. Luxurious suites, heated swimming pool, award-winning specialty restaurants, and business center.',
@@ -527,149 +367,82 @@ const moreProperties = [
     averageRating: 4.89,
     totalReviews: 33,
   },
-  {
-    title: 'Koramangala Tech Executive Studio',
-    description: 'Chic urban studio apartment in the startup capital Koramangala. High-speed 300 Mbps Wi-Fi, ergonomic work setup, smart kitchenette, and power backup.',
-    propertyType: 'Studio',
-    price: 22000,
-    location: 'Koramangala',
-    address: '4th Block, 80 Feet Road, Koramangala',
-    city: 'Bangalore',
-    state: 'Karnataka',
-    country: 'India',
-    coordinates: { latitude: 12.9352, longitude: 77.6245 },
-    bedrooms: 1,
-    bathrooms: 1,
-    area: 600,
-    amenities: ['High-speed Wi-Fi', 'Air Conditioning', 'Kitchen', 'Free Parking', 'Elevator', '24/7 Security'],
-    images: [
-      'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.79,
-    totalReviews: 26,
-  },
-  {
-    title: 'Whitefield Palm Meadows Luxury Villa',
-    description: 'Exquisite 4BHK gated community villa with private plunge pool, manicured gardens, Italian marble flooring, and clubhouse sports facilities.',
-    propertyType: 'Villa',
-    price: 65000,
-    location: 'Whitefield',
-    address: 'Palm Meadows Estate, Varthur Road, Whitefield',
-    city: 'Bangalore',
-    state: 'Karnataka',
-    country: 'India',
-    coordinates: { latitude: 12.9698, longitude: 77.7499 },
-    bedrooms: 4,
-    bathrooms: 4,
-    area: 3800,
-    amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Gym', '24/7 Security'],
-    images: [
-      'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.94,
-    totalReviews: 40,
-  },
 
-  // -------------------------------------------------------------
-  // GOA
-  // -------------------------------------------------------------
+  // =========================================================================
+  // 5. CHENNAI
+  // =========================================================================
   {
-    title: 'Taj Exotica Oceanfront Luxury Resort',
-    description: 'Magnificent Mediterranean-style 5-star beachfront resort in South Goa. Direct access to golden sands, private beach villas, sea-facing pools, and water sports.',
-    propertyType: 'Resort',
-    price: 68000,
-    location: 'Benaulim',
-    address: 'Calvaddo, Benaulim Beach Road, South Goa',
-    city: 'Goa',
-    state: 'Goa',
-    country: 'India',
-    coordinates: { latitude: 15.2585, longitude: 73.924 },
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 3400,
-    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Garden', 'Balcony', '24/7 Security'],
-    images: [
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.98,
-    totalReviews: 72,
-  },
-  {
-    title: 'Fontainhas Heritage Portuguese Boutique Hotel',
-    description: 'Romantic heritage hotel in the Latin Quarter of Panaji with colorful colonial architecture, antique furniture, Portuguese azulejo tiles, and gourmet cafe.',
+    title: 'Taj Coromandel Luxury Grand Hotel',
+    description: 'Timeless luxury hotel located in central Nungambakkam. Grand ballroom, award-winning South Indian fine dining, Ayurvedic spa, and serene pool patio.',
     propertyType: 'Hotel',
-    price: 32000,
-    location: 'Panaji',
-    address: '31st January Road, Fontainhas, Panaji',
-    city: 'Goa',
-    state: 'Goa',
+    price: 46000,
+    location: 'Nungambakkam',
+    address: '37, Mahatma Gandhi Road, Nungambakkam',
+    city: 'Chennai',
+    state: 'Tamil Nadu',
     country: 'India',
-    coordinates: { latitude: 15.4989, longitude: 73.8278 },
+    coordinates: { latitude: 13.0569, longitude: 80.2425 },
     bedrooms: 2,
     bathrooms: 2,
-    area: 1400,
-    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Balcony', '24/7 Security'],
+    area: 1750,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', '24/7 Security', 'Elevator'],
     images: [
       'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
-    averageRating: 4.91,
-    totalReviews: 44,
+    averageRating: 4.93,
+    totalReviews: 51,
   },
   {
-    title: 'Candolim Sunset Palm Homestay',
-    description: 'Charming Portuguese villa homestay 5 minutes walk from Candolim beach. Private garden with coconut palms, breezy patio, and bicycles for guests.',
-    propertyType: 'Homestay',
-    price: 24000,
-    location: 'Candolim',
-    address: 'House 42, Pintos Vaddo, Candolim Beach Road',
-    city: 'Goa',
-    state: 'Goa',
+    title: 'ECR Ocean Waves Beach Resort & Spa',
+    description: 'Idyllic oceanfront beach resort along the East Coast Road. Private sun loungers on the beach, multi-cuisine seafood shack, beachfront lawns, and swimming pool.',
+    propertyType: 'Resort',
+    price: 39000,
+    location: 'East Coast Road (ECR)',
+    address: 'Mahabalipuram Highway, ECR Beach Corridor',
+    city: 'Chennai',
+    state: 'Tamil Nadu',
     country: 'India',
-    coordinates: { latitude: 15.5175, longitude: 73.766 },
+    coordinates: { latitude: 12.834, longitude: 80.244 },
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 3000,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.88,
+    totalReviews: 35,
+  },
+  {
+    title: 'Mylapore Heritage Traditional Homestay',
+    description: 'Charming traditional Tamil home with brass accents, courtyard swing, authentic vegetarian home-cooked breakfast, and steps away from Kapaleeshwarar temple.',
+    propertyType: 'Homestay',
+    price: 17000,
+    location: 'Mylapore',
+    address: 'North Mada Street, Near Kapaleeshwarar Temple, Mylapore',
+    city: 'Chennai',
+    state: 'Tamil Nadu',
+    country: 'India',
+    coordinates: { latitude: 13.0337, longitude: 80.2676 },
     bedrooms: 2,
     bathrooms: 2,
-    area: 1600,
-    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Kitchen', 'Garden', 'Balcony', 'Pet Friendly'],
+    area: 1400,
+    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Kitchen', 'Balcony'],
     images: [
       'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
     ],
     status: 'available',
     averageRating: 4.86,
-    totalReviews: 35,
-  },
-  {
-    title: 'Calangute Beachfront Portuguese Villa',
-    description: 'Charming 3BHK restored Portuguese villa with a private swimming pool, coconut grove gardens, outdoor gazebo, and walking access to Calangute Beach.',
-    propertyType: 'Villa',
-    price: 45000,
-    location: 'Calangute',
-    address: 'Villa 14, Holiday Street, Calangute',
-    city: 'Goa',
-    state: 'Goa',
-    country: 'India',
-    coordinates: { latitude: 15.5439, longitude: 73.7553 },
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 2800,
-    amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Balcony'],
-    images: [
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'
-    ],
-    status: 'available',
-    averageRating: 4.93,
-    totalReviews: 45,
+    totalReviews: 24,
   },
 
-  // -------------------------------------------------------------
-  // VISAKHAPATNAM
-  // -------------------------------------------------------------
+  // =========================================================================
+  // 6. VISAKHAPATNAM (VIZAG)
+  // =========================================================================
   {
     title: 'The Gateway Beachfront Grand Hotel',
     description: 'Scenic 5-star hotel perched along RK Beach with uninterrupted Bay of Bengal sea views, infinity swimming pool, seafood restaurants, and fitness spa.',
@@ -717,9 +490,153 @@ const moreProperties = [
     totalReviews: 28,
   },
 
-  // -------------------------------------------------------------
-  // MUMBAI
-  // -------------------------------------------------------------
+  // =========================================================================
+  // 7. TIRUPATI
+  // =========================================================================
+  {
+    title: 'Marasa Sarovar Premiere Pilgrim Luxury Hotel',
+    description: 'Premier 5-star hotel near the holy Tirumala foothills designed around the 10 avatars of Vishnu. Features luxury suites, spiritual architecture, temple concierge, and vegetarian dining.',
+    propertyType: 'Hotel',
+    price: 26000,
+    location: 'Karakambadi Road',
+    address: 'Karakambadi Road, Near Alipiri Gate, Tirupati',
+    city: 'Tirupati',
+    state: 'Andhra Pradesh',
+    country: 'India',
+    coordinates: { latitude: 13.635, longitude: 79.44 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1550,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', '24/7 Security', 'Elevator', 'Gym'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.91,
+    totalReviews: 49,
+  },
+  {
+    title: 'Saptagiri Foothills Serene Homestay',
+    description: 'Peaceful pilgrim homestay at Alipiri foothills. Quiet atmosphere, pristine clean rooms, mountain views, and direct shuttle assistance for Tirumala darshan.',
+    propertyType: 'Homestay',
+    price: 13500,
+    location: 'Alipiri',
+    address: 'Plot 22, Srinivasa Nagar, Alipiri Bypass Road',
+    city: 'Tirupati',
+    state: 'Andhra Pradesh',
+    country: 'India',
+    coordinates: { latitude: 13.65, longitude: 79.41 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1300,
+    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Kitchen', 'Balcony'],
+    images: [
+      'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.87,
+    totalReviews: 32,
+  },
+
+  // =========================================================================
+  // 8. GOA
+  // =========================================================================
+  {
+    title: 'Taj Exotica Oceanfront Luxury Resort',
+    description: 'Magnificent Mediterranean-style 5-star beachfront resort in South Goa. Direct access to golden sands, private beach villas, sea-facing pools, and water sports.',
+    propertyType: 'Resort',
+    price: 68000,
+    location: 'Benaulim',
+    address: 'Calvaddo, Benaulim Beach Road, South Goa',
+    city: 'Goa',
+    state: 'Goa',
+    country: 'India',
+    coordinates: { latitude: 15.2585, longitude: 73.924 },
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 3400,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Garden', 'Balcony', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.98,
+    totalReviews: 72,
+  },
+  {
+    title: 'Fontainhas Heritage Portuguese Boutique Hotel',
+    description: 'Romantic heritage hotel in the Latin Quarter of Panaji with colorful colonial architecture, antique furniture, Portuguese azulejo tiles, and gourmet cafe.',
+    propertyType: 'Hotel',
+    price: 32000,
+    location: 'Panaji',
+    address: '31st January Road, Fontainhas, Panaji',
+    city: 'Goa',
+    state: 'Goa',
+    country: 'India',
+    coordinates: { latitude: 15.4989, longitude: 73.8278 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1400,
+    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Balcony', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.91,
+    totalReviews: 44,
+  },
+  {
+    title: 'Calangute Beachfront Portuguese Villa',
+    description: 'Charming 3BHK restored Portuguese villa with a private swimming pool, coconut grove gardens, outdoor gazebo, and walking access to Calangute Beach.',
+    propertyType: 'Villa',
+    price: 45000,
+    location: 'Calangute',
+    address: 'Villa 14, Holiday Street, Calangute',
+    city: 'Goa',
+    state: 'Goa',
+    country: 'India',
+    coordinates: { latitude: 15.5439, longitude: 73.7553 },
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 2800,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Balcony'],
+    images: [
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.93,
+    totalReviews: 45,
+  },
+
+  // =========================================================================
+  // 9. MUMBAI
+  // =========================================================================
+  {
+    title: 'The Taj Mahal Palace Sea View Grand Hotel',
+    description: 'Iconic heritage 5-star hotel facing the Gateway of India and the Arabian Sea. Royal butler service, legendary sea-view suites, luxury spa, and high tea salon.',
+    propertyType: 'Hotel',
+    price: 75000,
+    location: 'Colaba',
+    address: 'Apollo Bunder, Colaba, South Mumbai',
+    city: 'Mumbai',
+    state: 'Maharashtra',
+    country: 'India',
+    coordinates: { latitude: 18.9217, longitude: 72.8332 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1900,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', '24/7 Security', 'Elevator'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.99,
+    totalReviews: 95,
+  },
   {
     title: 'Marine Drive Sea-Facing Grand Apartment',
     description: 'Iconic Queen’s Necklace sea-facing luxury 3BHK apartment on Marine Drive. Unobstructed Arabian Sea sunsets, vintage teakwood interiors, and 24/7 concierge.',
@@ -743,10 +660,105 @@ const moreProperties = [
     averageRating: 4.96,
     totalReviews: 48,
   },
+  {
+    title: 'Bandra West Bohemian Studio',
+    description: 'Trendy loft studio nestled in Pali Hill Bandra West. Walk to celebrity cafes, boutique bars, and Bandstand promenade.',
+    propertyType: 'Studio',
+    price: 35000,
+    location: 'Bandra West',
+    address: 'Pali Mala Road, Near Candies, Bandra West',
+    city: 'Mumbai',
+    state: 'Maharashtra',
+    country: 'India',
+    coordinates: { latitude: 19.0596, longitude: 72.8295 },
+    bedrooms: 1,
+    bathrooms: 1,
+    area: 550,
+    amenities: ['Air Conditioning', 'High-speed Wi-Fi', 'Kitchen', 'Elevator'],
+    images: [
+      'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.82,
+    totalReviews: 32,
+  },
 
-  // -------------------------------------------------------------
-  // JAIPUR
-  // -------------------------------------------------------------
+  // =========================================================================
+  // 10. DELHI
+  // =========================================================================
+  {
+    title: 'The Imperial Heritage Grand Hotel',
+    description: 'Legendary 5-star colonial heritage hotel on Janpath. Victorian architecture, royal suites, award-winning pan-Asian restaurants, spa, and verdant lawns.',
+    propertyType: 'Hotel',
+    price: 58000,
+    location: 'Connaught Place / Janpath',
+    address: 'Janpath Lane, Connaught Place',
+    city: 'Delhi',
+    state: 'Delhi',
+    country: 'India',
+    coordinates: { latitude: 28.6235, longitude: 77.2185 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1850,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', 'Elevator', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.95,
+    totalReviews: 61,
+  },
+  {
+    title: 'Hauz Khas Village Lakeview Penthouse',
+    description: 'Designer 3BHK penthouse overlooking the medieval Hauz Khas monument and deer park lake. Bohemian rooftop terrace, wood finishes, and art gallery ambiance.',
+    propertyType: 'Apartment',
+    price: 48000,
+    location: 'Hauz Khas',
+    address: 'Building 24, Hauz Khas Village',
+    city: 'Delhi',
+    state: 'Delhi',
+    country: 'India',
+    coordinates: { latitude: 28.5535, longitude: 77.1944 },
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 2300,
+    amenities: ['Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Balcony', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.96,
+    totalReviews: 39,
+  },
+
+  // =========================================================================
+  // 11. JAIPUR
+  // =========================================================================
+  {
+    title: 'Rambagh Palace Heritage Grand Hotel',
+    description: 'The Jewel of Jaipur — former residence of the Maharaja. Opulent royal marble suites, peacocks roaming manicured Mughal gardens, royal dining, and polo lounge.',
+    propertyType: 'Hotel',
+    price: 65000,
+    location: 'Bhawani Singh Road',
+    address: 'Bhawani Singh Road, Near Rambagh Circle, Jaipur',
+    city: 'Jaipur',
+    state: 'Rajasthan',
+    country: 'India',
+    coordinates: { latitude: 26.897, longitude: 75.808 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 2100,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Gym', 'Garden', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.97,
+    totalReviews: 76,
+  },
   {
     title: 'Heritage Haveli Courtyard Royal Villa',
     description: 'Authentic Rajasthani heritage palace-style villa with sandstone jharokhas, central fountain courtyard, handcrafted wooden furniture, and tranquil garden.',
@@ -769,6 +781,204 @@ const moreProperties = [
     status: 'available',
     averageRating: 4.91,
     totalReviews: 37,
+  },
+
+  // =========================================================================
+  // 12. KOCHI (COCHIN)
+  // =========================================================================
+  {
+    title: 'Brunton Boatyard Colonial Harbor Hotel',
+    description: 'Historical Dutch & Portuguese styled luxury harbor hotel overlooking the Cochin shipping channel. Private sea-facing balconies, seafood dining, and sunset boat cruises.',
+    propertyType: 'Hotel',
+    price: 38000,
+    location: 'Fort Kochi',
+    address: '1/498, Calvathy Road, Fort Kochi',
+    city: 'Kochi',
+    state: 'Kerala',
+    country: 'India',
+    coordinates: { latitude: 9.967, longitude: 76.242 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1600,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Balcony', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.92,
+    totalReviews: 43,
+  },
+  {
+    title: 'Kumarakom Backwaters Eco Lagoon Resort',
+    description: 'Paradise backwater resort with traditional Kerala thatched-roof villas, private plunge pools, houseboats, Ayurvedic rejuvenation therapies, and lotus ponds.',
+    propertyType: 'Resort',
+    price: 54000,
+    location: 'Kumarakom Backwaters',
+    address: 'Vembanad Lake Shore, Kumarakom',
+    city: 'Kochi',
+    state: 'Kerala',
+    country: 'India',
+    coordinates: { latitude: 9.617, longitude: 76.43 },
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 3600,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.96,
+    totalReviews: 57,
+  },
+
+  // =========================================================================
+  // 13. OOTY
+  // =========================================================================
+  {
+    title: 'Savoy Heritage Mountain Luxury Resort',
+    description: 'British colonial-era heritage resort surrounded by mist-covered Nilgiri tea estates. Fireplace suites, private English gardens, afternoon high tea, and horse riding.',
+    propertyType: 'Resort',
+    price: 42000,
+    location: 'Elk Hill',
+    address: '77, Sylks Road, Elk Hill, Ooty',
+    city: 'Ooty',
+    state: 'Tamil Nadu',
+    country: 'India',
+    coordinates: { latitude: 11.4064, longitude: 76.6932 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1900,
+    amenities: ['Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security', 'Pet Friendly'],
+    images: [
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.93,
+    totalReviews: 48,
+  },
+  {
+    title: 'Nilgiri Mountain Mist Cottage Homestay',
+    description: 'Picturesque pine wood cottage perched over tea garden slopes with misty mountain panoramas, wood-burning hearth, hot water, and delicious local Badaga cuisine.',
+    propertyType: 'Homestay',
+    price: 21000,
+    location: 'Lovedale',
+    address: 'Tea Estate Lane, Lovedale Hill, Ooty',
+    city: 'Ooty',
+    state: 'Tamil Nadu',
+    country: 'India',
+    coordinates: { latitude: 11.385, longitude: 76.71 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1450,
+    amenities: ['Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Balcony', 'Pet Friendly'],
+    images: [
+      'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.89,
+    totalReviews: 36,
+  },
+
+  // =========================================================================
+  // 14. MANALI
+  // =========================================================================
+  {
+    title: 'Solang Valley Snow Peak Luxury Resort',
+    description: 'Alpine wonderland resort offering breathtaking panoramic views of snow-capped Himalayan peaks. Heated wooden chalets, cedar forests, adventure ski access, and bonfire nights.',
+    propertyType: 'Resort',
+    price: 49000,
+    location: 'Solang Valley',
+    address: 'Solang Valley Highway, Manali',
+    city: 'Manali',
+    state: 'Himachal Pradesh',
+    country: 'India',
+    coordinates: { latitude: 32.316, longitude: 77.157 },
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 3100,
+    amenities: ['Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', '24/7 Security', 'Pet Friendly'],
+    images: [
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.96,
+    totalReviews: 54,
+  },
+  {
+    title: 'Apple Orchard Himalayan Wooden Chalet',
+    description: 'Charming traditional deodar wood homestay surrounded by blooming apple orchards with Beas river rushing nearby. Warm cozy duvets and authentic Himachali meals.',
+    propertyType: 'Homestay',
+    price: 23000,
+    location: 'Old Manali',
+    address: 'Club House Road, Old Manali Village',
+    city: 'Manali',
+    state: 'Himachal Pradesh',
+    country: 'India',
+    coordinates: { latitude: 32.253, longitude: 77.18 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1500,
+    amenities: ['Free Parking', 'High-speed Wi-Fi', 'Kitchen', 'Garden', 'Balcony'],
+    images: [
+      'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.9,
+    totalReviews: 41,
+  },
+
+  // =========================================================================
+  // 15. PONDICHERRY (PUDUCHERRY)
+  // =========================================================================
+  {
+    title: 'Promenade Beachfront French Heritage Hotel',
+    description: 'Chic French colonial boutique hotel facing the Bay of Bengal on Goubert Avenue. Sea-facing balconies, rooftop Mediterranean restaurant, and heritage courtyards.',
+    propertyType: 'Hotel',
+    price: 34000,
+    location: 'White Town',
+    address: '23, Goubert Avenue, Promenade Beach, White Town',
+    city: 'Pondicherry',
+    state: 'Puducherry',
+    country: 'India',
+    coordinates: { latitude: 11.9325, longitude: 79.8358 },
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 1600,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'High-speed Wi-Fi', 'Free Parking', 'Balcony', '24/7 Security'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.91,
+    totalReviews: 46,
+  },
+  {
+    title: 'Auroville Eco Garden Retreat Villa',
+    description: 'Tranquil eco-luxury villa nestled in the lush forests near Auroville. Solar powered, open-air stone rain showers, organic herb gardens, and meditation pavilions.',
+    propertyType: 'Villa',
+    price: 36000,
+    location: 'Auroville',
+    address: 'Aspiration Forest Road, Near Matrimandir, Auroville',
+    city: 'Pondicherry',
+    state: 'Tamil Nadu',
+    country: 'India',
+    coordinates: { latitude: 12.007, longitude: 79.81 },
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 2800,
+    amenities: ['Swimming Pool', 'Air Conditioning', 'Free Parking', 'High-speed Wi-Fi', 'Garden', 'Balcony', 'Pet Friendly'],
+    images: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    averageRating: 4.88,
+    totalReviews: 29,
   }
 ];
 
@@ -780,7 +990,7 @@ const seedData = async () => {
     });
     console.log('Connected to MongoDB Atlas.');
 
-    // 1. Find user to attach as owner
+    // 1. Find or create host user to attach as property owner
     let hostUser = await User.findOne({ email: 'mandalapulilly@gmail.com' });
     if (!hostUser) {
       hostUser = await User.findOne({ role: { $in: ['host', 'admin', 'user'] } });
@@ -794,19 +1004,19 @@ const seedData = async () => {
       });
     }
 
-    console.log(`Setting owner ID: ${hostUser._id} (${hostUser.name} - ${hostUser.email})`);
+    console.log(`Attaching owner: ${hostUser._id} (${hostUser.name} - ${hostUser.email})`);
 
-    // 2. Clear existing properties to avoid duplicates, then insert full dataset
+    // 2. Clear existing properties and seed fresh full-city catalog
     await Property.deleteMany({});
-    console.log('Cleared existing properties.');
+    console.log('Cleared previous properties.');
 
-    const enriched = moreProperties.map((p) => ({
+    const enriched = allCityProperties.map((p) => ({
       ...p,
       owner: hostUser._id,
     }));
 
     const inserted = await Property.insertMany(enriched);
-    console.log(`✅ Successfully seeded ${inserted.length} rich property listings across India into MongoDB Atlas!`);
+    console.log(`✅ Successfully seeded ${inserted.length} rich all-city hotel and stay listings into MongoDB Atlas!`);
 
     await mongoose.disconnect();
     console.log('Disconnected cleanly.');
