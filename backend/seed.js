@@ -2,6 +2,7 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 import User from './models/User.js';
 import Property from './models/Property.js';
+import Review from './models/Review.js';
 
 const MONGODB_URI =
   process.env.MONGODB_URI ||
@@ -991,6 +992,102 @@ const allCityProperties = [
   }
 ];
 
+const demoReviewerUsers = [
+  { name: 'Ananya R.', email: 'ananya.r@havenstay-demo.com' },
+  { name: 'Rahul K.', email: 'rahul.k@havenstay-demo.com' },
+  { name: 'Priya S.', email: 'priya.s@havenstay-demo.com' },
+  { name: 'Arjun M.', email: 'arjun.m@havenstay-demo.com' },
+  { name: 'Sneha P.', email: 'sneha.p@havenstay-demo.com' },
+  { name: 'Kiran V.', email: 'kiran.v@havenstay-demo.com' },
+  { name: 'Meera R.', email: 'meera.r@havenstay-demo.com' },
+  { name: 'Aditya N.', email: 'aditya.n@havenstay-demo.com' },
+  { name: 'Rohan S.', email: 'rohan.s@havenstay-demo.com' },
+  { name: 'Divya M.', email: 'divya.m@havenstay-demo.com' },
+  { name: 'Vikram T.', email: 'vikram.t@havenstay-demo.com' },
+  { name: 'Pooja B.', email: 'pooja.b@havenstay-demo.com' },
+  { name: 'Siddharth G.', email: 'siddharth.g@havenstay-demo.com' },
+  { name: 'Neha D.', email: 'neha.d@havenstay-demo.com' },
+  { name: 'Varun C.', email: 'varun.c@havenstay-demo.com' },
+  { name: 'Tanvi K.', email: 'tanvi.k@havenstay-demo.com' },
+  { name: 'Nikhil J.', email: 'nikhil.j@havenstay-demo.com' },
+  { name: 'Aarav P.', email: 'aarav.p@havenstay-demo.com' },
+  { name: 'Ishita V.', email: 'ishita.v@havenstay-demo.com' },
+  { name: 'Manish S.', email: 'manish.s@havenstay-demo.com' },
+  { name: 'Kavya N.', email: 'kavya.n@havenstay-demo.com' },
+  { name: 'Gaurav L.', email: 'gaurav.l@havenstay-demo.com' },
+  { name: 'Shreya M.', email: 'shreya.m@havenstay-demo.com' },
+  { name: 'Harish B.', email: 'harish.b@havenstay-demo.com' },
+  { name: 'Deepa K.', email: 'deepa.k@havenstay-demo.com' },
+  { name: 'Ritu G.', email: 'ritu.g@havenstay-demo.com' },
+  { name: 'Tarun V.', email: 'tarun.v@havenstay-demo.com' },
+  { name: 'Swati R.', email: 'swati.r@havenstay-demo.com' },
+  { name: 'Amit S.', email: 'amit.s@havenstay-demo.com' },
+  { name: 'Zoya K.', email: 'zoya.k@havenstay-demo.com' },
+];
+
+// Curated review banks with realistic positive (~80%), mixed (~12%), and constructive negative (~8%) reviews
+const reviewBanks = {
+  Luxury: [
+    { rating: 5, comment: 'An extraordinary luxury experience! The heritage grandeur, immaculate suites, and royal dining were unforgettable.' },
+    { rating: 5, comment: 'World-class hospitality at its finest. The personalized butler service and palace gardens made our trip extraordinary.' },
+    { rating: 5, comment: 'Breathtaking architecture and pristine views. Every single detail exceeded 5-star luxury standards.' },
+    { rating: 5, comment: 'Truly exceptional stay. The opulent suite, spa wellness treatments, and exquisite culinary offerings were 10 out of 10.' },
+    { rating: 5, comment: 'Iconic property with unmatched elegance. Check-in was effortless and the staff treated us like royalty.' },
+    { rating: 4, comment: 'Remarkable luxury stay and gorgeous ambiance. Evening dining in the courtyard was lively and memorable.' },
+    { rating: 5, comment: 'Flawless sanctuary in every sense. The bed comfort, historic interior decor, and serene pool made this an elite getaway.' },
+    { rating: 4, comment: 'Grand architecture and attentive staff. A truly memorable premium experience for our family vacation.' },
+  ],
+  Hotel: [
+    { rating: 5, comment: 'Very clean room and excellent location. The staff were friendly and check-in was smooth.' },
+    { rating: 5, comment: 'Really comfortable stay. The room was spacious and the property looked exactly like the photos.' },
+    { rating: 5, comment: 'Superb location right in the city center. Quiet at night with attentive host support throughout our stay.' },
+    { rating: 5, comment: 'The room was spotless and well air-conditioned. Loved the morning breakfast spread and quick room service.' },
+    { rating: 5, comment: 'Exceeded our expectations for a short stay. Smooth key handover and high-speed Wi-Fi worked flawlessly.' },
+    { rating: 4, comment: 'Great experience for a short weekend stay. Everything was clean and well maintained.' },
+    { rating: 4, comment: 'Good value for the price. The staff were helpful and the location was convenient for meetings.' },
+    { rating: 4, comment: 'Comfortable beds and clean room. Front desk staff were accommodating with our late checkout request.' },
+    { rating: 4, comment: 'Pleasant experience overall. Clean bathroom, fresh towels, and quiet surroundings.' },
+    { rating: 3, comment: 'Overall a good stay. The room was clean and comfortable, although the check-in process took a little longer than expected.' },
+    { rating: 3, comment: 'Nice property and good location. The room was slightly smaller than expected, but everything else was good.' },
+    { rating: 4, comment: 'Good experience overall, but the Wi-Fi was slow during the evening peak hours.' },
+    { rating: 3, comment: 'The room was clean, but the street noise from outside was noticeable at night.' },
+    { rating: 2, comment: 'Good location, but the room could have been better maintained during our two-day stay.' },
+  ],
+  Resort: [
+    { rating: 5, comment: 'Beautiful property with a peaceful atmosphere. Would definitely stay here again with family.' },
+    { rating: 5, comment: 'A truly luxurious retreat. The ambiance, interior decor, and serene landscaping were 10 out of 10.' },
+    { rating: 5, comment: 'Unmatched serenity and stunning views. The staff was exceptionally responsive and caring.' },
+    { rating: 5, comment: 'Exquisite hospitality and world-class architecture. The infinity pool and spa were spectacular.' },
+    { rating: 5, comment: 'Stunning grounds with lush nature. The private balcony gave panoramic sunrise views every morning.' },
+    { rating: 4, comment: 'Very relaxing vacation stay. The surroundings are gorgeous and rooms were spotless.' },
+    { rating: 4, comment: 'High-quality amenities and beautiful gardens. Great value for a refreshing weekend getaway.' },
+    { rating: 4, comment: 'Peaceful and picturesque setting. Room service was prompt and the food was delicious.' },
+    { rating: 3, comment: 'Beautiful resort and lovely grounds. A bit far from main city dining spots, but very tranquil.' },
+    { rating: 3, comment: 'Lovely surroundings, though the approach road had minor potholes and check-in was slightly delayed.' },
+  ],
+  Villa: [
+    { rating: 5, comment: 'Magnificent villa with top-class amenities. The private pool and garden were impeccably maintained.' },
+    { rating: 5, comment: 'Wonderful getaway with family. Ample space, great kitchen amenities, and serene outdoor seating.' },
+    { rating: 5, comment: 'Top-tier luxury villa experience. Clean linens, modern bathrooms, and complete privacy.' },
+    { rating: 5, comment: 'Everything was seamless from booking to checkout. The caretaker was courteous and helpful.' },
+    { rating: 4, comment: 'Spacious and beautifully decorated villa. Perfect for a relaxing weekend trip with friends.' },
+    { rating: 4, comment: 'Great property with plenty of natural light and modern comforts. We thoroughly enjoyed our stay.' },
+    { rating: 3, comment: 'Spacious and well-kept villa, though the cellular network was slightly weak in certain back rooms.' },
+    { rating: 3, comment: 'Great location and nice interiors. Water pressure in the upper floor shower could be slightly stronger.' },
+  ],
+  Homestays: [
+    { rating: 5, comment: 'Felt right at home! The host\'s hospitality was heartwarming and the room was sparkling clean.' },
+    { rating: 5, comment: 'Convenient location close to local transit and cafes. High-speed Wi-Fi made remote work effortless.' },
+    { rating: 5, comment: 'Cozy, charming, and peaceful. The kitchen was well equipped for making quick breakfasts.' },
+    { rating: 5, comment: 'Smooth self check-in, spotless bathroom, and comfortable mattress. Great value for money.' },
+    { rating: 4, comment: 'Warm hosts and comfortable room. Nice quiet residential neighborhood with shops nearby.' },
+    { rating: 4, comment: 'Quiet residential area with easy access to city attractions. Exactly as described in the listing.' },
+    { rating: 3, comment: 'Pleasant stay overall. Clean apartment, though street noise was slight during early morning rush hour.' },
+    { rating: 3, comment: 'Nice homestay with welcoming hosts. The stairs are slightly steep if carrying heavy luggage.' },
+    { rating: 2, comment: 'Decent stay for a budget trip, but bathroom ventilation could use an upgrade.' },
+  ],
+};
+
 const seedData = async () => {
   try {
     console.log('Connecting to MongoDB Atlas...');
@@ -1015,17 +1112,122 @@ const seedData = async () => {
 
     console.log(`Attaching owner: ${hostUser._id} (${hostUser.name} - ${hostUser.email})`);
 
-    // 2. Clear existing properties and seed fresh full-city catalog
+    // 2. Find or create pool of demo reviewers
+    console.log('Preparing demo reviewer accounts...');
+    const reviewerDocs = [];
+    for (const revUser of demoReviewerUsers) {
+      let existing = await User.findOne({ email: revUser.email });
+      if (!existing) {
+        existing = await User.create({
+          name: revUser.name,
+          email: revUser.email,
+          password: 'password123',
+          role: 'user',
+        });
+      }
+      reviewerDocs.push(existing);
+    }
+    console.log(`Ready with ${reviewerDocs.length} verified reviewer profiles.`);
+
+    // 3. Clear existing properties and reviews
+    await Review.deleteMany({});
+    console.log('Cleared previous reviews.');
+
     await Property.deleteMany({});
     console.log('Cleared previous properties.');
 
+    // 4. Insert all fresh properties
     const enriched = allCityProperties.map((p) => ({
       ...p,
       owner: hostUser._id,
+      averageRating: 0,
+      totalReviews: 0,
     }));
 
-    const inserted = await Property.insertMany(enriched);
-    console.log(`✅ Successfully seeded ${inserted.length} rich all-city hotel and stay listings with nightly rates into MongoDB Atlas!`);
+    const insertedProperties = await Property.insertMany(enriched);
+    console.log(`✅ Seeded ${insertedProperties.length} property listings.`);
+
+    // 5. Generate and seed authentic reviews for each property
+    console.log('Seeding realistic guest reviews...');
+    const allReviewsToInsert = [];
+
+    insertedProperties.forEach((prop, propIndex) => {
+      // Determine if luxury or specific category
+      const isLuxury =
+        Number(prop.price) >= 6500 ||
+        prop.title.includes('Palace') ||
+        prop.title.includes('Taj') ||
+        prop.title.includes('Imperial') ||
+        prop.title.includes('Kohinoor');
+
+      const poolKey = isLuxury
+        ? 'Luxury'
+        : prop.propertyType === 'Hotel'
+        ? 'Hotel'
+        : prop.propertyType === 'Resort'
+        ? 'Resort'
+        : prop.propertyType === 'Villa'
+        ? 'Villa'
+        : 'Homestays';
+      const pool = reviewBanks[poolKey];
+
+      // Number of reviews to generate (varied between 4 and 9 reviews per property)
+      const numReviews = isLuxury ? 6 + (propIndex % 4) : 4 + ((propIndex * 3 + 1) % 5);
+
+      // Pick distinct reviewers for this property
+      const startIndex = (propIndex * 3) % reviewerDocs.length;
+      const selectedReviewers = [];
+      for (let i = 0; i < numReviews; i++) {
+        const idx = (startIndex + i) % reviewerDocs.length;
+        selectedReviewers.push(reviewerDocs[idx]);
+      }
+
+      // Generate review objects
+      selectedReviewers.forEach((reviewer, rIndex) => {
+        // Pick template from pool
+        const templateIdx = (propIndex * 2 + rIndex) % pool.length;
+        const item = pool[templateIdx];
+
+        // Varied date within last 120 days
+        const daysAgo = 2 + ((propIndex * 7 + rIndex * 13) % 118);
+        const reviewDate = new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000);
+
+        allReviewsToInsert.push({
+          property: prop._id,
+          user: reviewer._id,
+          rating: item.rating,
+          comment: item.comment,
+          createdAt: reviewDate,
+          updatedAt: reviewDate,
+        });
+      });
+    });
+
+    const insertedReviews = await Review.insertMany(allReviewsToInsert);
+    console.log(`✅ Successfully seeded ${insertedReviews.length} authentic guest reviews across all listings!`);
+
+    // 6. Recalculate and update exact averageRating & totalReviews for every property
+    for (const prop of insertedProperties) {
+      const stats = await Review.aggregate([
+        { $match: { property: prop._id } },
+        {
+          $group: {
+            _id: '$property',
+            avgRating: { $avg: '$rating' },
+            numReviews: { $sum: 1 },
+          },
+        },
+      ]);
+
+      if (stats.length > 0) {
+        await Property.findByIdAndUpdate(prop._id, {
+          averageRating: Math.round(stats[0].avgRating * 10) / 10,
+          totalReviews: stats[0].numReviews,
+        });
+      }
+    }
+
+    console.log('✅ Synchronized all property rating averages and review counts in MongoDB Atlas!');
 
     await mongoose.disconnect();
     console.log('Disconnected cleanly.');
