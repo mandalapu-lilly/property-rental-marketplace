@@ -150,7 +150,14 @@ export const getMe = async (req, res, next) => {
       return res.status(401).json({ error: 'Not authorized' });
     }
     return res.status(200).json({
-      user: req.user,
+      user: {
+        id: req.user._id,
+        _id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        role: req.user.role,
+        createdAt: req.user.createdAt,
+      },
     });
   } catch (error) {
     next(error);

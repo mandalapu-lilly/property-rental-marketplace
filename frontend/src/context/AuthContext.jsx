@@ -23,14 +23,22 @@ export const AuthProvider = ({ children }) => {
         try {
           const res = await api.get('/api/auth/me');
           if (res.data && res.data.user) {
-            setUser(res.data.user);
-            localStorage.setItem('user', JSON.stringify(res.data.user));
+            const normalizedUser = {
+              ...res.data.user,
+              id: res.data.user.id || res.data.user._id,
+              _id: res.data.user._id || res.data.user.id,
+            };
+            setUser(normalizedUser);
+            localStorage.setItem('user', JSON.stringify(normalizedUser));
           }
         } catch (err) {
-          console.warn('Session expired or invalid token:', err.message);
+          console.warn('Session expired or invalid token:', err.response?.data?.error || err.message);
           // If token is invalid/expired, reset auth state
           logout();
         }
+      } else {
+        setUser(null);
+        setToken(null);
       }
       setLoading(false);
     };
@@ -43,11 +51,18 @@ export const AuthProvider = ({ children }) => {
     const response = await api.post('/api/auth/login', { email, password });
     const { token: receivedToken, user: receivedUser } = response.data;
 
-    const userData = receivedUser || {
-      id: response.data.id,
+    const rawUser = receivedUser || {
+      id: response.data.id || response.data._id,
+      _id: response.data._id || response.data.id,
       name: response.data.name,
       email: response.data.email,
       role: response.data.role,
+    };
+
+    const userData = {
+      ...rawUser,
+      id: rawUser.id || rawUser._id,
+      _id: rawUser._id || rawUser.id,
     };
 
     setToken(receivedToken);

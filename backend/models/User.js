@@ -53,6 +53,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 userSchema.methods.toJSON = function () {
   const userObject = this.toObject();
   delete userObject.password;
+  userObject.id = userObject._id ? userObject._id.toString() : undefined;
   return userObject;
 };
 
