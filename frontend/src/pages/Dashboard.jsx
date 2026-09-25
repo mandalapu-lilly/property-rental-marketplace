@@ -46,7 +46,7 @@ export default function Dashboard() {
 
         {/* Profile Details Card */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 bg-white dark:bg-[#1c1c20] rounded-[2rem] p-8 border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-6">
+          <div className="md:col-span-2 bg-white dark:bg-[#1c1c20] rounded-[2rem] p-8 border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-6 card-3d-elevation">
             <div className="flex items-center justify-between border-b border-[#f4f0e8] dark:border-[#2e2e34] pb-4">
               <h2 className="font-editorial text-2xl font-bold text-[#18181b] dark:text-[#f4f0e8]">
                 Account Credentials
@@ -59,7 +59,7 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Full Name */}
-              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34]">
+              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34] card-3d-elevation">
                 <div className="flex items-center gap-1.5 text-[#71717a] dark:text-[#a1a1aa] text-[10px] font-bold uppercase tracking-wider mb-1">
                   <User className="w-3.5 h-3.5 text-[#8c827a] dark:text-[#b58d59]" />
                   Full Name
@@ -70,7 +70,7 @@ export default function Dashboard() {
               </div>
 
               {/* Email */}
-              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34]">
+              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34] card-3d-elevation">
                 <div className="flex items-center gap-1.5 text-[#71717a] dark:text-[#a1a1aa] text-[10px] font-bold uppercase tracking-wider mb-1">
                   <Mail className="w-3.5 h-3.5 text-[#8c827a] dark:text-[#b58d59]" />
                   Email Address
@@ -81,7 +81,7 @@ export default function Dashboard() {
               </div>
 
               {/* Account Role */}
-              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34]">
+              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34] card-3d-elevation">
                 <div className="flex items-center gap-1.5 text-[#71717a] dark:text-[#a1a1aa] text-[10px] font-bold uppercase tracking-wider mb-1">
                   <Shield className="w-3.5 h-3.5 text-[#8c827a] dark:text-[#b58d59]" />
                   Role Privilege
@@ -92,7 +92,7 @@ export default function Dashboard() {
               </div>
 
               {/* Account ID */}
-              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34]">
+              <div className="p-5 rounded-2xl bg-[#fbfbf9] dark:bg-[#161618] border border-[#e5e0d8] dark:border-[#2e2e34] card-3d-elevation">
                 <div className="flex items-center gap-1.5 text-[#71717a] dark:text-[#a1a1aa] text-[10px] font-bold uppercase tracking-wider mb-1">
                   <Key className="w-3.5 h-3.5 text-[#8c827a] dark:text-[#b58d59]" />
                   User Identifier
@@ -105,7 +105,7 @@ export default function Dashboard() {
           </div>
 
           {/* Quick Actions Panel */}
-          <div className="bg-white dark:bg-[#1c1c20] rounded-[2rem] p-8 border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-6">
+          <div className="bg-white dark:bg-[#1c1c20] rounded-[2rem] p-8 border border-[#e5e0d8] dark:border-[#2e2e34] shadow-editorial space-y-6 card-3d-elevation">
             <h2 className="font-editorial text-2xl font-bold text-[#18181b] dark:text-[#f4f0e8]">
               Quick Access
             </h2>
