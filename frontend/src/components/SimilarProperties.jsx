@@ -73,7 +73,7 @@ export default function SimilarProperties({ currentProperty }) {
               />
               <span className="absolute bottom-2 left-2 bg-[#18181b]/85 dark:bg-[#121214]/90 backdrop-blur-sm text-white dark:text-[#fbfbf9] text-xs font-bold px-2 py-0.5 rounded-md border border-white/10">
                 ₹{prop.price?.toLocaleString()}
-                <span className="text-[10px] font-normal text-[#d4cdc3] dark:text-[#a1a1aa]">/mo</span>
+                <span className="text-[10px] font-normal text-[#d4cdc3] dark:text-[#a1a1aa]">/night</span>
               </span>
               {prop.verificationStatus === 'approved' && (
                 <span className="absolute top-2 right-2 bg-emerald-600/90 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">

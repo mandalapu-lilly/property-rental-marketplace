@@ -72,12 +72,10 @@ export const createBooking = async (req, res, next) => {
       });
     }
 
-    // Calculate server-side total price (never trust frontend)
+    // Calculate server-side total price using nightly rate
     const diffTime = Math.abs(end - start);
-    const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    // For monthly pricing or daily approximation, price per night = price / 30 or direct duration
-    // Let's use clean nightly rate = Math.round(property.price / 30) with minimum of 1 night or duration
-    const pricePerNight = Math.max(1, Math.round(property.price / 30));
+    const nights = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+    const pricePerNight = Number(property.price) || 0;
     const totalPrice = nights * pricePerNight;
 
     const booking = await Booking.create({

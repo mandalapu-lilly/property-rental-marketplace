@@ -266,7 +266,7 @@ export default function AiRentalAssistant() {
                             <div className="flex items-center justify-between pt-1 border-t border-[#e8e3da] dark:border-[#3f3f46] mt-1">
                               <span className="font-extrabold text-[#18181b] dark:text-[#fbfbf9] text-xs">
                                 {formatCurrency(prop.price)}
-                                <span className="text-[10px] font-normal text-[#71717a] dark:text-[#a1a1aa]">/mo</span>
+                                <span className="text-[10px] font-normal text-[#71717a] dark:text-[#a1a1aa]">/night</span>
                               </span>
                               <Link
                                 to={`/properties/${prop._id}`}

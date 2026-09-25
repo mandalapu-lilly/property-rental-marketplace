@@ -460,7 +460,7 @@ export default function AdminDashboard() {
                             >
                               {status === 'approved' ? '✓ Verified' : status === 'pending' ? '⏳ Needs Audit' : '✕ Rejected'}
                             </span>
-                            <span className="text-xs font-black text-stone-900 dark:text-[#fbfbf9]">₹{property.price?.toLocaleString()}/mo</span>
+                            <span className="text-xs font-black text-stone-900 dark:text-[#fbfbf9]">₹{property.price?.toLocaleString()}/night</span>
                           </div>
 
                           <h3 className="font-bold text-stone-900 dark:text-[#fbfbf9] text-sm line-clamp-1" title={property.title}>
@@ -630,7 +630,7 @@ export default function AdminDashboard() {
                     <th className="p-4 pl-6">Listing</th>
                     <th className="p-4">Category</th>
                     <th className="p-4">Destination</th>
-                    <th className="p-4">Monthly Rent</th>
+                    <th className="p-4">Nightly Rate</th>
                     <th className="p-4">Host</th>
                     <th className="p-4">Status</th>
                     <th className="p-4 pr-6 text-right">Delete</th>

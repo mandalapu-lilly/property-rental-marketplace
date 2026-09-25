@@ -95,7 +95,7 @@ export default function RecentlyViewed({ currentPropertyId = null }) {
               />
               <span className="absolute bottom-2.5 left-2.5 bg-[#18181b]/85 dark:bg-[#121214]/90 backdrop-blur-sm text-white dark:text-[#fbfbf9] text-xs font-bold px-2.5 py-1 rounded-full border border-white/10">
                 ₹{prop.price?.toLocaleString()}
-                <span className="text-[10px] font-normal text-[#d4cdc3] dark:text-[#a1a1aa]">/mo</span>
+                <span className="text-[10px] font-normal text-[#d4cdc3] dark:text-[#a1a1aa]">/night</span>
               </span>
             </div>
 

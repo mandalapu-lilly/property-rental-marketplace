@@ -227,11 +227,11 @@ export default function Recommendations() {
 
             <div className="space-y-1">
               <label className="block text-[10px] font-bold text-[#71717a] dark:text-[#a1a1aa] uppercase tracking-[0.2em]">
-                Max Monthly Rent (₹)
+                Max Nightly Rate (₹)
               </label>
               <input
                 type="number"
-                placeholder="e.g. 35000"
+                placeholder="e.g. 5000"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
                 min="0"
@@ -378,7 +378,7 @@ export default function Recommendations() {
                         <span className="font-editorial text-2xl font-bold text-[#18181b] dark:text-[#d4b996]">
                           {formatCurrency(property.price)}
                         </span>
-                        <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-medium">/mo</span>
+                        <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-medium">/night</span>
                       </div>
 
                       {/* Specs */}

@@ -729,7 +729,7 @@ export default function Properties() {
                         <span className="text-lg font-bold text-[#18181b] dark:text-[#fbfbf9]">
                           ₹{property.price?.toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/mo</span>
+                        <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/night</span>
                       </div>
                     </div>
 

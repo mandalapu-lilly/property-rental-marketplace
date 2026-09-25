@@ -172,8 +172,8 @@ export default function Home() {
                 <div>
                   <span className="text-[9px] uppercase tracking-wider text-[#a1a1aa] block font-semibold">Rate</span>
                   <span className="text-base font-bold text-[#18181b] dark:text-[#fbfbf9]">
-                    ₹{leadProperty?.price?.toLocaleString() || '24,000'}
-                    <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/mo</span>
+                    ₹{leadProperty?.price?.toLocaleString() || '3,499'}
+                    <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/night</span>
                   </span>
                 </div>
 
@@ -471,7 +471,7 @@ export default function Home() {
                         <span className="text-lg font-bold text-[#18181b] dark:text-[#fbfbf9]">
                           ₹{prop.price?.toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/mo</span>
+                        <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/night</span>
                       </div>
                     </div>
 

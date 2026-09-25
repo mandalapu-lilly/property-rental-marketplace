@@ -127,7 +127,7 @@ export default function PropertyMap({ property, properties = [], height = '450px
 
                 <div className="flex items-center justify-between pt-1 border-t border-[#e8e3da] dark:border-[#27272a]">
                   <span className="font-black text-xs text-[#18181b] dark:text-[#fbfbf9]">
-                    ₹{item.price?.toLocaleString()}/mo
+                    ₹{item.price?.toLocaleString()}/night
                   </span>
                   <Link
                     to={`/properties/${item._id}`}

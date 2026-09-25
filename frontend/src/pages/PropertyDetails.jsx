@@ -268,12 +268,12 @@ export default function PropertyDetails() {
             </div>
 
             <div className="p-5 sm:p-6 bg-[#f4f0e8] dark:bg-[#27272a] rounded-[2rem] border border-[#e5e0d8] dark:border-[#3f3f46] shrink-0 text-left md:text-right">
-              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#71717a] dark:text-[#a1a1aa] block">Monthly Rate</span>
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#71717a] dark:text-[#a1a1aa] block">Nightly Rate</span>
               <div className="flex items-baseline md:justify-end gap-1 mt-1">
                 <span className="font-editorial text-3xl sm:text-4xl font-bold text-[#18181b] dark:text-[#d4b996]">
                   ₹{property.price?.toLocaleString()}
                 </span>
-                <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/mo</span>
+                <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/night</span>
               </div>
             </div>
           </div>
@@ -477,7 +477,7 @@ export default function PropertyDetails() {
                   <span className="font-editorial text-3xl font-bold text-[#18181b] dark:text-[#d4b996]">
                     ₹{property.price?.toLocaleString()}
                   </span>
-                  <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal"> / mo</span>
+                  <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal"> / night</span>
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 px-3 py-1 rounded-full">
                   {property.status === 'available' ? 'Available' : 'Reserved'}
@@ -487,11 +487,11 @@ export default function PropertyDetails() {
               <div className="p-4 bg-[#f4f0e8] dark:bg-[#27272a] rounded-2xl border border-[#e5e0d8] dark:border-[#3f3f46] space-y-2.5 text-xs text-[#52525b] dark:text-[#d4d4d8]">
                 <div className="flex justify-between">
                   <span>Minimum Stay</span>
-                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">1 Month</span>
+                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">1 Night</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Security Deposit</span>
-                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">1 Month Rent</span>
+                  <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">None (Short Stay)</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Host Verified</span>

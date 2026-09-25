@@ -277,7 +277,7 @@ export default function Compare() {
               {/* 2. RENT / PRICING */}
               <tr className="hover:bg-[#fbfbf9] dark:hover:bg-[#161618] transition-colors">
                 <td className="p-5 font-bold text-[#18181b] dark:text-[#f4f0e8] uppercase tracking-wider bg-[#fbfbf9] dark:bg-[#161618]">
-                  Monthly Rent
+                  Nightly Rate
                 </td>
                 {properties.map((p) => {
                   const isLowest = lowestRent && Number(p.price) === lowestRent;
@@ -287,7 +287,7 @@ export default function Compare() {
                         <span className="font-editorial text-xl font-bold text-[#18181b] dark:text-[#d4b996]">
                           ₹{p.price?.toLocaleString()}
                         </span>
-                        <span className="text-[#71717a] dark:text-[#a1a1aa] font-medium">/mo</span>
+                        <span className="text-[#71717a] dark:text-[#a1a1aa] font-medium">/night</span>
                         {isLowest && (
                           <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50">
                             <Sparkles className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />

@@ -262,11 +262,11 @@ export default function MyProperties() {
 
                     <div className="flex items-center justify-between pt-1 border-t border-stone-100 dark:border-white/5">
                       <div>
-                        <span className="text-[11px] text-stone-400 block font-semibold uppercase tracking-wider">Rent</span>
+                        <span className="text-[11px] text-stone-400 block font-semibold uppercase tracking-wider">Rate</span>
                         <span className="text-lg font-black text-stone-900 dark:text-[#fbfbf9]">
                           ₹{property.price?.toLocaleString()}
                         </span>
-                        <span className="text-xs text-stone-400 font-medium">/mo</span>
+                        <span className="text-xs text-stone-400 font-medium">/night</span>
                       </div>
                       <div className="flex items-center gap-3 text-xs font-semibold text-stone-500 dark:text-stone-400">
                         <span>{property.bedrooms} Beds</span>

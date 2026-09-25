@@ -60,7 +60,7 @@ export default function Booking() {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const diffDays = Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24)));
-  const pricePerNight = property ? Math.max(1, Math.round(property.price / 30)) : 0;
+  const pricePerNight = property ? Number(property.price) || 0 : 0;
   const estimatedTotal = diffDays * pricePerNight;
 
   const handleSubmitBooking = async (e) => {
@@ -264,7 +264,7 @@ export default function Booking() {
                 </h3>
                 <div className="space-y-2.5 text-xs text-[#52525b] dark:text-[#d4d4d8]">
                   <div className="flex justify-between items-center">
-                    <span>Nightly Rate (Pro-rated):</span>
+                    <span>Nightly Rate:</span>
                     <span className="font-bold text-[#18181b] dark:text-[#f4f0e8]">₹{pricePerNight.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between items-center">

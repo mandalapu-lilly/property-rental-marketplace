@@ -184,11 +184,11 @@ export default function Favorites() {
                   {/* Card Footer */}
                   <div className="p-6 pt-0 flex items-center justify-between border-t border-[#f4f0e8] dark:border-[#2e2e34] mt-2 pt-4">
                     <div>
-                      <span className="text-[10px] text-[#71717a] dark:text-[#a1a1aa] block font-bold uppercase tracking-wider">Rent</span>
+                      <span className="text-[10px] text-[#71717a] dark:text-[#a1a1aa] block font-bold uppercase tracking-wider">Rate</span>
                       <span className="font-editorial text-xl font-bold text-[#18181b] dark:text-[#d4b996]">
                         ₹{property.price?.toLocaleString()}
                       </span>
-                      <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/mo</span>
+                      <span className="text-xs text-[#71717a] dark:text-[#a1a1aa] font-normal">/night</span>
                     </div>
 
                     <Link
