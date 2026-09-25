@@ -77,7 +77,7 @@ export default function Home() {
           <div className="lg:col-span-6 space-y-6 lg:space-y-8">
             <div className="inline-block">
               <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[#71717a] dark:text-[#a1a1aa] block mb-2">
-                / Exclusive Property Rentals /
+                EXCLUSIVE PROPERTY RENTALS
               </span>
             </div>
 
@@ -87,8 +87,8 @@ export default function Home() {
               Home
             </h1>
 
-            <p className="text-[#52525b] dark:text-[#a1a1aa] text-sm sm:text-base max-w-md font-normal leading-relaxed">
-              / Discover homes made for your lifestyle / Explore curated sanctuaries, architectural villas, and luxury hotels across prime destinations.
+            <p className="text-[#52525b] dark:text-[#a1a1aa] text-sm sm:text-base max-w-lg font-normal leading-relaxed">
+              Discover curated homes, villas, apartments and luxury stays in prime destinations. HavenStay makes it easy to explore properties, compare options, save your favourites, and find the right stay for your lifestyle.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
